@@ -1,76 +1,74 @@
-\documentclass[12pt]{article}
+\documentclass[manuscript,nonacm]{acmart}
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
 
-% ----- Packages -----
-\usepackage{amsmath} % For advanced math typesetting
-\usepackage{amssymb} % For additional math symbols
-\usepackage{amsthm} % For theorem-like environments
-\usepackage{graphicx} % For including figures
-\usepackage[margin=1in]{geometry} % For setting margins
-\usepackage[utf8]{inputenc} % For handling special characters
-\usepackage{url} % For typesetting URLs correctly
-\usepackage{hyperref} % For creating hyperlinks in the document
-\usepackage{natbib} % For handling citations. You may need to change this depending on the required citation style.
-\usepackage{caption} % For better control over figure captions
-\usepackage{enumitem} % For more control over lists
-
-% ----- Custom commands and settings -----
-\newcommand{\myname}{Your Name}
-\newcommand{\myadvisor}{Your Advisor's Name}
-\newcommand{\examdate}{September 12, 2025}
-\newcommand{\examtitle}{Title of Your Research Exam}
-
-% ----- Document body -----
 \begin{document}
 
-% Title Page
-\begin{titlepage}
-    \centering
-    \vspace*{\stretch{1}}
-    {\Large\bfseries \examtitle\par}
-    \vspace{1.5cm}
-    {\large A Research Exam Submitted to the\par}
-    {\large Department of Computer Science and Engineering\par}
-    {\large University of California, San Diego\par}
-    \vspace{2cm}
-    {\large by\par}
-    \vspace{0.5cm}
-    {\Large\bfseries \myname\par}
-    \vspace{2cm}
-    {\large Exam Committee:\par}
-    {\large\myadvisor, Chair\par}
-    {\large [Committee Member 1]\par}
-    {\large [Committee Member 2]\par}
-    {\large [Committee Member 3]\par}
-    \vfill
-    {\large \examdate\par}
-\end{titlepage}
+\title{PLACEHOLDER}
+\author{Max Gao}
+% \authornote{Both authors contributed equally to this research.}
+\affiliation{%
+  \institution{CAIDA/UC San Diego}
+  \city{San Diego}
+  \state{CA}
+  \country{USA}
+}
+\email{magao@ucsd.edu}
 
-% Table of Contents
-\tableofcontents
-\newpage
+\begin{abstract}
+  A clear and well-documented \LaTeX\ document is presented as an
+  article formatted for publication by ACM in a conference proceedings
+  or journal publication. Based on the ``acmart'' document class, this
+  article presents and explains many of the common variations, as well
+  as many of the formatting elements an author may use in the
+  preparation of the documentation of their work.
+\end{abstract}
 
-% Main content
+\maketitle
+
 \section{Introduction}
-\label{sec:introduction}
-This document outlines the research presented for the UCSD Computer Science and Engineering research exam. It covers a comprehensive review of the relevant literature and proposes new research directions.
+ACM's consolidated article template, introduced in 2017, provides a
+consistent \LaTeX\ style for use across ACM publications, and
+incorporates accessibility and metadata-extraction functionality
+necessary for future Digital Library endeavors. Numerous ACM and
+SIG-specific \LaTeX\ templates have been examined, and their unique
+features incorporated into this single new template.
 
-\section{Background and Related Work}
-\label{sec:related-work}
-This section provides a summary of the foundational concepts and a critical review of existing literature relevant to the research topic. Proper citation is crucial here. For example, \cite{citation1, citation2}.
+If you are new to publishing with ACM, this document is a valuable
+guide to the process of preparing your work for publication. If you
+have published with ACM before, this document provides insight and
+instruction into more recent changes to the article template.
 
-\subsection{Literature Review}
-The literature review should be a detailed analysis of key papers in your field.
+The ``\verb|acmart|'' document class can be used to prepare articles
+for any ACM publication --- conference or journal, and for any stage
+of publication, from review to final ``camera-ready'' copy, to the
+author's own version, with {\itshape very} few changes to the source.
 
-\section{Proposed Research}
-\label{sec:proposed-research}
-This section details the proposed research plan, including methodologies and expected outcomes.
+\section{Acknowledgments}
+asadfadsf
 
-\section{Discussion and Future Work}
-\label{sec:discussion}
-Discuss the implications of your proposed work and potential avenues for future research.
+\section{Appendices}
 
-% Bibliography
-\bibliographystyle{plainnat} % Or another style, e.g., abbrvnat, unsrtnat
-\bibliography{bibs/refs.bib} % Use 'myreferences.bib' for your bibliography file
+asdfasdf
+
+\begin{acks}
+To Robert, for the bagels and explaining CMYK and color spaces.
+\end{acks}
+
+\bibliographystyle{plain}
+\bibliography{bib/refs.bib}
+
+\appendix
+\section{Research Methods}
+
+\subsection{Part One}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+malesuada, quam in pulvinar varius, metus nunc fermentum urna, id
+sollicitudin purus odio sit amet enim. Aliquam ullamcorper eu ipsum
+vel mollis. Curabitur quis dictum nisl. Phasellus vel semper risus, et
+lacinia dolor. Integer ultricies commodo sem nec semper.
 
 \end{document}
+\endinput

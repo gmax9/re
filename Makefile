@@ -1,6 +1,6 @@
 PAPERSIZE=letter
 MAINTEXFILE=paper.tex
-BIBFILE=bibs/refs.bib
+BIBFILE=bib/refs.bib
 
 FILENAME="$(basename $(MAINTEXFILE))"
 PDFNAME=$(FILENAME).pdf
