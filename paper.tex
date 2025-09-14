@@ -1,7 +1,48 @@
+\PassOptionsToPackage{table}{xcolor}
 \documentclass[manuscript,nonacm]{acmart}
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
     Bib\TeX}}}
+
+\usepackage{amsmath}
+\let\Bbbk\relax
+\usepackage{amssymb}
+\let\Bbbk\relax
+\usepackage{pifont}
+\usepackage{wasysym}
+\usepackage{marvosym}
+\usepackage{threeparttable}
+\usepackage{textgreek}
+\usepackage{paralist}
+\usepackage{filecontents}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tikz,siunitx}
+\usetikzlibrary{shapes.geometric,shapes.symbols}
+\usepackage{threeparttable}
+\usepackage{enumerate}
+\usepackage{comment}
+
+% Commands for Surveyed Works Table
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\markA}{\ding{66}}%
+\newcommand{\markB}{\ding{71}}%
+\newcommand{\markC}{\ding{75}}%
+\newcommand{\markD}{\ding{168}}%
+\newcommand{\markE}{\ding{169}}%
+\newcommand{\markF}{\ding{170}}%
+\newcommand{\markG}{\ding{171}}%
+\newcommand{\markH}{\ding{92}}%
+\newcommand{\markX}{\Sagittarius} % heh
+\newcommand{\markY}{\Virgo}
+\newcommand{\markZ}{\Moon}
+\newcommand{\markEtc}{\textbf{?}}
+\def\rot{\rotatebox}
+\newcommand*\circled[1]{\tikz[baseline=-3pt]{
+            \node (X) [shape=circle,scale=0.5,fill=black,text=white,font=\bfseries, text centered, draw,inner sep=0pt] {\strut #1};}}
+
+\newcommand{\wc}[1]{\textit{\textcolor{magenta}{#1}}} % Word-Choice macro
 
 \begin{document}
 
@@ -33,6 +74,50 @@ Finally, we discuss and potential opportunities for improving...
 \subsection{Network Telescopes}
 
 \section{Darknet Event Detection Frameworks}
+
+\begin{center}
+    \rowcolors{2}{gray!50}{white}
+    \begin{table*}[]
+    \centering
+    % \scriptsize
+        \caption{Characteristics of methodologies in our surveyed works.}
+        \label{tab:taxonomy}
+        \begin{tabular}{lllclc}
+        \toprule
+        \multicolumn{1}{c}{Work} & \multicolumn{5}{c}{Framework} \\
+        \midrule
+                                 & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{iii. Algorithm(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
+        \midrule
+        % Evrard et al.~\cite{2019evrard}                        & \markX & \markB & \wc{Multiple} & \markD & Dst. Port \\
+        % Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX          & \markB        & \wc{Multiple}                     & \markD & Dst. Port \\
+        Kallitsis et al.~\cite{2022kallitsis}                  & \markX,\markY   & \markA\markB  & \wc{Multiple}                     & \markE & Src. IP   \\
+        % Iglesias et al.~\cite{2019iglesias}                    & \markX,\markY   & \markB        & Multiple clustering algorithms    & \markE & Src. IP   \\
+        % Nishikaze et al.~\cite{2015nishikaze}                  & \markX          & \markB        & Hierarchical Clustering           & \markE & Src. /16  \\
+        % Soro et al.~\cite{2020soro}                            & \markX          & \markB        & Greedy Modularity Algorithm       & \markF & Src. AS   \\
+        % Cohen et al.~\cite{2020cohen}                          & \markX          & \markA\markB  & Word2vec, DBSCAN & \markF & Dst. Port \\
+        % Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX          & \markA\markB  & Word2Vec, K-NN Clustering         & \markF & Src. IP   \\
+        % Han et al.~\cite{2021han,2022han}                      & \markX          & \markA        & NMF    & \markG & Src. /16, Dst. Port \\
+        % Han et al.~\cite{2020han,2022han}                      & \markX,\markEtc & \markA        & GLASSO & \markG & Src. /16  \\
+        % Kanehara et al.~\cite{2019kanehara,2022han}            & \markX          & \markA\markH  & NTD    & \markG & Src. /16, Dst. Port \\
+        % Ban et al.~\cite{2017ban}                              & \markX          & \markH        & CUMSUM & \markG & \\
+        % Ban et al.~\cite{2016ban}                              & \markX          & \markA        & FPM, Hierarchical Clustering      & \markF\markG & Dst. Port\\
+        
+        % Bou-Harb et al.~\cite{bouharb2013dfa,2014bouharb}      &  & & & & \\
+        % & & & & 
+        %  & Src.\& Dst. IP, Src.\&Dest Port,\\
+        % \rowcolor{gray!50}
+        %  \multirow{-2}{*}{Bou-Harb et al.~\cite{2019bouharb,2015bouharb}}    & \multirow{-2}{*}{\markX\markEtc}  & \multirow{-2}{*}{\markC\markB}  & &  \multirow{-2}{*}{\markE}& Protocol, TTL, Flags\\
+        %  \rowcolor{white}
+        % Zakroum et al.~\cite{2022zakroum,2018zakroum}          & \markX          & \markC\markB  & Spectral Clustering, LSTM         & \markG       & Dst. Port \\
+        \bottomrule
+        \multicolumn{6}{l}{Activities: \markX-Scanning, \markY-DDoS, \markZ-Outage, \markEtc-Misconfiguration}\\
+         \rowcolor{white}
+        \multicolumn{6}{l}{Techniques:\markA-Dimensionality Reduction, \markB-Clustering, \markC-Forecasting, \markH-Thresholding}\\
+        \multicolumn{6}{l}{Traffic representation: \markD-Graph, \markE-Feature Vector, \markF-Sequences, \markG-Time Series}
+        \end{tabular}
+
+    \end{table*}
+\end{center}
 
 
 \section{}
