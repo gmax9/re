@@ -68,12 +68,13 @@ sdfadsfa
 \begin{enumerate}
   \item Overview of topic - 2 sentences.
   \item 
+  \item Summary of contributions - 3 sentences.
 \end{enumerate}
 
-In this report, we first provide an overview of network telescopes, the traffic they collect, and the types of Internet-wide events observed in this traffic.
-We then review 
-We then survey frameworks that automatically analyze this traffic, comparing them based on their goals, X, Y, Z.
-Finally, we discuss and potential opportunities for improving...
+In this report, we first provide an overview of network telescopes, the traffic they collect, and the types of Internet-wide events inferrable through analysis of this traffic.
+We then review frameworks that have been proposed to automate event detection and compare them based on their 
+1) analysis goals and design; and 2) their empirical performance on real-world darknet traffic. 
+Finally, we identify \textit{blah} and areas where future research efforts may extend \textit{blah}.
 
 \section{Background}
 
@@ -104,19 +105,19 @@ These networks
             \midrule
             & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{iii. Algorithm(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
             \midrule
-            % Evrard et al.~\cite{2019evrard}                        & \markX & \markB & \wc{Multiple} & \markD & Dst. Port \\
-            Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX          & \markB        & Graph Modularity Optimization~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
-            Kallitsis et al.~\cite{2022kallitsis}                  & \markX,\markY   & \markA\markB  &                     & \markE & Src. IP   \\
-            Iglesias et al.~\cite{2019iglesias}                    & \markX,\markY   & \markB\markH  & k-Medoids~\cite{2009park}, Fuzzy-Gustafson~\cite{1999krishnapuram}, MAD-Thresholding~\cite{2004liu} & \markE & Src. IP   \\
+            Evrard et al.~\cite{2019evrard}                        & \markX          & \markB        & Dijkstra's Algorithm~\cite{1959dijkstra}, K-Nearest Neighbors~\cite{1967cover,1989fix} & \markD & Dst. Port \\
+            Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX          & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
+            Kallitsis et al.~\cite{2022kallitsis}                  & \markX,\markY   & \markA\markB  & Autoencoder Dimensionality Reduction~\cite{2006hinton}, K-Means~\cite{1967macqueen} & \markE & Src. IP   \\
+            Iglesias et al.~\cite{2019iglesias}                    & \markX,\markY   & \markB\markH  & K-Medoids~\cite{2009park}, Fuzzy-Gustafson~\cite{1999krishnapuram}, MAD-Thresholding~\cite{2004liu} & \markE & Src. IP   \\
             % Nishikaze et al.~\cite{2015nishikaze}                  & \markX          & \markB        & Hierarchical Clustering           & \markE & Src. /16  \\
-            % Soro et al.~\cite{2020soro}                            & \markX          & \markB        & Greedy Modularity Algorithm       & \markF & Src. AS   \\
+            Soro et al.~\cite{2020soro}                            & \markX          & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. AS   \\
             % Cohen et al.~\cite{2020cohen}                          & \markX          & \markA\markB  & Word2vec, DBSCAN & \markF & Dst. Port \\
-            % Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX          & \markA\markB  & Word2Vec, K-NN Clustering         & \markF & Src. IP   \\
-            % Han et al.~\cite{2021han,2022han}                      & \markX          & \markA        & NMF    & \markG & Src. /16, Dst. Port \\
-            % Han et al.~\cite{2020han,2022han}                      & \markX,\markEtc & \markA        & GLASSO & \markG & Src. /16  \\
-            Kanehara et al.~\cite{2019kanehara,2022han}            & \markX          & \markA\markH  & LRA-NTD~\cite{2015zhou}, FTSD~\cite{2010caiafa}, Otsu-Thresholding~\cite{1979otsu} & \markG & Src. /16, Dst. Port \\
+            Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX          & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, K-Nearest Neighbors~\cite{1967cover,1989fix}, Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
+            Han et al.~\cite{2021han,2022han}                      & \markX          & \markA        & NMF~\cite{2000lee}    & \markG & Src. /16, Dst. Port \\
+            Han et al.~\cite{2020han,2022han}                      & \markX,\markEtc & \markA        & GLASSO~\cite{2008friedman} & \markG & Src. /16  \\
+            Kanehara et al.~\cite{2019kanehara,2022han}            & \markX          & \markA\markH  & LRA-NTD~\cite{2015zhou}, FTSD~\cite{2010caiafa}, Otsu-Thresholding~\cite{1979otsu}          & \markG & Src. /16, Dst. Port \\
+            Ban et al.~\cite{2016ban}                              & \markX          & \markA        & Frequent Pattern Mining~\cite{2000han,2007han}, Hierarchical Clustering~\cite{2012murtagh}  & \markF\markG & Dst. Port\\
             % Ban et al.~\cite{2017ban}                              & \markX          & \markH        & CUMSUM & \markG & \\
-            % Ban et al.~\cite{2016ban}                              & \markX          & \markA        & FPM, Hierarchical Clustering      & \markF\markG & Dst. Port\\
             
             % Bou-Harb et al.~\cite{bouharb2013dfa,2014bouharb}      &  & & & & \\
             % & & & & 
@@ -124,7 +125,7 @@ These networks
             % \rowcolor{gray!50}
             %  \multirow{-2}{*}{Bou-Harb et al.~\cite{2019bouharb,2015bouharb}}    & \multirow{-2}{*}{\markX\markEtc}  & \multirow{-2}{*}{\markC\markB}  & &  \multirow{-2}{*}{\markE}& Protocol, TTL, Flags\\
             %  \rowcolor{white}
-            % Zakroum et al.~\cite{2022zakroum,2018zakroum}          & \markX          & \markC\markB  & Spectral Clustering, LSTM         & \markG       & Dst. Port \\
+            Zakroum et al.~\cite{2022zakroum,2018zakroum}          & \markX          & \markC\markB  & Spectral Clustering~\cite{2001ng}, LSTM~\cite{1997hochreiter} & \markG       & Dst. Port \\
             \bottomrule
             \multicolumn{6}{l}{Activities: \markX-Scanning, \markY-DDoS, \markZ-Outage, \markEtc-Misconfiguration}\\
             \rowcolor{white}
@@ -135,7 +136,7 @@ These networks
 \end{center}
 
 
-\section{}
+\section{Section}
 
 
 \section{Acknowledgments}
