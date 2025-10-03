@@ -34,6 +34,8 @@
 \newcommand{\markF}{\ding{170}}%
 \newcommand{\markG}{\ding{171}}%
 \newcommand{\markH}{\ding{92}}%
+\newcommand{\markI}{\ding{214}}%
+\newcommand{\markJ}{\ding{166}}%
 \newcommand{\markX}{\Sagittarius} % heh
 \newcommand{\markY}{\Virgo}
 \newcommand{\markZ}{\Moon}
@@ -107,31 +109,37 @@ malicious scanning, residual backscatter from DoS attacks, widespread outages, a
             \midrule
             & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{iii. Algorithm(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
             \midrule
-            Evrard et al.~\cite{2019evrard}                        & \markX          & \markB        & Dijkstra's Algorithm~\cite{1959dijkstra}, K-Nearest Neighbors~\cite{1967cover,1989fix} & \markD & Dst. Port \\
-            Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX          & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
-            Kallitsis et al.~\cite{2022kallitsis}                  & \markX,\markY   & \markA\markB  & Autoencoder Dimensionality Reduction~\cite{2006hinton}, K-Means~\cite{1967macqueen} & \markE & Src. IP   \\
-            Iglesias et al.~\cite{2019iglesias}                    & \markX,\markY   & \markB\markH  & K-Medoids~\cite{2009park}, Fuzzy-Gustafson~\cite{1999krishnapuram}, MAD-Thresholding~\cite{2004liu} & \markE & Src. IP   \\
-            % Nishikaze et al.~\cite{2015nishikaze}                  & \markX          & \markB        & Hierarchical Clustering           & \markE & Src. /16  \\
-            Soro et al.~\cite{2020soro}                            & \markX          & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. AS   \\
+            Evrard et al.~\cite{2019evrard}                        & \markX                    & \markB        & Dijkstra's Algorithm~\cite{1959dijkstra}, K-Nearest Neighbors~\cite{1967cover,1989fix} & \markD & Dst. Port \\
+            Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX                    & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
+            Kallitsis et al.~\cite{2022kallitsis}                  & \markX\markY              & \markI\markA\markB  & Autoencoder Dimensionality Reduction~\cite{2006hinton}, K-Means~\cite{1967macqueen} & \markE & Src. IP   \\
+            Iglesias et al.~\cite{2019iglesias}                    & \markX\markY              & \markB\markH  & K-Medoids~\cite{2009park}, Fuzzy-Gustafson~\cite{1999krishnapuram}, MAD-Thresholding~\cite{2004liu} & \markE & Src. IP   \\
+            Nishikaze et al.~\cite{2015nishikaze}                  & \markX                    & \markB        & Hierarchical Clustering           & \markE & Src. /16  \\
+            Soro et al.~\cite{2020soro}                            & \markX                    & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. AS   \\
             % Cohen et al.~\cite{2020cohen}                          & \markX          & \markA\markB  & Word2vec, DBSCAN & \markF & Dst. Port \\
-            Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX          & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, K-Nearest Neighbors~\cite{1967cover,1989fix}, Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
-            Han et al.~\cite{2021han,2022han}                      & \markX          & \markA        & NMF~\cite{2000lee}    & \markG & Src. /16, Dst. Port \\
-            Han et al.~\cite{2020han,2022han}                      & \markX,\markEtc & \markA        & GLASSO~\cite{2008friedman} & \markG & Src. /16  \\
-            Kanehara et al.~\cite{2019kanehara,2022han}            & \markX          & \markA\markH  & LRA-NTD~\cite{2015zhou}, FTSD~\cite{2010caiafa}, Otsu-Thresholding~\cite{1979otsu}          & \markG & Src. /16, Dst. Port \\
-            Ban et al.~\cite{2016ban}                              & \markX          & \markA        & Frequent Pattern Mining~\cite{2000han,2007han}, Hierarchical Clustering~\cite{2012murtagh}  & \markF\markG & Dst. Port\\
+            Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, K-Nearest Neighbors~\cite{1967cover,1989fix}, Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
+            Han et al.~\cite{2021han,2022han}                      & \markX                    & \markA        & NMF~\cite{2000lee}    & \markG & Src. /16, Dst. Port \\
+            Han et al.~\cite{2020han,2022han}                      & \markX\markEtc            & \markA        & GLASSO~\cite{2008friedman} & \markG & Src. /16  \\
+            Kanehara et al.~\cite{2019kanehara,2022han}            & \markX                    & \markA\markH  & LRA-NTD~\cite{2015zhou}, FTSD~\cite{2010caiafa}, Otsu-Thresholding~\cite{1979otsu}          & \markG & Src. /16, Dst. Port \\
+            Kartsioukas et al.~\cite{2023kartsioukas}              & \markX                    & \markA\markH  & Incremental PCA~\cite{2012arora} & \markG & \textit{TODO} \\
+            Ban et al.~\cite{2016ban}                              & \markX                    & \markA        & Frequent Pattern Mining~\cite{2000han,2007han}, Hierarchical Clustering~\cite{2012murtagh}  & \markF\markG & Dst. Port \\ 
+            Torabi et al.~\cite{2020torabi,2018torabi}             & \markX                    & \markJ        & Association Rule Mining~\cite{1993agrawal}, DBSCAN~\cite{1996ester} & \markD,\markE & \textit{TODO} \\
+            Tanaka et al.~\cite{2023tanaka,2021tanaka}             & \markX                    & \textit{TODO} & \textit{TODO} & Source \\
+            Niranjana et al.~\cite{2019niranjana}                  & \markX                    & \markA\markB  & PCA~\cite{1901pearson,1993hotelling} &  Source \\
+            Cabana et al.~\cite{2019cabana}                        & \markX                    & \markB\markH  & Conduction Detection Algorithm~\cite{2015lu}, Fastcluster~\cite{2013mullner} & \markD\markE & \textit{TODO} \\
+            Shaikh et al.~\cite{2018shaikh}                        & \markX\markY\markZ\markEtc & \textit{TODO} & AdaBoost~\cite{@@}, Gradient Boosting~\cite{@@}, Random Forest~\cite{@@}     & \markE       & \textit{TODO} \\  
+            Collins et al.~\cite{2007collins}                      & \markX                    & \markH        & Union-Find Algorithm~\cite{1991galil} & \markD & \textit{TODO} \\ 
             % Ban et al.~\cite{2017ban}                              & \markX          & \markH        & CUMSUM & \markG & \\
-            
             % Bou-Harb et al.~\cite{bouharb2013dfa,2014bouharb}      &  & & & & \\
             % & & & & 
             %  & Src.\& Dst. IP, Src.\&Dest Port,\\
             % \rowcolor{gray!50}
             %  \multirow{-2}{*}{Bou-Harb et al.~\cite{2019bouharb,2015bouharb}}    & \multirow{-2}{*}{\markX\markEtc}  & \multirow{-2}{*}{\markC\markB}  & &  \multirow{-2}{*}{\markE}& Protocol, TTL, Flags\\
             %  \rowcolor{white}
-            Zakroum et al.~\cite{2022zakroum,2018zakroum}          & \markX          & \markC\markB  & Spectral Clustering~\cite{2001ng}, LSTM~\cite{1997hochreiter} & \markG       & Dst. Port \\
+            Zakroum et al.~\cite{2022zakroum,2018zakroum}          & \markX          & \markC\markB  & Spectral Clustering~\cite{2001ng}, LSTM~\cite{1997hochreiter}       & \markG        & Dst. Port \\
             \bottomrule
-            \multicolumn{6}{l}{Activities: \markX-Scanning, \markY-DDoS, \markZ-Outage, \markEtc-Misconfiguration}\\
+            \multicolumn{6}{l}{Activities: \markX-Scanning, \markY-DDoS, \markZ-Outage, \markEtc-Misconfiguration} \\
             \rowcolor{white}
-            \multicolumn{6}{l}{Techniques:\markA-Dimensionality Reduction, \markB-Clustering, \markC-Forecasting, \markH-Thresholding}\\
+            \multicolumn{6}{l}{Techniques:\markA-Dimensionality Reduction, \markB-Clustering, \markC-Forecasting, \markH-Thresholding, \markI-Representation Learning, \markJ-Frequent Pattern Mining, \markH-Fingerprinting} \\
             \multicolumn{6}{l}{Traffic representation: \markD-Graph, \markE-Feature Vector, \markF-Sequences, \markG-Time Series}
         \end{tabular}
     \end{table*}
