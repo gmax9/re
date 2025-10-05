@@ -60,10 +60,14 @@
 \email{magao@ucsd.edu}
 
 \begin{abstract}
-Analysis of network telescope traffic has provided researchers and practitioners insight into Internet-wide activities for decades.
-To more effectively operationalize network telescopes for monitoring the security and availability of the Internet, researchers have proposed a diverse body of frameworks which codify empirical post-hoc analysis techniques.
-Yet, \dots
-In this report, we survey these frameworks \dots
+Analysis of network telescope, or darknet, traffic has provided substantial visibility into the security and availability of the Internet for decades.
+To operationalize darknet monitoring capabilities, researchers have proposed numerous frameworks that automate the detection of Internet-wide events.
+Despite an abundance of available frameworks, less attention has been directed towards systematic comparison of their capabilities. 
+As a result, \dots
+In this report, we survey existing work that proposes and evaluates such frameworks on real-world darknet traffic.
+We review tasks that motivate the techniques each framework employs as well as experimental details of their evaluation; and finally, discuss future \dots
+% To more effectively operationalize network telescopes for monitoring the security and availability of the Internet, researchers have proposed a diverse body of frameworks which codify empirical post-hoc analysis techniques.
+% Yet, \dots
 \end{abstract}
 
 \maketitle
@@ -76,6 +80,21 @@ In this report, we survey these frameworks \dots
   \item Summary of contributions - 3 sentences.
 \end{enumerate}
 
+% Network telescopes, or darknets, have been instrumental to both researchers and practitioners due to their capacity to observe Internet-wide phenomena in the unsolicited traffic they receive.
+% Over the past two decades, research efforts have shifted from characterizing such phenomena and their observable signals towards translating these empirical insights into operationalizable frameworks for monitoring the Internet's security and availability in near real-time.
+
+Network telescopes, or darknets, have been instrumental to both researchers and practitioners due to their capacity to observe Internet-wide phenomena in the unsolicited traffic they receive.
+Over the past two decades, research efforts have shifted from characterizing such phenomena and their observable signals towards translating these empirical insights into operationalizable frameworks for monitoring the Internet's security and availability in near real-time.
+As a result, a number of frameworks that aim to automate event detection have emerged, each designed to accomplish varying tasks by applying different techniques to a subset of features of darknet traffic.
+% Go read schmidl
+
+Despite the variety of available frameworks for darknet traffic analysis, selecting the most suitable framework off-the-shelf for a given darknet is challenging.
+% While the variety of frameworks is frank
+
+% Traffic Growth
+% Complexity Growth - new 
+% 
+
 We begin this report with an overview of network telescopes, the traffic they collect, and the types of Internet-wide events inferrable through analysis of such traffic.
 We then survey various frameworks that have been proposed to automate event detection and construct a taxonomy that compares their 1) analysis goals and designs; and 2) performance as informed by empirical evaluations on real-world darknet traffic.
 Using this taxonomy, we identify challenges and opportunities for future research where efforts may yield improvements over the current state-of-art.
@@ -87,13 +106,31 @@ Using this taxonomy, we identify challenges and opportunities for future researc
 % Brief overview of darknets and their traffic (IBR)
 Network telescopes, or darknets, consist of routable portions of IPv4 address space that receive but do not respond to unsolicited Internet traffic. 
 Passive collection of this unidirectional traffic has enabled extensive research into various Internet-wide activity ranging from 
-malicious scanning, residual backscatter from DoS attacks, widespread outages, and non-trivial network misconfigurations.
+malicious scanning~\cite{@@}, residual backscatter from DoS attacks~\cite{@@}, widespread outages~\cite{@@}, and non-trivial network misconfigurations~\cite{@@}.
 
 % Discuss IBR, how it's been analyzed, practical use-cases for security / outage detection
 
 
 
 \section{Darknet Event Detection Frameworks}
+
+In this section, we provide a broad survey of existing darknet event detection frameworks that we consider in this report.
+In addition to frameworks themselves, we consider characteristics of their empirical evaluation.
+
+Table~\ref{tab:frameworks} lists our collected publications grouped by their authors; groups that consist of multiple works 
+indicate works by similar authors that share significant overlap in their framework design, e.g., proof-of-concepts paired with mature versions.
+\dots
+
+\noindent{\textbf{Activity Type(s)}} refer to one or multiple types of events, (\textit{e.g.}, \textit{scanning}, \textit{backscatter}, \textit{outages}, or \textit{misconfigurations}) that a framework is capable of capturing.
+While in practice these are dependent on traffic inputs, we determine detectable activities for each framework based on explicitly stated design goals and evaluation results.
+
+\noindent{\textbf{Technique(s)}} encompass the specific algorithms employed by each framework and differentiate general functions frameworks leverage, often in combination, to
+achieve their detection objectives. We define 7 classes of techniques which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
+\textit{frequent pattern mining}, and \textit{fingerprinting}.
+
+\textbf{Algorithm(s)} 
+
+
 
 \begin{center}
     \rowcolors{2}{gray!50}{white}
@@ -102,7 +139,7 @@ malicious scanning, residual backscatter from DoS attacks, widespread outages, a
         \small
         % \scriptsize
         \caption{Characteristics of methodologies in our surveyed works.}
-        \label{tab:taxonomy}
+        \label{tab:frameworks}
         \begin{tabular}{lllclc}
             \toprule
             \multicolumn{1}{c}{Work} & \multicolumn{5}{c}{Framework} \\
