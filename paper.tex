@@ -84,11 +84,14 @@ We review tasks that motivate the techniques each framework employs as well as e
 % Over the past two decades, research efforts have shifted from characterizing such phenomena and their observable signals towards translating these empirical insights into operationalizable frameworks for monitoring the Internet's security and availability in near real-time.
 
 Network telescopes, or darknets, have been instrumental to both researchers and practitioners due to their capacity to observe Internet-wide phenomena in the unsolicited traffic they receive.
-Over the past two decades, research efforts have shifted from characterizing such phenomena and their observable signals towards translating these empirical insights into operationalizable frameworks for monitoring the Internet's security and availability in near real-time.
-As a result, a number of frameworks that aim to automate event detection have emerged, each designed to accomplish varying tasks by applying different techniques to a subset of features of darknet traffic.
-% Go read schmidl
+Over the past two decades, research efforts have shifted from characterizing such phenomena and their observable signals towards translating empirical insights into operationalizable frameworks for monitoring the Internet's security and availability in near real-time.
+As a result, a large variety of frameworks have been proposed. 
+Each share the same general goal of automating event detection.
+They vary widely in their choice of techniques and selection of darknet traffic features as they are designed with different event definitions in mind.
+\textit{discuss why it's difficult to speculate on their performance without further empirical evaluation.}
 
-Despite the variety of available frameworks for darknet traffic analysis, selecting the most suitable framework off-the-shelf for a given darknet is challenging.
+
+% Despite the variety of available frameworks for darknet traffic analysis, selecting the most suitable framework off-the-shelf for a given darknet is challenging.
 % While the variety of frameworks is frank
 
 % Traffic Growth
@@ -113,6 +116,12 @@ malicious scanning~\cite{@@}, residual backscatter from DoS attacks~\cite{@@}, w
 
 
 \section{Darknet Event Detection Frameworks}
+
+In this section, we provide a broad survey of existing darknet event detection frameworks selected to represent the spectrum of 
+different analytical tasks and techniques; alongside, we review characteristics of their empirical evaluation to provide a\dots
+\textit{discuss what high-level attributes of a detection framework we care about}
+% We review individual components of each framework, considering their impact on \textit{the high-level }
+% In addition, we include 
 
 In this section, we provide a broad survey of existing darknet event detection frameworks that we consider in this report.
 In addition to frameworks themselves, we consider characteristics of their empirical evaluation.
