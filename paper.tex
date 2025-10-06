@@ -117,29 +117,54 @@ malicious scanning~\cite{@@}, residual backscatter from DoS attacks~\cite{@@}, w
 
 \section{Darknet Event Detection Frameworks}
 
-In this section, we provide a broad survey of existing darknet event detection frameworks selected to represent the spectrum of 
-different analytical tasks and techniques; alongside, we review characteristics of their empirical evaluation to provide a\dots
-\textit{discuss what high-level attributes of a detection framework we care about}
+In this section, we provide a broad survey of existing darknet event detection frameworks that exemplify a wide spectrum of 
+different analytical tasks and techniques; in addition, we review the empirical evaluations of these frameworks to consider 
+their efficacy in practice.
+
+We structure our survey by categorizing proposed frameworks based on the \textit{type of event} they are designed to detect.
+Within these categories, we review and emphasize two important aspects of each individual framework:
+1) the \textit{classes of general techniques} that encompass their employed algorithms; and
+2) the \textit{event schema} or unit of detection.
+
+
+% We structure our survey of proposed frameworks by grouping 
+% by categorizing frameworks into groups based primarily 
+% 1) the primary type of darknet event they were designed to detect; and 
+% 2) their definition of 
+
+\subsection{Scanning}
+
+Frameworks designed to detect scanning events in darknet traffic typically base their unit of detection on either source or destination attributes.
+Source-based event schemas enable discernment of different types of sender behavior within incoming traffic to a darknet whereas in contrast, 
+destination-based event schemas identify specific targets that incoming traffic is directed towards.
+
+% Enummerate works here
+
+
+
+\subsection{Backscatter}
+
+\subsection{Outages}
+
+
 % We review individual components of each framework, considering their impact on \textit{the high-level }
 % In addition, we include 
+% In this section, we provide a broad survey of existing darknet event detection frameworks that we consider in this report.
+% In addition to frameworks themselves, we consider characteristics of their empirical evaluation.
 
-In this section, we provide a broad survey of existing darknet event detection frameworks that we consider in this report.
-In addition to frameworks themselves, we consider characteristics of their empirical evaluation.
-
-Table~\ref{tab:frameworks} lists our collected publications grouped by their authors; groups that consist of multiple works 
-indicate works by similar authors that share significant overlap in their framework design, e.g., proof-of-concepts paired with mature versions.
-\dots
-
-\noindent{\textbf{Activity Type(s)}} refer to one or multiple types of events, (\textit{e.g.}, \textit{scanning}, \textit{backscatter}, \textit{outages}, or \textit{misconfigurations}) that a framework is capable of capturing.
-While in practice these are dependent on traffic inputs, we determine detectable activities for each framework based on explicitly stated design goals and evaluation results.
-
-\noindent{\textbf{Technique(s)}} encompass the specific algorithms employed by each framework and differentiate general functions frameworks leverage, often in combination, to
-achieve their detection objectives. We define 7 classes of techniques which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
-\textit{frequent pattern mining}, and \textit{fingerprinting}.
-
-\textbf{Algorithm(s)} 
+% Table~\ref{tab:frameworks} lists publications we collected, grouped by their authors; groups that consist of multiple works 
+% indicate works by similar authors that share significant overlap in their framework design, e.g., proof-of-concepts paired with their mature versions.
+% \dots
 
 
+% \noindent{\textbf{Activity Type(s)}} refer to one or multiple types of events, (\textit{e.g.}, \textit{scanning}, \textit{backscatter}, \textit{outages}, or \textit{misconfigurations}) that a framework is capable of capturing.
+% While in practice these are dependent on traffic inputs, we determine detectable activities for each framework based on explicitly stated design goals and evaluation results.
+
+% \noindent{\textbf{Technique(s)}} encompass the specific algorithms employed by each framework and differentiate general functions frameworks leverage, often in combination, to
+% achieve their detection objectives. We define 7 classes of techniques which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
+% \textit{frequent pattern mining}, and \textit{fingerprinting}.
+
+% \textbf{Algorithm(s)} 
 
 \begin{center}
     \rowcolors{2}{gray!50}{white}
