@@ -120,12 +120,15 @@ malicious scanning~\cite{@@}, residual backscatter from DoS attacks~\cite{@@}, w
 In this section, we provide a broad survey of existing darknet event detection frameworks that exemplify a wide spectrum of 
 different analytical tasks and techniques; in addition, we review the empirical evaluations of these frameworks to consider 
 their efficacy in practice.
-
-We structure our survey by categorizing proposed frameworks based on the \textit{type of event} they are designed to detect.
+We structure our survey by categorizing proposed frameworks primarily based on the \textit{type of event} (\textit{e.g.}, \textit{scanning}, 
+\textit{backscatter}, and \textit{outages}) they are designed to detect.
 Within these categories, we review and emphasize two important aspects of each individual framework:
 1) the \textit{classes of general techniques} that encompass their employed algorithms; and
 2) the \textit{event schema} or unit of detection.
-
+We define 7 classes of techniques that differentiate the functions of algorithms within the scope of each framework: 
+\textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
+\textit{frequent pattern mining}, and \textit{fingerprinting}.
+Some frameworks by design are capable of detecting multiple types of events using a combination of different techniques.
 
 % We structure our survey of proposed frameworks by grouping 
 % by categorizing frameworks into groups based primarily 
@@ -139,7 +142,10 @@ Source-based event schemas enable discernment of different types of sender behav
 destination-based event schemas identify specific targets that incoming traffic is directed towards.
 
 % Enummerate works here
-
+Sourced-based frameworks achieve detection at a variety of resolutions, ranging from individual and subnetted addresses to the level of autonomous-systems (ASes).
+Several of these leverage representation learning.
+Gioacchini et al.~\cite{2023gioacchini,2021gioacchini} propose a domain-specific adaptation of Word2Vec~\cite{2013mikolov} that detect anomalous clusters of senders from packet arrival sequences.
+Kallitsis et al.~\cite{2022kallitsis} trained autoencoders on a more comprehensive set of features and clustered senders using their lower-dimensional embeddings.
 
 
 \subsection{Backscatter}
@@ -168,11 +174,10 @@ destination-based event schemas identify specific targets that incoming traffic 
 
 \begin{center}
     \rowcolors{2}{gray!50}{white}
-    \begin{table*}[]
-        \centering
+    \begin{table}[]
         \small
         % \scriptsize
-        \caption{Characteristics of methodologies in our surveyed works.}
+        \caption{Characteristics of event detection frameworks proposed in our surveyed literature.}
         \label{tab:frameworks}
         \begin{tabular}{lllclc}
             \toprule
@@ -213,7 +218,7 @@ destination-based event schemas identify specific targets that incoming traffic 
             \multicolumn{6}{l}{Techniques:\markA-Dimensionality Reduction, \markB-Clustering, \markC-Forecasting, \markH-Thresholding, \markI-Representation Learning, \markJ-Frequent Pattern Mining, \markH-Fingerprinting} \\
             \multicolumn{6}{l}{Traffic representation: \markD-Graph, \markE-Feature Vector, \markF-Sequences, \markG-Time Series}
         \end{tabular}
-    \end{table*}
+    \end{table}
 \end{center}
 
 
