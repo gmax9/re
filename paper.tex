@@ -76,12 +76,13 @@ We review tasks that motivate the techniques each framework employs as well as e
 \section{Introduction}
 
 Network telescopes, or darknets, have been instrumental to both researchers and practitioners due to their capacity to observe Internet-wide phenomena in the unsolicited traffic they receive. 
-The visibility afforded by these observatories have enabled significant progress in the areas of cybersecurity and censorship, evident in a rich body of work centered around 
-malicious scanning, denial-of-service events, and Internet outages. 
+The visibility afforded by these observations have enabled significant progress in the areas of cybersecurity and censorship, evident in a rich body of work that centers around the study of malicious scanning, denial-of-service events, and Internet outages. 
+% The visibility afforded by these observatories have enabled significant progress in the areas of cybersecurity and censorship, evident in a rich body of work centered around 
+% malicious scanning, denial-of-service events, and Internet outages. 
 
 Over the past two decades, research efforts have shifted from characterizing darknet phenomena and their observable signals towards translating such empirical insights into operationalizable frameworks for monitoring the Internet's security and availability in near real-time.  
-This has led to the development of a number of frameworks, each sharing the common goal of automating event detection within darknet traffic while 
-differing with respect to specific\dots
+This has led to the development of a number of frameworks that each share the common goal of automating the detection of events in darknet traffic while taking notably different approaches to doing so.
+As security risks mount along with growing volumes of darknet traffic, such frameworks represent a crucial and necessary transition from conventional post-hoc manual traffic analysis workflows.
 
 % As a result, a number of frameworks that each share a common goal of automating event detection within darknet traffic have been proposed.
 % This has resulted in a number of proposed frameworks that share a common goal of automating the detection of events within darknet traffic.
@@ -130,6 +131,7 @@ they aim to detect. Within these categories, we review and emphasize two importa
 and 2) the \textit{event schema} or unit of detection defined by their authors. 
 Here, we briefly discuss these aspects we consider before expounding on individual works.
 
+\vspace{0.25em}
 \noindent{\textbf{Activity Type(s)}} refers to the known classes of phenomena that a framework can capture based on explicitly stated design goals and empirical results.
 Among frameworks that detect multiple types, we find a frequent combination: scanning and backscatter events.
 In practice, we can reduce this down to a single type by filtering traffic inputs into framework implementations.
@@ -139,10 +141,12 @@ In practice, we can reduce this down to a single type by filtering traffic input
 % While some frameworks can capture multiple types of events, in practice 
 % While in practice these are dependent on traffic inputs, we determine detectable activities for each framework based on explicitly stated design goals and evaluation results.
 
+\vspace{0.25em}
 \noindent{\textbf{Event Schema}} refers to attributes represented in the outputs of a given framework.
 These attributes derive from packet header fields and implicitly define an instance of a broader type of event.
 For example, a framework may define a scanning event using a source-based schema that consists of a timestamp, source IP address, an assigned cluster, and a cluster flag indicating potential malicious intent.
 
+\vspace{0.25em}
 \noindent{\textbf{Technique(s)}} differentiate general functionalities that specific algorithms undertake within the scope of each framework.
 We identified 7 classes of techniques across our surveyed work which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
 \textit{frequent pattern mining}, and \textit{fingerprinting}. 
@@ -153,6 +157,8 @@ thresholding as a final-pass, semi-automatic means of filtering outputs before m
 % achieve their detection objectives. We define 7 classes of techniques which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
 % \textit{frequent pattern mining}, and \textit{fingerprinting}.
 
+
+\vspace{0.25em}
 \noindent{\textbf{Algorithm(s)}} reference logic 
 
 % In this section, we provide a broad survey of existing darknet event detection frameworks that exemplify a wide spectrum of 
@@ -175,9 +181,14 @@ thresholding as a final-pass, semi-automatic means of filtering outputs before m
 
 \subsection{Scanning}
 
-Frameworks designed to detect scanning events in darknet traffic typically base their event schema on either source or destination attributes.
-Source-based event schemas enable discernment of different types of sender behavior within incoming traffic to a darknet whereas in contrast, 
-destination-based event schemas identify specific targets that incoming traffic is directed towards.
+Frameworks designed to detect scanning in darknet traffic typically base their event schemas around either source or destination attributes.
+Source-based schemas discern various sender behaviors within incoming traffic to a darknet; in contrast, destination-based schemas emphasize specific targets that incoming traffic directs towards.
+\vspace{0.25em}
+
+% Frameworks designed to detect scanning events in darknet traffic typically base their event schema on either source or destination attributes.
+% Source-based event schemas enable discernment of different types of sender behavior within incoming traffic to a darknet whereas in contrast, 
+% destination-based event schemas identify specific targets that incoming traffic is directed towards.
+
 
 % Enummerate works here
 \noindent{\textbf{Sourced-based detection}} occurs at a variety of resolutions, ranging from individual and subnetted addresses to the level of autonomous-systems (ASes).
@@ -206,6 +217,7 @@ Kanehara et al.~\cite{@@} apply
 % Lagraa
 % Ban 
 
+\vspace{0.25em}
 \noindent{\textbf{Destination-based detection}}
 
 
