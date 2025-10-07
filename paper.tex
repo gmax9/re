@@ -130,25 +130,30 @@ they aim to detect. Within these categories, we review and emphasize two importa
 and 2) the \textit{event schema} or unit of detection defined by their authors. 
 Here, we briefly discuss these aspects we consider before expounding on individual works.
 
-\noindent{\textbf{Activity Type(s)}} refer to the known classes of phenomena that a framework can capture based on explicitly stated design goals and empirical results.
-For frameworks that detect multiple types, we find a common combination which includes scanning and backscatter events. 
+\noindent{\textbf{Activity Type(s)}} refers to the known classes of phenomena that a framework can capture based on explicitly stated design goals and empirical results.
+Among frameworks that detect multiple types, we find a frequent combination: scanning and backscatter events.
 In practice, we can reduce this down to a single type by filtering traffic inputs into framework implementations.
+\maxnote{revise this.}
 
 % A common case where a single framework can detect multiple types of events 
 % While some frameworks can capture multiple types of events, in practice 
 % While in practice these are dependent on traffic inputs, we determine detectable activities for each framework based on explicitly stated design goals and evaluation results.
 
-\noindent{\textbf{Event Schema}}
+\noindent{\textbf{Event Schema}} refers to attributes represented in the outputs of a given framework.
+These attributes derive from packet header fields and implicitly define an instance of a broader type of event.
+For example, a framework may define a scanning event using a source-based schema that consists of a timestamp, source IP address, an assigned cluster, and a cluster flag indicating potential malicious intent.
 
-\noindent{\textbf{Technique(s)}} differentiate general functionalities that specific algorithms undertake within the scope of each framework to achieve detection objectives. 
+\noindent{\textbf{Technique(s)}} differentiate general functionalities that specific algorithms undertake within the scope of each framework.
 We identified 7 classes of techniques across our surveyed work which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
-\textit{frequent pattern mining}, and \textit{fingerprinting}.
+\textit{frequent pattern mining}, and \textit{fingerprinting}. 
+To achieve detection objectives, frameworks often combine techniques, \textit{e.g.}, reducing the dimensionality of inputs prior to clustering or 
+thresholding as a final-pass, semi-automatic means of filtering outputs before manual validation takes place.
 
 % encompass the specific algorithms employed by each framework and differentiate general functions frameworks leverage, often in combination, to
 % achieve their detection objectives. We define 7 classes of techniques which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
 % \textit{frequent pattern mining}, and \textit{fingerprinting}.
 
-\textbf{Algorithm(s)} 
+\noindent{\textbf{Algorithm(s)}} reference logic 
 
 % In this section, we provide a broad survey of existing darknet event detection frameworks that exemplify a wide spectrum of 
 % different analytical tasks and techniques; in addition, we review the empirical evaluations of these frameworks to consider 
@@ -170,30 +175,39 @@ We identified 7 classes of techniques across our surveyed work which include \te
 
 \subsection{Scanning}
 
-Frameworks designed to detect scanning events in darknet traffic typically base their unit of detection on either source or destination attributes.
+Frameworks designed to detect scanning events in darknet traffic typically base their event schema on either source or destination attributes.
 Source-based event schemas enable discernment of different types of sender behavior within incoming traffic to a darknet whereas in contrast, 
 destination-based event schemas identify specific targets that incoming traffic is directed towards.
 
 % Enummerate works here
-Sourced-based frameworks achieve detection at a variety of resolutions, ranging from individual and subnetted addresses to the level of autonomous-systems (ASes).
-Several of these leverage representation learning.
-Gioacchini et al.~\cite{2023gioacchini,2021gioacchini} propose a domain-specific adaptation of Word2Vec~\cite{2013mikolov} that detect anomalous clusters of senders from packet arrival sequences.
-Kallitsis et al.~\cite{2022kallitsis} trained autoencoders on a more comprehensive set of features and clustered senders using their lower-dimensional embeddings.
+\noindent{\textbf{Sourced-based detection}} occurs at a variety of resolutions, ranging from individual and subnetted addresses to the level of autonomous-systems (ASes).
+Several of these leverage representation learning combined with clustering at the level of individual source IPs. \maxnote{revise}
+Gioacchini et al.~\cite{@@} propose a domain-specific adaptation of Word2Vec that detect anomalous clusters of senders from their arrival order in packet sequences. 
+Kallitsis et al.~\cite{@@} used a more comprehensive set of features to train autoencoders, clustering senders in lower-dimensional embedding space.
+Both operate at the level of individual source IP addresses. 
+
+Other closely-related frameworks employ dimensionality reduction techniques that rely on linear methods\footnote{while dimensionality reduction can be considered representation learning, we distinguish the two primarily by linearity of the method}.
+In a series of works, Han et al.~\cite{@@} separately apply Non-negative Matrix Factorization and Graphical LASSO alongside ad-hoc thresholding techniques to identify coordinated senders.
+Kanehara et al.~\cite{@@} apply 
+
 
 % Sourced-based Frameworks
-Clustering is a commonly employed technique used to {...}.
-When combined with thresholding, frameworks can to some degree automatically identify clusters worthy of assessment.
-Several works combine representation learning techniques to {...}.
+% Clustering is a commonly employed technique used to {...}.
+% When combined with thresholding, frameworks can to some degree automatically identify clusters worthy of assessment.
+% Several works combine representation learning techniques to {...}.
 
-Han et al. [32, 34 , 35 ] and Kanera
-et al. [ 40 ] applied Non-negative Tucker Decomposition (NTD), Non-negative Matrix Factorization
-(NMF), and Graphical LASSO (GLASSO) to darknet traffic time series before thresholding ouputs
-to identify timeframes of potential coordinated scanning.
+% Han et al. [32, 34 , 35 ] and Kanera
+% et al. [ 40 ] applied Non-negative Tucker Decomposition (NTD), Non-negative Matrix Factorization
+% (NMF), and Graphical LASSO (GLASSO) to darknet traffic time series before thresholding ouputs
+% to identify timeframes of potential coordinated scanning.
 
-On the other hand, destination-based frameworks focus exclusively on detecting target destionation ports.
-Evrard
-Lagraa
-Ban 
+% On the other hand, destination-based frameworks focus exclusively on detecting target destionation ports.
+% Evrard
+% Lagraa
+% Ban 
+
+\noindent{\textbf{Destination-based detection}}
+
 
 \subsection{Backscatter}
 
@@ -268,7 +282,7 @@ Ban
 \end{center}
 
 
-\section{Section}
+\section{Empirical Evaluation of Detection Frameworks}
 
 
 \section{Acknowledgments}
