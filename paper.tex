@@ -43,9 +43,10 @@
 \def\rot{\rotatebox}
 \newcommand*\circled[1]{\tikz[baseline=-3pt]{
             \node (X) [shape=circle,scale=0.5,fill=black,text=white,font=\bfseries, text centered, draw,inner sep=0pt] {\strut #1};}}
-
+            
 \newcommand{\wc}[1]{\textit{\textcolor{magenta}{#1}}} % Word-Choice macro
 \newcommand{\maxnote}[1]{\textit{\textcolor{violet}{#1 --Max}}}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 \begin{document}
 
@@ -121,29 +122,46 @@ Finally, using our survey's findings, we conclude with a discussion of challenge
 \label{sec:bg}
 \section{Background}
 
+In this section, we provide a brief overview of network telescopes and findings from prior works that characterize the nature of darknet traffic.
+
 \subsection{Network Telescopes}
 
 % Brief overview of darknets and their traffic (IBR)
-Network telescopes, or darknets, consist of routable portions of IPv4 address space that receive but do not respond to unsolicited Internet traffic. 
-Passive collection of this unidirectional traffic has enabled extensive research into various Internet-wide activity ranging from 
-malicious scanning~\cite{@@}, residual backscatter from DoS attacks~\cite{@@}, widespread outages~\cite{@@}, and non-trivial network misconfigurations~\cite{@@}.
+Network telescopes, or darknets, consist of IPv4 address space that receive, but do not respond to, unsolicited Internet traffic via routes announced through the Border Gateway Protocol (BGP).
+For decades, researchers have studied this unidirectional traffic to understand its mixtures and origins, attributing its causes to Internet-wide activity ranging from 
+malicious scanning~\cite{@@}, residual backscatter from DoS attacks~\cite{@@}, Internet outages~\cite{2011dainotti,2013benson,2015benson,2012dainotti,2021padmanabhan}, and non-trivial network misconfigurations~\cite{@@}.
+
+\begin{enumerate}
+    \item three types of Internet-wide activity (summarize findings from each of the past major works, characterization of IBR and its changes, major events studied)
+\end{enumerate}
+
+Studies of darknet traffic in 2003 by Yegneswaran et al.~\cite{2004yegneswaran} quantified the volume of traffic and distributions of senders responsible for originating malicious scans 
+and estimated that 25 billion Internet-wide scans originate per day.
+Pang et al.~\cite{2004pang}\dots
+Casado et al.~\cite{2005casado}
+
+% Characterization citations
+~\cite{2004yegneswaran,2004pang}
+
+% Outage
+~\cite{2011dainotti,2013benson,2015benson,2012dainotti}~\cite{2021padmanabhan}
 
 % Discuss IBR, how it's been analyzed, practical use-cases for security / outage detection
 
 \label{sec:frameworks}
 \section{Darknet Event Detection Methodologies}
 
-\maxnote{sprinkle in takeaways}
-
-In this section, we provide a broad survey of existing frameworks that represent a wide spectrum of techniques proposed to detection various kinds of darknet events.
-We structure our survey by categorizing detection frameworks primarily based on the \textit{type of event} (\textit{e.g.,} scanning, backscatter, and outages) 
+In this section, we broadly survey existing methodologies that have been proposed to detect various types of darknet events and discuss their commonalities 
+while emphasizing their differences that pose a challenge to conducting systematic evaluations. \maxnote{revise the takeaway...}
+% In this section, we provide a broad survey of existing frameworks that represent a wide spectrum of techniques proposed to detection various kinds of darknet events.
+We structure our survey by categorizing detection methodologies primarily based on the \textit{type of event} (\textit{e.g.,} scanning, backscatter, and outages) 
 they aim to detect. Within these categories, we review and emphasize two important aspects for each individual framework: 1) the \textit{classes of general techniques} that encompass their employed algorithms; 
 and 2) the \textit{event schema} or unit of detection defined by their authors. 
 Here, we briefly discuss these aspects we consider before expounding on individual works.
 
 \vspace{0.25em}
-\noindent{\textbf{Activity Type(s)}} refers to the known classes of phenomena that a framework can capture based on explicitly stated design goals and empirical results.
-Among frameworks that detect multiple types, we find a frequent combination: scanning and backscatter events.
+\noindent{\textbf{Activity Type(s)}} refers to the known classes of darknet events that a methodology can capture based on explicitly stated design goals and empirical results in their original works.
+Among methodologies that detect multiple types, we find a frequent combination: scanning and backscatter events.
 In practice, we can reduce this down to a single type by filtering traffic inputs into framework implementations.
 \maxnote{revise this.}
 
@@ -162,14 +180,14 @@ We identified 7 classes of techniques across our surveyed work which include \te
 \textit{frequent pattern mining}, and \textit{fingerprinting}. 
 To achieve detection objectives, frameworks often combine techniques, \textit{e.g.}, reducing the dimensionality of inputs prior to clustering or 
 thresholding as a final-pass, semi-automatic means of filtering outputs before manual validation takes place.
-
-% encompass the specific algorithms employed by each framework and differentiate general functions frameworks leverage, often in combination, to
+differentiate general functions frameworks leverage, often in combination, to
 % achieve their detection objectives. We define 7 classes of techniques which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
+% encompass the specific algorithms employed by each framework and 
 % \textit{frequent pattern mining}, and \textit{fingerprinting}.
 
 
 \vspace{0.25em}
-\noindent{\textbf{Algorithm(s)}} reference logic 
+\noindent{\textbf{Algorithm(s)}} consist of specific 
 
 % In this section, we provide a broad survey of existing darknet event detection frameworks that exemplify a wide spectrum of 
 % different analytical tasks and techniques; in addition, we review the empirical evaluations of these frameworks to consider 
@@ -304,11 +322,14 @@ Kanehara et al.~\cite{@@} apply
 % \end{center}
 
 \label{sec:evaluations}
-\section{Empirical Evaluation of Detection Frameworks}
+\section{Empirical Evaluations of Detection Methodologies}
 
-The utility of event detection frameworks depend on their performance as demonstrated in well-designed, experimental evaluations. 
-We provide a concise overview of the components of such evaluation found in our surveyed literature by assessing their replicability, 
-characteristics of their datasets, and the coverage of side-by-side framework comparisons.
+Here, as a complement to the previous section, we provide a concise overview of empirical evaluations conducted on detection methodologies. 
+% Since assessing in-practice performance of any given methodology rests on the results of well-designed, experimental evaluation, 
+
+% The utility of event detection frameworks depend on their performance as demonstrated in well-designed, experimental evaluations. 
+% We provide a concise overview of the components of such evaluation found in our surveyed literature by assessing their replicability, 
+% characteristics of their datasets, and the coverage of side-by-side framework comparisons.
 
 \noindent{\textbf{Assessing evaluation replicability.}} 
 Less than a third of the studies publish accompanying source code of their framework implementation and of those that do, 
@@ -320,6 +341,7 @@ Slightly more than half of the works do, however, provide specifications of the 
 \maxnote{add to significance}
 
 \noindent{\textbf{Dataset characteristics.}}
+We find little overlap 
 Framework evaluations use darknet traffic sourced from a variety of telescopes over different timeframes.
 Traffic volumes differ by multiple orders of magnitude and likely in other metrics as well.
 \maxnote{table revision: move annotation}
@@ -327,18 +349,22 @@ Traffic volumes differ by multiple orders of magnitude and likely in other metri
 \begin{enumerate}
 	\item different datasets are used to evaluate frameworks
 	\item These datasets share different characteristics, evident in their traffic volumes and ostensibly other traffic metrics too since they're sourced from different darknets
-	\item we can't reasonably compare frameworks by their performance on different datasets.
-	\item Few works compare different frameworks on the same dataset
-	\item What's the highest number of frameworks that use the same dataset?
 	\item Also annotations. 
 	\item Which annotations are commonly used as ground truth? Mira. Which works?
 	\item Epistemic-soundness is an issue, what's used as approximate ground truth? How valid are these annotations?
 	\item When ground-truth isn't available, how is performance evaluated?
 \end{enumerate}
 
-\noindent{\textbf{Side-by-side framework comparisons.}}
+\noindent{\textbf{Side-by-side methodology comparisons.}}
+Slightly fewer than half of our surveyed works evaluate their proposed methodology against a baseline methodology using the same dataset.
+Of those, use of a dataset does not extend beyond an individual work, i.e., real-world traffic datasets are not widely shared for researchers to evaluate their methodologies.
+
+
+
 \begin{enumerate}
-	\item Pick some points from the previous subsection's points.
+	\item we can't reasonably compare frameworks by their performance on different datasets.
+	\item Few works compare different frameworks on the same dataset
+	\item What's the highest number of frameworks that use the same dataset?
 \end{enumerate}
 
 \begin{table*}[h!]
@@ -347,10 +373,15 @@ Traffic volumes differ by multiple orders of magnitude and likely in other metri
     \setlength{\tabcolsep}{4pt}
 	\caption{Implementation and evaluation details of our surveyed work. Darknet owner indicates which telescope provided each dataset. Traffic volume is split into packets and bytes.}
     \label{tab:eval}
-    \begin{tabular}{@{}l p{4em} c c c c c c c c@{}}
+    \begin{tabular}{@{}lccccccccc@{}}
         \toprule
-        & \textbf{Comparison} & \multicolumn{2}{c}{\bf Replicability} & \textbf{Telescope(s)} & \multicolumn{4}{c}{\bf Dataset Attributes} & \textbf{Annot-} \\
-        \textbf{Work} &  & \textbf{Code} & \textbf{Specs} &  & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
+        & \multicolumn{1}{c}{\textbf{Compari-}} 
+        & \multicolumn{2}{c}{\bf Replicability} 
+        & \multicolumn{1}{c}{\textbf{Telescope(s)}} 
+        & \multicolumn{4}{c}{\bf Dataset Attributes} 
+        & \multicolumn{1}{c}{\textbf{Annot-}} \\
+        \cmidrule(lr){3-4} \cmidrule(lr){6-9}
+        \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} &  & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
         \midrule
         \textbf{Soro et al.~\cite{2020soro}}
         & \xmark
@@ -491,176 +522,6 @@ Traffic volumes differ by multiple orders of magnitude and likely in other metri
     \end{tabular}
 \end{table*}
 
-
-\begin{table*}[h!]
-	\small
-	% \centering
-	\setlength{\tabcolsep}{4pt}
-	\caption{Implementation and evaluation details of our surveyed work. Darknet owner indicates which telescope provided each dataset. Traffic volume is split into packets and bytes.}
-	\label{tab:eval}
-	\begin{tabular}{@{}lccccccccc@{}}
-		\toprule
-		& \multicolumn{2}{c}{\bf Replicability}			 &  & \multicolumn{2}{c}{\bf Date \& Span} & \multicolumn{2}{c}{\bf Traffic Volumes} &\textbf{Compa-}&\textbf{Annot-}\\
-		\textbf{Work} & \textbf{Code} & \textbf{Specs} & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} 
-		& \textbf{Packets} & \textbf{Bytes} & \textbf{rison} & \textbf{ations} \\
-		\midrule
-		\textbf{Soro et al.~\cite{2020soro}}                   
-		& \xmark & \xmark           
-		& T4            
-		& 3w    & 2019    
-		& ---                  
-		& ---              
-		& \xmark            
-		& \xmark          \\
-		
-		Evrard et al.~\cite{2019evrard}                        
-		& \xmark & \xmark           
-		& T3, T6  
-		& 9m    & 2015    
-		& ${\approx}8\times10^{8}$ 
-		& ---              
-		& \xmark            
-		& \wc{heuristic}  \\
-		
-		Lagraa et al.~\cite{2017lagraa,2019lagraa}             
-		& \xmark & \cmark           
-		& T6          
-		& 2y    & 2014    
-		& $2\times10^{9}$ 
-		& 500 GB        
-		& \xmark            
-		& \wc{manual, DK}\\
-		
-		Kallitsis et al.~\cite{2022kallitsis}                  
-		& \cmark & \cmark           
-		& T2
-		& 28d   & 2016    
-		& $49\times10^{9}$
-		& ---              
-		& \cmark~\cite{2021gioacchini} 
-		& \wc{manual, DK}\\
-		
-		Iglesias et al.~\cite{2019iglesias}                    
-		& \xmark & \cmark           
-		& T1
-		& 1m    & 2012    
-		& ---                  
-		& 2.1 TB        
-		& \xmark            
-		& \xmark          \\
-		
-		Nishikaze et al.~\cite{2015nishikaze}                  
-		& \xmark & \xmark           
-		& T3         
-		& 28d   & 2014    
-		& $3.03\times10^{8}$
-		& ---              
-		& \xmark            
-		& \xmark          \\
-		
-		Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} 
-		& \cmark & \cmark           
-		& T4           
-		& 30d   & 2021    
-		& $6.3\times10^{7}$ 
-		& ---              
-		& \cmark~\cite{2020cohen} 
-		& \wc{manual}    \\
-		
-		Cohen et al.~\cite{2020cohen}                          
-		& \xmark & \cmark 
-		& Ad hoc ($\approx$/22)		              
-		& 1y    & 2019    
-		& ---                  
-		& $3+\,\mathrm{TB}$ 
-		& \cmark~\cite{2016ban} 
-		& \wc{manual}    \\
-		
-		Han et al.~\cite{2021han,2022han}                      
-		& \cmark & \xmark           
-		& T3          
-		& 1m    & 2018    
-		& ---                  
-		& ---              
-		& \cmark            
-		& \wc{manual}    \\
-		
-		Han et al.~\cite{2020han,2022han}                      
-		& \cmark & \cmark           
-		& T3           
-		& 1w    & 2018    
-		& ---                  
-		& ---              
-		& \cmark            
-		& \wc{manual}    \\
-		
-		Kanehara et al.~\cite{2019kanehara,2022han}            
-		& \xmark & \cmark           
-		& T3          
-		& 6m    & 2018    
-		& ---                  
-		& $5+$ GB/day   
-		& \cmark            
-		& \wc{manual}    \\
-		
-		Ban et al.~\cite{2017ban}                              
-		& \xmark & \xmark           
-		& T3          
-		& ---     & ---       
-		& ---                  
-		& ---              
-		& \xmark            
-		& \wc{manual}    \\
-		
-		Ban et al.~\cite{2016ban}                              
-		& \xmark & \xmark           
-		& T3        
-		& 1y    & 2015    
-		& $3\times10^{7}$  
-		& ---              
-		& \xmark            
-		& \xmark          \\
-		
-		Bou-Harb et al.~\cite{2014bouharb}                     
-		& \xmark & \xmark           
-		& T7         
-		& 1m    & 2013    
-		& ---                  
-		& ---              
-		& \xmark            
-		& \xmark          \\
-		
-		Bou-Harb et al.~\cite{2019bouharb,2015bouharb}         
-		& \xmark & \cmark           
-		& T7     
-		& 1m    & 2016    
-		& ---                  
-		& 240 GB        
-		& \cmark            
-		& \wc{manual}    \\
-		
-		\textbf{Zakroum et al.~\cite{2022zakroum,2018zakroum}} 
-		& \xmark & \cmark           
-		& T3, T6    
-		& 3.5y  & 2017    
-		& ---                  
-		& $1.5+\mathrm{TB}$ 
-		& \cmark            
-		& \xmark          \\
-		
-		\midrule
-		\textbf{Aggregate}         
-		& 4/16 & 7/16  & 8-24                  
-		& 1w--3.5y & 2012--2021 
-		& ---                  
-		& ---              
-		& 7/16          
-		& ---              
-		\\
-		\bottomrule
-	\end{tabular}
-\end{table*}
-
 \label{sec:fw}
 \section{Open Challenges and Future Work}
 
@@ -668,11 +529,19 @@ Our survey identifies that while research efforts have been highly productive in
 critical gaps remain that hinder a comprehensive understanding of their in-practice detection capabilities.
 
 \noindent{\textbf{Curated datasets.}}
+
+Labels applied to a dataset do not necessarily have to be ground truth, e.g., they can be the outputs of other methodologies, but their definitions 
+need to be known. 
+
 \begin{enumerate}
 	\item Labels
 \end{enumerate}
 
 \noindent{\textbf{Systematic evaluation.}}
+
+Although some individual works from our survey evaluate their methodologies with the same metrics, \textit{e.g.,} TP, FP, \dots, 
+the
+
 \begin{enumerate}
 	\item Discuss need for standardized evaluation metrics
 	\item Discuss need for experimental consistency
