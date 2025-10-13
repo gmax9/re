@@ -62,12 +62,17 @@
 \email{magao@ucsd.edu}
 
 \begin{abstract}
-Analysis of network telescope, or darknet, traffic has provided substantial visibility into the security and availability of the Internet for decades.
-To operationalize darknet monitoring capabilities, researchers have proposed numerous frameworks that automate the detection of Internet-wide events.
-Despite an abundance of available frameworks, less attention has been directed towards systematic comparison of their capabilities. 
-As a result, \dots
-In this report, we survey existing work that proposes and evaluates such frameworks on real-world darknet traffic.
-We review tasks that motivate the techniques each framework employs as well as experimental details of their evaluation; and finally, discuss future \dots
+For decades, analysis of network telescope traffic has consistently provided insights into Internet-wide phenomena, \textit{e.g.,} malicious scanning, backscatter from denial-of-service (DoS) attacks, and Internet outages, that impact the security and availability of the Internet.
+To better operationalize darknets for their monitoring capabilities, researchers have proposed numerous methodologies that each aim to automate the detection of such events by employing a variety of techniques and leveraging different features of darknet traffic.
+Yet despite an abundance of available methodologies, less attention has been directed towards comprehensive assessment of their comparative capabilities due to the availability of labeled datasets, replicability of methodologies, and a unified approach to method validation.
+In this report, we survey existing works that propose and evaluate detection such methodologies, \dots
+
+% Analysis of network telescope, or darknet, traffic has provided substantial visibility into the security and availability of the Internet for decades.
+% To operationalize darknet monitoring capabilities, researchers have proposed numerous frameworks that automate the detection of Internet-wide events.
+% Despite an abundance of available frameworks, less attention has been directed towards systematic comparison of their capabilities. 
+% As a result, \dots
+% In this report, we survey existing work that proposes and evaluates such frameworks on real-world darknet traffic.
+% We review tasks that motivate the techniques each framework employs as well as experimental details of their evaluation; and finally, discuss future \dots
 % To more effectively operationalize network telescopes for monitoring the security and availability of the Internet, researchers have proposed a diverse body of frameworks which codify empirical post-hoc analysis techniques.
 % Yet, \dots
 \end{abstract}
@@ -81,7 +86,7 @@ Over the past two decades, research efforts have shifted from characterizing dar
 % This has resulted in a number of methodologies that each leverage different approaches to achieve a common goal of broadly automating darknet event detection. 
 % \maxnote{see other papers for enumerating on specific details in intro} As security risks mount along growing volumes of darknet traffic, such methodologies represents a crucial and necessary transition from conventional post-hoc manual traffic analysis workflows. 
 % However, the utility of these methodologies depend critically on their accuracy and validity which remain elusive to evaluate due to several challenges that we identify through our survey. 
-These efforts have resulted in a number of proposed methodologies that each share the common goal of broadly automating event detection while differing widely in the algorithmic techniques they employ (e.g., statistical forecasting, matrix decompositions, and graph-based models), 
+These efforts have resulted in a variety of methodologies that share the common goal of broadly automating event detection while differing widely in the algorithmic techniques they employ (e.g., statistical forecasting, matrix decompositions, and graph-based models), 
 the traffic features they exploit (e.g., packet counts, port sequences, temporal bursts), 
 and their operational definition of what constitutes an event (ranging from short-lived scans to sustained probing campaigns).
 As security risks mount along growing volumes of darknet traffic, such methodologies represent a crucial and necessary transition from post-hoc manual traffic analysis towards a more \maxnote{dots} means of detection.
@@ -138,6 +143,7 @@ Finally, using our survey's findings, we conclude with a discussion of challenge
 
 In this section, we provide a brief overview of network telescopes and findings from prior works that characterize the nature of darknet traffic.
 
+\label{sec:bg:nt}
 \subsection{Network Telescopes}
 
 % Brief overview of darknets and their traffic (IBR)
@@ -165,43 +171,51 @@ Casado et al.~\cite{2005casado}
 \label{sec:frameworks}
 \section{Darknet Event Detection Methodologies}
 
-In this section, we broadly survey existing methodologies that have been proposed to detect various types of darknet events and discuss their commonalities 
-while emphasizing their differences that pose a challenge to conducting systematic evaluations. \maxnote{revise the takeaway...}
-% In this section, we provide a broad survey of existing frameworks that represent a wide spectrum of techniques proposed to detection various kinds of darknet events.
-We structure our survey by categorizing detection methodologies primarily based on the \textit{type of event} (\textit{e.g.,} scanning, backscatter, and outages) 
-they aim to detect. Within these categories, we review and emphasize two important aspects for each individual framework: 1) the \textit{classes of general techniques} that encompass their employed algorithms; 
-and 2) the \textit{event schema} or unit of detection defined by their authors. 
-Here, we briefly discuss these aspects we consider before expounding on individual works.
+% In this section, we broadly survey existing methodologies that have been proposed to detect various types of darknet events and discuss their commonalities 
+% while emphasizing their differences that pose a challenge to conducting systematic evaluations. \maxnote{revise the takeaway...}
+% % In this section, we provide a broad survey of existing frameworks that represent a wide spectrum of techniques proposed to detection various kinds of darknet events.
+% We structure our survey by categorizing detection methodologies primarily based on the \textit{type of event} (\textit{e.g.,} scanning, backscatter, and outages) 
+% they aim to detect. Within these categories, we review and emphasize two important aspects for each individual framework: 1) the \textit{classes of general techniques} that encompass their employed algorithms; 
+% and 2) the \textit{event schema} or unit of detection defined by their authors. 
+% Here, we briefly discuss these aspects we consider before expounding on individual works.
+
+% In this section, we broadly survey existing methodologies that have been proposed for detecting various types of darknet activities.
+In this section, we provide a broad survey of existing methodologies that have been proposed for detecting darknet activities and 
+organize prior works into a taxonomy that identifies the need for a systematic evaluation approach to account for the diversity of methods.
+We structure our survey by categorizing detection methodologies primarily based on the type of darknet activity they aim to detect. 
+Within these categories, we review and emphasize two important aspects of each methodology: 
+1) the class(es) of general \textit{techniques} they employ for detection; and 
+2) their definition(s) of an \textit{event} belonging under their broader type of targeted activity.
+We briefly discuss these aspects before discussing the methodologies that comprise our taxonomy as shown in Figure~\ref{fig:taxonomy}.
+
 
 \vspace{0.25em}
-\noindent{\textbf{Activity Type(s)}} refers to the known classes of darknet events that a methodology can capture based on explicitly stated design goals and empirical results in their original works.
-Among methodologies that detect multiple types, we find a frequent combination: scanning and backscatter events.
-In practice, we can reduce this down to a single type by filtering traffic inputs into framework implementations.
-\maxnote{revise this.}
+\noindent{\textbf{Activity Type(s)}} correspond to existing categories of observed activities in darknet traffic as described in Section~\ref{sec:bg:nt}. 
+For each study, we identify these type(s) based on explicitly stated goals of each methodology and empirical results from their evaluation. 
+Some methods such as~\ref{@@} are capable of detecting multiple types of activities depending on whether their input traffic is filtered.
 
 % A common case where a single framework can detect multiple types of events 
 % While some frameworks can capture multiple types of events, in practice 
 % While in practice these are dependent on traffic inputs, we determine detectable activities for each framework based on explicitly stated design goals and evaluation results.
 
 \vspace{0.25em}
-\noindent{\textbf{Event Schema}} refers to attributes represented in the outputs of a given framework.
+\noindent{\textbf{Event Definitions}} refers to attributes represented in the outputs of a given framework.
 These attributes derive from packet header fields and implicitly define an instance of a broader type of event.
 For example, a framework may define a scanning event using a source-based schema that consists of a timestamp, source IP address, an assigned cluster, and a cluster flag indicating potential malicious intent.
 
 \vspace{0.25em}
-\noindent{\textbf{Technique(s)}} differentiate general functionalities that specific algorithms undertake within the scope of each framework.
+\noindent{\textbf{Technique(s)}} differentiate functionalities that specific \textbf{algorithm(s)} undertake within the scope of each methodology.
 We identified 7 classes of techniques across our surveyed work which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
 \textit{frequent pattern mining}, and \textit{fingerprinting}. 
-To achieve detection objectives, frameworks often combine techniques, \textit{e.g.}, reducing the dimensionality of inputs prior to clustering or 
+To achieve detection objectives, methodologies frequently combine techniques, \textit{e.g.}, reducing the dimensionality of inputs prior to clustering or 
 thresholding as a final-pass, semi-automatic means of filtering outputs before manual validation takes place.
-differentiate general functions frameworks leverage, often in combination, to
+% differentiate general functions frameworks leverage, often in combination, to
 % achieve their detection objectives. We define 7 classes of techniques which include \textit{dimensionality reduction}, \textit{clustering}, \textit{forecasting}, \textit{thresholding}, \textit{representation learning},
 % encompass the specific algorithms employed by each framework and 
 % \textit{frequent pattern mining}, and \textit{fingerprinting}.
 
-
-\vspace{0.25em}
-\noindent{\textbf{Algorithm(s)}} consist of specific 
+% \vspace{0.25em}
+% \noindent{\textbf{Algorithm(s)}} consist of specific 
 
 % In this section, we provide a broad survey of existing darknet event detection frameworks that exemplify a wide spectrum of 
 % different analytical tasks and techniques; in addition, we review the empirical evaluations of these frameworks to consider 
@@ -220,6 +234,15 @@ differentiate general functions frameworks leverage, often in combination, to
 % by categorizing frameworks into groups based primarily 
 % 1) the primary type of darknet event they were designed to detect; and 
 % 2) their definition of 
+
+\begin{figure}
+    \begin{tikzpicture}
+        \draw (0, 0) node[inner sep=0] {\includegraphics[]{figures/taxonomy.pdf}};
+        \draw (-4, -4) node {Kallitsis et al.~\cite{2022kallitsis}};
+    \end{tikzpicture}
+    \caption{A taxonomy of our \maxnote{number} surveyed works and their methodologies categorized under the broad type of darknet activity they target and specific event definitions.}
+    \label{fig:taxonomy}
+\end{figure}
 
 \subsection{Scan Detection Methodologies}
 
@@ -299,14 +322,15 @@ Kanehara et al.~\cite{@@} apply
             \midrule
             & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{iii. Algorithm(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
             \midrule
-            Evrard et al.~\cite{2019evrard}                        & \markX                    & \markB        & Dijkstra's Algorithm~\cite{1959dijkstra}, K-Nearest Neighbors~\cite{1967cover,1989fix} & \markD & Dst. Port \\
-            Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX                    & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
+            Evrard et al.~\cite{2019evrard}                        & \markX                    & \markB        & Dijkstra's~\cite{1959dijkstra}, K-NN~\cite{1967cover,1989fix} & \markD & Dst. Port \\
+            Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX                    & \markB        & Louvain~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
             Kallitsis et al.~\cite{2022kallitsis}                  & \markX\markY              & \markI\markA\markB  & Autoencoder Dimensionality Reduction~\cite{2006hinton}, K-Means~\cite{1967macqueen} & \markE & Src. IP   \\
             Iglesias et al.~\cite{2019iglesias}                    & \markX\markY              & \markB\markH  & K-Medoids~\cite{2009park}, Fuzzy-Gustafson~\cite{1999krishnapuram}, MAD-Thresholding~\cite{2004liu} & \markE & Src. IP   \\
             Nishikaze et al.~\cite{2015nishikaze}                  & \markX                    & \markB        & Hierarchical Clustering           & \markE & Src. /16  \\
             Soro et al.~\cite{2020soro}                            & \markX                    & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. AS   \\
             % Cohen et al.~\cite{2020cohen}                          & \markX          & \markA\markB  & Word2vec, DBSCAN & \markF & Dst. Port \\
-            Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, K-Nearest Neighbors~\cite{1967cover,1989fix}, Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
+            Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, K-NN~\cite{1967cover,1989fix}, Louvain~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
+            % Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, Louvain ~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
             Han et al.~\cite{2021han,2022han}                      & \markX                    & \markA        & NMF~\cite{2000lee}    & \markG & Src. /16, Dst. Port \\
             Han et al.~\cite{2020han,2022han}                      & \markX\markEtc            & \markA        & GLASSO~\cite{2008friedman} & \markG & Src. /16  \\
             Kanehara et al.~\cite{2019kanehara,2022han}            & \markX                    & \markA\markH  & LRA-NTD~\cite{2015zhou}, FTSD~\cite{2010caiafa}, Otsu-Thresholding~\cite{1979otsu}          & \markG & Src. /16, Dst. Port \\
@@ -317,7 +341,6 @@ Kanehara et al.~\cite{@@} apply
             Niranjana et al.~\cite{2019niranjana}                  & \markX                    & \markA\markB  & PCA~\cite{1901pearson,1993hotelling} &  Source \\
             Cabana et al.~\cite{2019cabana}                        & \markX                    & \markB\markH  & Conduction Detection Algorithm~\cite{2015lu}, Fastcluster~\cite{2013mullner} & \markD\markE & \textit{TODO} \\
             Shaikh et al.~\cite{2018shaikh}                        & \markX\markY\markZ\markEtc & \textit{TODO} & AdaBoost~\cite{@@}, Gradient Boosting~\cite{@@}, Random Forest~\cite{@@}     & \markE       & \textit{TODO} \\  
-            Collins et al.~\cite{2007collins}                      & \markX                    & \markH        & Union-Find Algorithm~\cite{1991galil} & \markD & \textit{TODO} \\ 
             % Ban et al.~\cite{2017ban}                              & \markX          & \markH        & CUMSUM & \markG & \\
             % Bou-Harb et al.~\cite{bouharb2013dfa,2014bouharb}      &  & & & & \\
             % & & & & 
@@ -345,16 +368,18 @@ Here, as a complement to the previous section, we provide a concise overview of 
 % We provide a concise overview of the components of such evaluation found in our surveyed literature by assessing their replicability, 
 % characteristics of their datasets, and the coverage of side-by-side framework comparisons.
 
-\noindent{\textbf{Assessing evaluation replicability.}} 
-Less than a third of the studies publish accompanying source code of their framework implementation and of those that do, 
-we find that their releases are seldom packaged as reusable libraries, distributed through package managers, or maintained beyond initial publication.
-This aligns with expectations as the primary goal is to disseminate research ideas rather than deliver production-grade software.
-Nonetheless, the condition of the codebases we find often lack interfaces and clear documentation needed for straightforward implementation.
+\noindent{\textbf{Limited method replicability.}} 
+Less than a third of studies publish source code of their methodologies and of those that do, their releases are seldom packaged as reusable libraries, distributed through package managers, or maintained beyond initial publication. 
+While the primary goal of these studies is to disseminate research ideas rather than deliver production-grade software, their codebases nonetheless lack interfaces and clear documentation needed for straightforward implementation and thereby discourages frictionless replication.
+% Less than a third of the studies publish accompanying source code of their framework implementation and of those that do, 
+% we find that their releases are seldom packaged as reusable libraries, distributed through package managers, or maintained beyond initial publication.
+% This aligns with expectations as the primary goal is to disseminate research ideas rather than deliver production-grade software.
+% Nonetheless, the condition of the codebases we find often lack interfaces and clear documentation needed for straightforward implementation.
 
 Slightly more than half of the works do, however, provide specifications of the computing environment, \textit{e.g., processor capabilities and memory capacity}, used to run evaluations.
 \maxnote{add to significance}
 
-\noindent{\textbf{Dataset characteristics.}}
+\noindent{\textbf{Non-overlapping datasets.}}
 We find little overlap 
 Framework evaluations use darknet traffic sourced from a variety of telescopes over different timeframes.
 Traffic volumes differ by multiple orders of magnitude and likely in other metrics as well.
@@ -374,7 +399,6 @@ Slightly fewer than half of our surveyed works evaluate their proposed methodolo
 Of those, use of a dataset does not extend beyond an individual work, i.e., real-world traffic datasets are not widely shared for researchers to evaluate their methodologies.
 
 
-
 \begin{enumerate}
 	\item we can't reasonably compare frameworks by their performance on different datasets.
 	\item Few works compare different frameworks on the same dataset
@@ -385,7 +409,8 @@ Of those, use of a dataset does not extend beyond an individual work, i.e., real
     \small
     % \centering
     \setlength{\tabcolsep}{4pt}
-	\caption{Implementation and evaluation details of our surveyed work. Darknet owner indicates which telescope provided each dataset. Traffic volume is split into packets and bytes.}
+    \caption{Details of empirical evaluation and traffic datasets found in our surveyed work. Appx. Table~\ref{@@} summarizes referenced telescopes.}
+	% \caption{Implementation and evaluation details of our surveyed work. Darknet owner indicates which telescope provided each dataset. Traffic volume is split into packets and bytes.}
     \label{tab:eval}
     \begin{tabular}{@{}lccccccccc@{}}
         \toprule
@@ -397,133 +422,142 @@ Of those, use of a dataset does not extend beyond an individual work, i.e., real
         \cmidrule(lr){3-4} \cmidrule(lr){6-9}
         \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} &  & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
         \midrule
-        \textbf{Soro et al.~\cite{2020soro}}
-        & \xmark
-        & \xmark & \xmark
-        & T4
-        & 3w & 2019
-        & --- & ---
-        & \xmark \\
-
         Evrard et al.~\cite{2019evrard}
-        & \xmark
-        & \xmark & \xmark
+        &  
+        &  & 
         & T3, T6
         & 9m & 2015
         & ${\approx}8\times10^{8}$ & ---
-        & \wc{heuristic} \\
+        & Manual \\
 
         Lagraa et al.~\cite{2017lagraa,2019lagraa}
-        & \xmark
-        & \xmark & \cmark
+        &  
+        &  & \cmark
         & T6
         & 2y & 2014
         & $2\times10^{9}$ & 500 GB
-        & \wc{manual, DK} \\
+        & Manual \\
+
+        Soro et al.~\cite{2020soro}
+        &  
+        &  & 
+        & T4
+        & 3w & 2019
+        & --- & ---
+        & Manual \\
+
+        Nishikaze et al.~\cite{2015nishikaze}
+        &  
+        &  & 
+        & T3
+        & 28d & 2014
+        & $3.03\times10^{8}$ & ---
+        &  Manual \\
 
         Kallitsis et al.~\cite{2022kallitsis}
-        & \cmark~\cite{2021gioacchini}
+        & \cite{2021gioacchini}
         & \cmark & \cmark
         & T2
         & 28d & 2016
         & $49\times10^{9}$ & ---
-        & \wc{manual, DK} \\
+        & Manual, Labeled \\
 
         Iglesias et al.~\cite{2019iglesias}
-        & \xmark
-        & \xmark & \cmark
+        &  
+        &  & \cmark
         & T1
         & 1m & 2012
         & --- & 2.1 TB
-        & \xmark \\
-
-        Nishikaze et al.~\cite{2015nishikaze}
-        & \xmark
-        & \xmark & \xmark
-        & T3
-        & 28d & 2014
-        & $3.03\times10^{8}$ & ---
-        & \xmark \\
+        &  Manual \\
 
         Gioacchini et al.~\cite{2021gioacchini,2023gioacchini}
-        & \cmark~\cite{2020cohen}
+        & \cite{2020cohen}
         & \cmark & \cmark
         & T4
         & 30d & 2021
         & $6.3\times10^{7}$ & ---
-        & \wc{manual} \\
+        & Labeled \\
 
         Cohen et al.~\cite{2020cohen}
-        & \cmark~\cite{2016ban}
-        & \xmark & \cmark
+        & \cite{2016ban}
+        &  & \cmark
         & Ad hoc ($\approx$/22)
         & 1y & 2019
         & --- & $3+\,\mathrm{TB}$
         & \wc{manual} \\
 
         Han et al.~\cite{2021han,2022han}
-        & \cmark
-        & \cmark & \xmark
+        & \cite{2020han,2006takeuchi,2019kanehara}
+        & \cmark & 
         & T3
         & 1m & 2018
         & --- & ---
         & \wc{manual} \\
 
         Han et al.~\cite{2020han,2022han}
-        & \cmark
+        & \cite{2006takeuchi}
         & \cmark & \cmark
         & T3
-        & 1w & 2018
+        & 1m & 2018
         & --- & ---
         & \wc{manual} \\
 
         Kanehara et al.~\cite{2019kanehara,2022han}
-        & \cmark
-        & \xmark & \cmark
+        & 
+        &  & \cmark
         & T3
         & 6m & 2018
-        & --- & $5+$ GB/day
+        & --- &
         & \wc{manual} \\
 
         Ban et al.~\cite{2017ban}
-        & \xmark
-        & \xmark & \xmark
+        & \cite{2012ban}
+        &  & 
         & T3
         & --- & ---
         & --- & ---
-        & \wc{manual} \\
+        & Manual \\
 
         Ban et al.~\cite{2016ban}
-        & \xmark
-        & \xmark & \xmark
+        & 
+        &  & 
         & T3
         & 1y & 2015
         & $3\times10^{7}$ & ---
-        & \xmark \\
+        & Manual \\
 
         Bou-Harb et al.~\cite{2014bouharb}
-        & \xmark
-        & \xmark & \xmark
+        &  
+        &  & 
         & T7
         & 1m & 2013
         & --- & ---
-        & \xmark \\
+        &  \\
 
         Bou-Harb et al.~\cite{2019bouharb,2015bouharb}
         & \cmark
-        & \xmark & \cmark
+        &  & \cmark
         & T7
         & 1m & 2016
         & --- & 240 GB
         & \wc{manual} \\
 
-        \textbf{Zakroum et al.~\cite{2022zakroum,2018zakroum}}
-        & \cmark
-        & \xmark & \cmark
+        Zakroum et al.~\cite{2022zakroum,2018zakroum}
+        & ~\cite{2018zakroum}
+        & & \cmark
         & T3, T6
         & 3.5y & 2017
-        & --- & $1.5+\mathrm{TB}$
-        & \xmark \\
+        & $10^{10}$ & $1.5+\mathrm{TB}$
+        &  \\
+
+        Zakroum et al.~\cite{2023zakroum}
+        & ~\cite{2023zakroum}
+        & &
+        & T3, T6
+        & 4.5y & 2018
+        & --- & ---
+        & TODO \\
+
         \midrule
         \textbf{Aggregate}
         & 7/16
