@@ -244,7 +244,7 @@ thresholding as a final-pass, semi-automatic means of filtering outputs before m
     \label{fig:taxonomy}
 \end{figure}
 
-\subsection{Scan Detection Methodologies}
+\subsection{Scan Detection}
 
 Frameworks designed to detect scanning in darknet traffic typically base their event schemas around either source or destination attributes.
 Source-based schemas discern various sender behaviors within incoming traffic to a darknet; in contrast, destination-based schemas emphasize specific targets that incoming traffic directs towards.
@@ -286,10 +286,10 @@ Kanehara et al.~\cite{@@} apply
 \noindent{\textbf{Destination-based detection}}
 
 
-\subsection{Backscatter Detection Methodologies}
+\subsection{Backscatter Detection}
 
 
-\subsection{Outage Detection Methodologies}
+\subsection{Outage Detection}
 
 
 % We review individual components of each framework, considering their impact on \textit{the high-level }
@@ -311,64 +311,166 @@ Kanehara et al.~\cite{@@} apply
 % \textbf{Algorithm(s)} 
 
 % \begin{center}
-    \begin{table}[]
-        \small
-        % \scriptsize
-        \caption{Characteristics of event detection frameworks proposed in our surveyed literature.}
-        \label{tab:frameworks}
-        \begin{tabular}{lllclc}
-            \toprule
-            \multicolumn{1}{c}{Work} & \multicolumn{5}{c}{Framework} \\
-            \midrule
-            & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{iii. Algorithm(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
-            \midrule
-            Evrard et al.~\cite{2019evrard}                        & \markX                    & \markB        & Dijkstra's~\cite{1959dijkstra}, K-NN~\cite{1967cover,1989fix} & \markD & Dst. Port \\
-            Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX                    & \markB        & Louvain~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
-            Kallitsis et al.~\cite{2022kallitsis}                  & \markX\markY              & \markI\markA\markB  & Autoencoder Dimensionality Reduction~\cite{2006hinton}, K-Means~\cite{1967macqueen} & \markE & Src. IP   \\
-            Iglesias et al.~\cite{2019iglesias}                    & \markX\markY              & \markB\markH  & K-Medoids~\cite{2009park}, Fuzzy-Gustafson~\cite{1999krishnapuram}, MAD-Thresholding~\cite{2004liu} & \markE & Src. IP   \\
-            Nishikaze et al.~\cite{2015nishikaze}                  & \markX                    & \markB        & Hierarchical Clustering           & \markE & Src. /16  \\
-            Soro et al.~\cite{2020soro}                            & \markX                    & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. AS   \\
-            % Cohen et al.~\cite{2020cohen}                          & \markX          & \markA\markB  & Word2vec, DBSCAN & \markF & Dst. Port \\
-            Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, K-NN~\cite{1967cover,1989fix}, Louvain~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
-            % Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, Louvain ~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
-            Han et al.~\cite{2021han,2022han}                      & \markX                    & \markA        & NMF~\cite{2000lee}    & \markG & Src. /16, Dst. Port \\
-            Han et al.~\cite{2020han,2022han}                      & \markX\markEtc            & \markA        & GLASSO~\cite{2008friedman} & \markG & Src. /16  \\
-            Kanehara et al.~\cite{2019kanehara,2022han}            & \markX                    & \markA\markH  & LRA-NTD~\cite{2015zhou}, FTSD~\cite{2010caiafa}, Otsu-Thresholding~\cite{1979otsu}          & \markG & Src. /16, Dst. Port \\
-            Kartsioukas et al.~\cite{2023kartsioukas}              & \markX                    & \markA\markH  & Incremental PCA~\cite{2012arora} & \markG & \textit{TODO} \\
-            Ban et al.~\cite{2016ban}                              & \markX                    & \markA        & Frequent Pattern Mining~\cite{2000han,2007han}, Hierarchical Clustering~\cite{2012murtagh}  & \markF\markG & Dst. Port \\ 
-            Torabi et al.~\cite{2020torabi,2018torabi}             & \markX                    & \markJ        & Association Rule Mining~\cite{1993agrawal}, DBSCAN~\cite{1996ester} & \markD,\markE & \textit{TODO} \\
-            Tanaka et al.~\cite{2023tanaka,2021tanaka}             & \markX                    & \textit{TODO} & \textit{TODO} & Source \\
-            Niranjana et al.~\cite{2019niranjana}                  & \markX                    & \markA\markB  & PCA~\cite{1901pearson,1993hotelling} &  Source \\
-            Cabana et al.~\cite{2019cabana}                        & \markX                    & \markB\markH  & Conduction Detection Algorithm~\cite{2015lu}, Fastcluster~\cite{2013mullner} & \markD\markE & \textit{TODO} \\
-            Shaikh et al.~\cite{2018shaikh}                        & \markX\markY\markZ\markEtc & \textit{TODO} & AdaBoost~\cite{@@}, Gradient Boosting~\cite{@@}, Random Forest~\cite{@@}     & \markE       & \textit{TODO} \\  
-            % Ban et al.~\cite{2017ban}                              & \markX          & \markH        & CUMSUM & \markG & \\
-            % Bou-Harb et al.~\cite{bouharb2013dfa,2014bouharb}      &  & & & & \\
-            % & & & & 
-            %  & Src.\& Dst. IP, Src.\&Dest Port,\\
-            % \rowcolor{gray!50}
-            %  \multirow{-2}{*}{Bou-Harb et al.~\cite{2019bouharb,2015bouharb}}    & \multirow{-2}{*}{\markX\markEtc}  & \multirow{-2}{*}{\markC\markB}  & &  \multirow{-2}{*}{\markE}& Protocol, TTL, Flags\\
-            %  \rowcolor{white}
-            Zakroum et al.~\cite{2022zakroum,2018zakroum}          & \markX          & \markC\markB  & Spectral Clustering~\cite{2001ng}, LSTM~\cite{1997hochreiter}       & \markG        & Dst. Port \\
-            \bottomrule
-            \multicolumn{6}{l}{Activities: \markX-Scanning, \markY-DDoS, \markZ-Outage, \markEtc-Misconfiguration} \\
-            \rowcolor{white}
-            \multicolumn{6}{l}{Techniques:\markA-Dimensionality Reduction, \markB-Clustering, \markC-Forecasting, \markH-Thresholding, \markI-Representation Learning, \markJ-Frequent Pattern Mining, \markH-Fingerprinting} \\
-            \multicolumn{6}{l}{Traffic representation: \markD-Graph, \markE-Feature Vector, \markF-Sequences, \markG-Time Series}
-        \end{tabular}
-    \end{table}
+    % \begin{table}[]
+    %     \small
+    %     % \scriptsize
+    %     \caption{Characteristics of event detection frameworks proposed in our surveyed literature.}
+    %     \label{tab:frameworks}
+    %     \begin{tabular}{lllclc}
+    %         \toprule
+    %         \multicolumn{1}{c}{Work} & \multicolumn{5}{c}{Framework} \\
+    %         \midrule
+    %         & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{iii. Algorithm(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
+    %         \midrule
+    %         Evrard et al.~\cite{2019evrard}                        & \markX                    & \markB        & Dijkstra's~\cite{1959dijkstra}, K-NN~\cite{1967cover,1989fix} & \markD & Dst. Port \\
+    %         Lagraa et al.~\cite{2017lagraa,2019lagraa}             & \markX                    & \markB        & Louvain~\cite{2006newman,2008blondel} & \markD & Dst. Port \\
+    %         Kallitsis et al.~\cite{2022kallitsis}                  & \markX\markY              & \markI\markA\markB  & Autoencoder Dimensionality Reduction~\cite{2006hinton}, K-Means~\cite{1967macqueen} & \markE & Src. IP   \\
+    %         Iglesias et al.~\cite{2019iglesias}                    & \markX\markY              & \markB\markH  & K-Medoids~\cite{2009park}, Fuzzy-Gustafson~\cite{1999krishnapuram}, MAD-Thresholding~\cite{2004liu} & \markE & Src. IP   \\
+    %         Nishikaze et al.~\cite{2015nishikaze}                  & \markX                    & \markB        & Hierarchical Clustering           & \markE & Src. /16  \\
+    %         Soro et al.~\cite{2020soro}                            & \markX                    & \markB        & Louvain Algorithm~\cite{2006newman,2008blondel} & \markF & Src. AS   \\
+    %         % Cohen et al.~\cite{2020cohen}                          & \markX          & \markA\markB  & Word2vec, DBSCAN & \markF & Dst. Port \\
+    %         Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, K-NN~\cite{1967cover,1989fix}, Louvain~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
+    %         % Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX                    & \markA\markB  & Word2Vec~\cite{2013mikolov}, K-Means~\cite{1967macqueen}, Louvain ~\cite{2006newman,2008blondel} & \markF & Src. IP   \\
+    %         Han et al.~\cite{2021han,2022han}                      & \markX                    & \markA        & NMF~\cite{2000lee}    & \markG & Src. /16, Dst. Port \\
+    %         Han et al.~\cite{2020han,2022han}                      & \markX\markEtc            & \markA        & GLASSO~\cite{2008friedman} & \markG & Src. /16  \\
+    %         Kanehara et al.~\cite{2019kanehara,2022han}            & \markX                    & \markA\markH  & LRA-NTD~\cite{2015zhou}, FTSD~\cite{2010caiafa}, Otsu-Thresholding~\cite{1979otsu}          & \markG & Src. /16, Dst. Port \\
+    %         Kartsioukas et al.~\cite{2023kartsioukas}              & \markX                    & \markA\markH  & Incremental PCA~\cite{2012arora} & \markG & \textit{TODO} \\
+    %         Ban et al.~\cite{2016ban}                              & \markX                    & \markA        & Frequent Pattern Mining~\cite{2000han,2007han}, Hierarchical Clustering~\cite{2012murtagh}  & \markF\markG & Dst. Port \\ 
+    %         Torabi et al.~\cite{2020torabi,2018torabi}             & \markX                    & \markJ        & Association Rule Mining~\cite{1993agrawal}, DBSCAN~\cite{1996ester} & \markD,\markE & \textit{TODO} \\
+    %         Tanaka et al.~\cite{2023tanaka,2021tanaka}             & \markX                    & \textit{TODO} & \textit{TODO} & Source \\
+    %         Niranjana et al.~\cite{2019niranjana}                  & \markX                    & \markA\markB  & PCA~\cite{1901pearson,1993hotelling} &  Source \\
+    %         Cabana et al.~\cite{2019cabana}                        & \markX                    & \markB\markH  & Conduction Detection Algorithm~\cite{2015lu}, Fastcluster~\cite{2013mullner} & \markD\markE & \textit{TODO} \\
+    %         Shaikh et al.~\cite{2018shaikh}                        & \markX\markY\markZ\markEtc & \textit{TODO} & AdaBoost~\cite{@@}, Gradient Boosting~\cite{@@}, Random Forest~\cite{@@}     & \markE       & \textit{TODO} \\  
+    %         % Ban et al.~\cite{2017ban}                              & \markX          & \markH        & CUMSUM & \markG & \\
+    %         % Bou-Harb et al.~\cite{bouharb2013dfa,2014bouharb}      &  & & & & \\
+    %         % & & & & 
+    %         %  & Src.\& Dst. IP, Src.\&Dest Port,\\
+    %         % \rowcolor{gray!50}
+    %         %  \multirow{-2}{*}{Bou-Harb et al.~\cite{2019bouharb,2015bouharb}}    & \multirow{-2}{*}{\markX\markEtc}  & \multirow{-2}{*}{\markC\markB}  & &  \multirow{-2}{*}{\markE}& Protocol, TTL, Flags\\
+    %         %  \rowcolor{white}
+    %         Zakroum et al.~\cite{2022zakroum,2018zakroum}          & \markX          & \markC\markB  & Spectral Clustering~\cite{2001ng}, LSTM~\cite{1997hochreiter}       & \markG        & Dst. Port \\
+    %         \bottomrule
+    %         \multicolumn{6}{l}{Activities: \markX-Scanning, \markY-DDoS, \markZ-Outage, \markEtc-Misconfiguration} \\
+    %         \rowcolor{white}
+    %         \multicolumn{6}{l}{Techniques:\markA-Dimensionality Reduction, \markB-Clustering, \markC-Forecasting, \markH-Thresholding, \markI-Representation Learning, \markJ-Frequent Pattern Mining, \markH-Fingerprinting} \\
+    %         \multicolumn{6}{l}{Traffic representation: \markD-Graph, \markE-Feature Vector, \markF-Sequences, \markG-Time Series}
+    %     \end{tabular}
+    % \end{table}
 % \end{center}
+
+\begin{table}[t]
+    \small
+    \caption{Characteristics of event detection frameworks proposed in our surveyed literature (excluding algorithms).}
+    \label{tab:frameworks-noalgos}
+    \begin{tabular}{llllc}
+        \toprule
+        \multicolumn{1}{c}{Work} & \multicolumn{4}{c}{Framework} \\
+        \midrule
+        & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
+        \midrule
+        Evrard et al.~\cite{2019evrard} & \markX & \markB & \markD & Dst. Port \\
+        Lagraa et al.~\cite{2017lagraa,2019lagraa} & \markX & \markB & \markD & Dst. Port \\
+        Kallitsis et al.~\cite{2022kallitsis} & \markX\markY & \markI\markA\markB & \markE & Src. IP \\
+        Iglesias et al.~\cite{2019iglesias} & \markX\markY & \markB\markH & \markE & Src. IP \\
+        Nishikaze et al.~\cite{2015nishikaze} & \markX & \markB & \markE & Src. /16 \\
+        Soro et al.~\cite{2020soro} & \markX & \markB & \markF & Src. AS \\
+        Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & \markX & \markA\markB & \markF & Src. IP \\
+        Han et al.~\cite{2021han,2022han} & \markX & \markA & \markG & Src. /16, Dst. Port \\
+        Han et al.~\cite{2020han,2022han} & \markX\markEtc & \markA & \markG & Src. /16 \\
+        Kanehara et al.~\cite{2019kanehara,2022han} & \markX & \markA\markH & \markG & Src. /16, Dst. Port \\
+        Kartsioukas et al.~\cite{2023kartsioukas} & \markX & \markA\markH & \markG & \textit{TODO} \\
+        Ban et al.~\cite{2016ban} & \markX & \markA & \markF\markG & Dst. Port \\ 
+        Torabi et al.~\cite{2020torabi,2018torabi} & \markX & \markJ & \markD,\markE & \textit{TODO} \\
+        Tanaka et al.~\cite{2023tanaka,2021tanaka} & \markX & \textit{TODO} & Source & \textit{TODO} \\
+        Niranjana et al.~\cite{2019niranjana} & \markX & \markA\markB & Source & \textit{TODO} \\
+        Cabana et al.~\cite{2019cabana} & \markX & \markB\markH & \markD\markE & \textit{TODO} \\
+        Shaikh et al.~\cite{2018shaikh} & \markX\markY\markZ\markEtc & \textit{TODO} & \markE & \textit{TODO} \\  
+        Zakroum et al.~\cite{2022zakroum,2018zakroum} & \markX & \markC\markB & \markG & Dst. Port \\
+        \bottomrule
+    \end{tabular}
+
+    \vspace{2pt}
+    \parbox{\linewidth}{\raggedright
+        \textit{Activities:} \markX~Scanning, \markY~DDoS, \markZ~Outage, \markEtc~Misconfiguration.\\
+        \textit{Techniques:} \markA~Dimensionality Reduction, \markB~Clustering, \markC~Forecasting, \markH~Thresholding, \markI~Representation Learning, \markJ~Frequent Pattern Mining, \markH~Fingerprinting.\\
+        \textit{Traffic representation:} \markD~Graph, \markE~Feature Vector, \markF~Sequences, \markG~Time Series.
+    }
+\end{table}
+
+
 
 \label{sec:evaluations}
 \section{Empirical Evaluations of Detection Methodologies}
 
-Here, as a complement to the previous section, we provide a concise overview of empirical evaluations conducted on detection methodologies. 
+
+% This section provides a survey of the empirical evaluations of detection methodologies by examining each of their following aspects:
+% 1) replicability of its detection methodology;
+% 2) characteristics of the datasets used in its experiments; and
+% 3) its means of validating detection outputs.
+
+\begin{enumerate}
+    \item Hypothetical situation: we want to select a detection methodology to apply to a darknet
+    \item Want to know which detection methodology is the most compelling in terms of its detection performance and scalability based on results of their evaluation
+    \item What aspects of evaluation should we look at? What do the aspects tell us?
+    \item So we consider the following aspects:
+    \item replicability of its detection methodology
+    \item characteristics of the datasets used in its experiments
+    \item means of validating detection outputs, reflects the soundness of the evaluation 
+\end{enumerate}
+
+\noindent{\textbf{Replicability of detection methodologies.}}
+\maxnote{tie these back to the main goal of the surveying empirical evaluations}
+
+\begin{enumerate}
+    \item our goal is to compare the detection methodologies
+    \item 
+    \item correct and easily replicable detection methodologies requires available implementations and specifications of hardware 
+    \item in the absence of these two, the next best thing is complete and understandable documentation of the detection methodology itself
+    \item but we don't consider that as an option because its prone to implementation errors
+\end{enumerate}
+
+\noindent{\textbf{Characteristics of darknet traffic datasets.}}
+\begin{enumerate}
+    \item We consider the timeframe, telescope and telescope size, and the collected traffic volumes in terms of packets and bytes.
+    \item These are enough to infer: major events that might be embedded in the traffic, whether detection methods caught these events, how scalable the detection method is, 
+\end{enumerate}
+
+\noindent{\textbf{Validation of detection outputs.}}
+\begin{enumerate}
+    \item Some authors run their method, grab outputs, manually inspect and interpret the results.
+    \item Other authors first label their data, run their method, grab outputs, compute accuracy metrics using pre-labeled data.
+    \item Other authors run their method, grab outputs, join outputs against an external data source, and then interpret
+\end{enumerate}
+
+% Here, as a complement to the previous section, we provide a concise overview of empirical evaluations conducted on detection methodologies. 
 % Since assessing in-practice performance of any given methodology rests on the results of well-designed, experimental evaluation, 
 
 % The utility of event detection frameworks depend on their performance as demonstrated in well-designed, experimental evaluations. 
 % We provide a concise overview of the components of such evaluation found in our surveyed literature by assessing their replicability, 
 % characteristics of their datasets, and the coverage of side-by-side framework comparisons.
 
-\noindent{\textbf{Limited method replicability.}} 
+\section{A need for systemized evaluation of detection methodologies}
+
+\noindent{\textbf{Side-by-side methodology comparisons.}}
+Fewer than half of our surveyed works directly compare detection methodologies via evaluations on the same dataset.
+
+% Evaluations that directly compare detection methodologies on the same dataset yield the most definitive results of their relative capabilities.
+% Fewer than half of surveyed works fit this criteria 
+% Evaluation of detection methodologies by directly comparing their Direct comparisons of detection methodologies yield
+% Evaluation of detection methodologies  yield definitive results.
+% Slightly fewer than half of our surveyed works evaluate their proposed methodology against a baseline methodology using the same dataset.
+% Of those, use of a dataset does not extend beyond an individual work, i.e., real-world traffic datasets are not widely shared for researchers to evaluate their methodologies.
+
+
+\begin{enumerate}
+    \item direct comparisons of detection methodologies by evaluating them on the same dataset is the ideal scenario
+    \item Slightly fewer than half of surveyed works fit this criteria
+	\item we can't reasonably compare frameworks by their performance on different datasets.
+	\item Few works compare different frameworks on the same dataset
+	\item What's the highest number of frameworks that use the same dataset?
+\end{enumerate}
+
+\noindent{\textbf{Limited replicability of detection methodologies.}} 
 Less than a third of studies publish source code of their methodologies and of those that do, their releases are seldom packaged as reusable libraries, distributed through package managers, or maintained beyond initial publication. 
 While the primary goal of these studies is to disseminate research ideas rather than deliver production-grade software, their codebases nonetheless lack interfaces and clear documentation needed for straightforward implementation and thereby discourages frictionless replication.
 % Less than a third of the studies publish accompanying source code of their framework implementation and of those that do, 
@@ -379,11 +481,18 @@ While the primary goal of these studies is to disseminate research ideas rather 
 Slightly more than half of the works do, however, provide specifications of the computing environment, \textit{e.g., processor capabilities and memory capacity}, used to run evaluations.
 \maxnote{add to significance}
 
-\noindent{\textbf{Non-overlapping datasets.}}
-We find little overlap 
-Framework evaluations use darknet traffic sourced from a variety of telescopes over different timeframes.
-Traffic volumes differ by multiple orders of magnitude and likely in other metrics as well.
-\maxnote{table revision: move annotation}
+\noindent{\textbf{Non-overlapping datasets used for experimentation.}}
+\begin{enumerate}
+    \item little overlap in the datasets used to evaluate frameworks
+    % \item evaluation of detection methodologies use darknet traffic sourced from a variety of telescopes over different timeframes
+    \item traffic volumes differ by multiple orders of magnitude.
+    \item different sources of traffic
+    \item mostly non-overlapping timeframes
+\end{enumerate}
+% We find little overlap 
+% Framework evaluations use darknet traffic sourced from a variety of telescopes over different timeframes.
+% Traffic volumes differ by multiple orders of magnitude and likely in other metrics as well.
+% \maxnote{table revision: move annotation}
 
 \begin{enumerate}
 	\item different datasets are used to evaluate frameworks
@@ -392,17 +501,6 @@ Traffic volumes differ by multiple orders of magnitude and likely in other metri
 	\item Which annotations are commonly used as ground truth? Mira. Which works?
 	\item Epistemic-soundness is an issue, what's used as approximate ground truth? How valid are these annotations?
 	\item When ground-truth isn't available, how is performance evaluated?
-\end{enumerate}
-
-\noindent{\textbf{Side-by-side methodology comparisons.}}
-Slightly fewer than half of our surveyed works evaluate their proposed methodology against a baseline methodology using the same dataset.
-Of those, use of a dataset does not extend beyond an individual work, i.e., real-world traffic datasets are not widely shared for researchers to evaluate their methodologies.
-
-
-\begin{enumerate}
-	\item we can't reasonably compare frameworks by their performance on different datasets.
-	\item Few works compare different frameworks on the same dataset
-	\item What's the highest number of frameworks that use the same dataset?
 \end{enumerate}
 
 \begin{table*}[h!]
@@ -571,18 +669,27 @@ Of those, use of a dataset does not extend beyond an individual work, i.e., real
 \end{table*}
 
 \label{sec:fw}
-\section{Open Challenges and Future Work}
+\section{Future Work}
 
-Our survey identifies that while research efforts have been highly productive in generating compelling frameworks for automating darknet event detection, 
-critical gaps remain that hinder a comprehensive understanding of their in-practice detection capabilities.
+% Our survey identifies that while research efforts have been highly productive in generating compelling frameworks for automating darknet event detection, 
+% critical gaps remain that hinder a comprehensive understanding of their in-practice detection capabilities.
+
+\begin{enumerate}
+    \item there's been a lot of work on detection methodologies, but less focus on evaluating their relative capabilities.
+    \item we need a systematic approach to do this, which depends on addressing the limitations mentioned in previous section.
+    \item 
+\end{enumerate}
 
 \noindent{\textbf{Curated datasets.}}
 
-Labels applied to a dataset do not necessarily have to be ground truth, e.g., they can be the outputs of other methodologies, but their definitions 
-need to be known. 
+% Labels applied to a dataset do not necessarily have to be ground truth, e.g., they can be the outputs of other methodologies, but their definitions 
+% need to be known. 
 
 \begin{enumerate}
-	\item Labels
+    \item Datasets need to be made available for researchers use in their evaluations
+    \item Labels need to accompany these datasets. 
+    \item Label definitions can be flexible. Examples include signatures of scanning tools, scanning organizations based on registered address ranges, or the outputs of detection methodologies
+    \item Still, the main point is we need common inputs along with measurable targets in order to more rigorously evaluate and compare methodologies
 \end{enumerate}
 
 \noindent{\textbf{Systematic evaluation.}}
@@ -618,6 +725,38 @@ asadfadsf
 		\bottomrule
 	\end{tabular}
 \end{table}
+
+\begin{table}[]
+    \small
+    \caption{Algorithms used by each surveyed framework.}
+    \label{tab:frameworks-algorithms}
+    % Use p{<width>} to allow wrapping of long algorithm lists.
+    \begin{tabular}{lp{0.62\linewidth}}
+        \toprule
+        \textbf{Work} & \textbf{Algorithm(s)} \\
+        \midrule
+        Evrard et al.~\cite{2019evrard}                        & Dijkstra's~\cite{1959dijkstra}; K-NN~\cite{1967cover,1989fix} \\
+        Lagraa et al.~\cite{2017lagraa,2019lagraa}             & Louvain~\cite{2006newman,2008blondel} \\
+        Kallitsis et al.~\cite{2022kallitsis}                  & Autoencoder Dimensionality Reduction~\cite{2006hinton}; K-Means~\cite{1967macqueen} \\
+        Iglesias et al.~\cite{2019iglesias}                    & K-Medoids~\cite{2009park}; Fuzzy-Gustafson~\cite{1999krishnapuram}; MAD-Thresholding~\cite{2004liu} \\
+        Nishikaze et al.~\cite{2015nishikaze}                  & Hierarchical Clustering~\cite{2012murtagh} \\
+        Soro et al.~\cite{2020soro}                            & Louvain Algorithm~\cite{2006newman,2008blondel} \\
+        Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & Word2Vec~\cite{2013mikolov}; K-Means~\cite{1967macqueen}; K-NN~\cite{1967cover,1989fix}; Louvain~\cite{2006newman,2008blondel} \\
+        Han et al.~\cite{2021han,2022han}                      & NMF~\cite{2000lee} \\
+        Han et al.~\cite{2020han,2022han}                      & GLASSO~\cite{2008friedman} \\
+        Kanehara et al.~\cite{2019kanehara,2022han}            & LRA-NTD~\cite{2015zhou}; FTSD~\cite{2010caiafa}; Otsu-Thresholding~\cite{1979otsu} \\
+        Kartsioukas et al.~\cite{2023kartsioukas}              & Incremental PCA~\cite{2012arora} \\
+        Ban et al.~\cite{2016ban}                              & Frequent Pattern Mining~\cite{2000han,2007han}; Hierarchical Clustering~\cite{2012murtagh} \\
+        Torabi et al.~\cite{2020torabi,2018torabi}             & Association Rule Mining~\cite{1993agrawal}; DBSCAN~\cite{1996ester} \\
+        Tanaka et al.~\cite{2023tanaka,2021tanaka}             & \textit{TODO} \\
+        Niranjana et al.~\cite{2019niranjana}                  & PCA~\cite{1901pearson,1993hotelling} \\
+        Cabana et al.~\cite{2019cabana}                        & Conduction Detection Algorithm~\cite{2015lu}; Fastcluster~\cite{2013mullner} \\
+        Shaikh et al.~\cite{2018shaikh}                        & AdaBoost~\cite{@@}; Gradient Boosting~\cite{@@}; Random Forest~\cite{@@} \\
+        Zakroum et al.~\cite{2022zakroum,2018zakroum}          & Spectral Clustering~\cite{2001ng}; LSTM~\cite{1997hochreiter} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
 
 \begin{acks}
 To Robert, for the bagels and explaining CMYK and color spaces.
