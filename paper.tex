@@ -169,7 +169,7 @@ Casado et al.~\cite{2005casado}
 % Discuss IBR, how it's been analyzed, practical use-cases for security / outage detection
 
 \label{sec:frameworks}
-\section{Darknet Event Detection Methodologies}
+\section{Methodologies for Darknet Event Detection}
 
 % In this section, we broadly survey existing methodologies that have been proposed to detect various types of darknet events and discuss their commonalities 
 % while emphasizing their differences that pose a challenge to conducting systematic evaluations. \maxnote{revise the takeaway...}
@@ -180,13 +180,19 @@ Casado et al.~\cite{2005casado}
 % Here, we briefly discuss these aspects we consider before expounding on individual works.
 
 % In this section, we broadly survey existing methodologies that have been proposed for detecting various types of darknet activities.
-In this section, we provide a broad survey of existing methodologies that have been proposed for detecting darknet activities and 
-organize prior works into a taxonomy that identifies the need for a systematic evaluation approach to account for the diversity of methods.
-We structure our survey by categorizing detection methodologies primarily based on the type of darknet activity they aim to detect. 
-Within these categories, we review and emphasize two important aspects of each methodology: 
-1) the class(es) of general \textit{techniques} they employ for detection; and 
-2) their definition(s) of an \textit{event} belonging under their broader type of targeted activity.
-We briefly discuss these aspects before discussing the methodologies that comprise our taxonomy as shown in Figure~\ref{fig:taxonomy}.
+In this section, we provide a broad survey of existing methodologies that have been proposed for detecting various kinds of darknet activities.
+We review the defining components that characterize each method and organize a taxonomy (shown in Table~\ref{@@} and visualized in Figure~\ref{@@}) which illustrates \maxnote{takeaway}.
+
+Our survey structure consists of a top-level categorization of detection methodologies based on the broad class of (i) darknet activity they aim to detect.
+Under these categories, we group similar methods by the (ii) general classes of techniques they employ to achieve their (iii) detection objectives.
+Using these groupings, we summarize the intuition behind each method and elaborate on finer-grained details pertaining to their specific (iv) algorithms and (v) traffic features.
+Here, we briefly discuss components of the methods we survey.
+
+% We structure our survey by categorizing detection methodologies primarily based on the type of darknet activity they aim to detect. 
+% Within these categories, we review and emphasize two important aspects of each methodology: 
+% 1) the class(es) of general \textit{techniques} they employ for detection; and 
+% 2) their definition(s) of an \textit{event} belonging under their broader type of targeted activity.
+% We briefly discuss these aspects before discussing the methodologies that comprise our taxonomy as shown in Figure~\ref{fig:taxonomy}.
 
 
 \vspace{0.25em}
@@ -246,25 +252,28 @@ thresholding as a final-pass, semi-automatic means of filtering outputs before m
 
 \subsection{Scan Detection}
 
-Frameworks designed to detect scanning in darknet traffic typically base their event schemas around either source or destination attributes.
-Source-based schemas discern various sender behaviors within incoming traffic to a darknet; in contrast, destination-based schemas emphasize specific targets that incoming traffic directs towards.
-\vspace{0.25em}
+A portion of darknet traffic mixtures results from scans that probe the space of Internet addresses, oftentimes targeting application-layer ports.
+Detection of these scans involves identifying their sources and targets through analysis of behavioral patterns, thereby enabling further inference and/or classification of their intent.
+This section provides a survey of the methodologies proposed for detecting scanning activities in darknet traffic. 
+
+% Frameworks designed to detect scanning in darknet traffic typically base their event schemas around either source or destination attributes.
+% Source-based schemas discern various sender behaviors within incoming traffic to a darknet; in contrast, destination-based schemas emphasize specific targets that incoming traffic directs towards.
+% \vspace{0.25em}
 
 % Frameworks designed to detect scanning events in darknet traffic typically base their event schema on either source or destination attributes.
 % Source-based event schemas enable discernment of different types of sender behavior within incoming traffic to a darknet whereas in contrast, 
 % destination-based event schemas identify specific targets that incoming traffic is directed towards.
 
-
 % Enummerate works here
-\noindent{\textbf{Sourced-based detection}} occurs at a variety of resolutions, ranging from individual and subnetted addresses to the level of autonomous-systems (ASes).
-Several of these leverage representation learning combined with clustering at the level of individual source IPs. \maxnote{revise}
-Gioacchini et al.~\cite{@@} propose a domain-specific adaptation of Word2Vec that detect anomalous clusters of senders from their arrival order in packet sequences. 
-Kallitsis et al.~\cite{@@} used a more comprehensive set of features to train autoencoders, clustering senders in lower-dimensional embedding space.
-Both operate at the level of individual source IP addresses. 
+% \noindent{\textbf{Sourced-based detection}} occurs at a variety of resolutions, ranging from individual and subnetted addresses to the level of autonomous-systems (ASes).
+% Several of these leverage representation learning combined with clustering at the level of individual source IPs. \maxnote{revise}
+% Gioacchini et al.~\cite{@@} propose a domain-specific adaptation of Word2Vec that detect anomalous clusters of senders from their arrival order in packet sequences. 
+% Kallitsis et al.~\cite{@@} used a more comprehensive set of features to train autoencoders, clustering senders in lower-dimensional embedding space.
+% Both operate at the level of individual source IP addresses. 
 
-Other closely-related frameworks employ dimensionality reduction techniques that rely on linear methods\footnote{while dimensionality reduction can be considered representation learning, we distinguish the two primarily by linearity of the method}.
-In a series of works, Han et al.~\cite{@@} separately apply Non-negative Matrix Factorization and Graphical LASSO alongside ad-hoc thresholding techniques to identify coordinated senders.
-Kanehara et al.~\cite{@@} apply 
+% Other closely-related frameworks employ dimensionality reduction techniques that rely on linear methods\footnote{while dimensionality reduction can be considered representation learning, we distinguish the two primarily by linearity of the method}.
+% In a series of works, Han et al.~\cite{@@} separately apply Non-negative Matrix Factorization and Graphical LASSO alongside ad-hoc thresholding techniques to identify coordinated senders.
+% Kanehara et al.~\cite{@@} apply 
 
 
 % Sourced-based Frameworks
@@ -277,20 +286,40 @@ Kanehara et al.~\cite{@@} apply
 % (NMF), and Graphical LASSO (GLASSO) to darknet traffic time series before thresholding ouputs
 % to identify timeframes of potential coordinated scanning.
 
+\noindent{\textbf{Sender Classification}}
+Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} propose a domain-specific adaptation of Word2Vec to embed senders based on their order of arrival from packet sequences \maxnote{defined over variations of port combinations}.
+Kallitsis et al.~\cite{2022kallitsis} include a more comprehensive set of features to train autoencoders and subsequently cluster sender embeddings of a lower-dimensional space. 
+Nishikaze et al.~\cite{2015nishikaze} cluster feature vectors that represent source /16 subnets and 27 selected features.
+Zakroum et al.~\cite{2023zakroum} 
+
+\vspace{0.25em}
+\noindent{\textbf{}}
+Han et al.~\cite{@@}, Kanehara et al.~\cite{@@}, and Kartsioukas et al.~\cite{@@} employ classic dimensionality reduction techniques, specifically on time-series representations of darknet traffic, alongside ad-hoc thresholding techniques to identify timeframes containing sources of coordinated scanning or targeted services by their ports.
+These techniques include algorithms such as Non-negative matrix factorization (NMF)~\cite{@@}, Non-negative tucker-decomposition (NTD)~\cite{@@}, and Kartsioukas et al.~\cite{@@}, each of which reduce the space of potential source and destination tuples by filtering for those whose time series possess high reconstruction errors. 
+Graphical LASSO~\cite{@@} instead focuses solely on sources by identifying non-trivial correlations in TCP-SYN packet volumes sent by source /16 subnetworks.
+
 % On the other hand, destination-based frameworks focus exclusively on detecting target destionation ports.
 % Evrard
 % Lagraa
 % Ban 
 
-\vspace{0.25em}
-\noindent{\textbf{Destination-based detection}}
+Another group of methods employ graph-mining techniques to model scanning behavior.
+Evrard et al.~\cite{@@} and Lagraa et al.~\cite{@@} represent TCP scan traffic as unipartite graphs, where nodes represent ports and edges represent consecutive port scans, respectively on a global- and individual sender IP-basis. 
+To extract similarly probed ports, Evrard et al.~\cite{@@} threshold a shortest-path similarity metric while Lagraa et al.~\cite{@@} instead threshold node centrality measures, such as degree centrality and betweenness measure, applied to a unified scan-graph.
+In follow-up work, Lagraa et al.~\cite{@@} provide an additional graph definition aimed to detect horizontal scanners by redefining nodes as darknet destination addresses probed on the same port and employ an alternative clustering metric that measures graph modularity.
+Soro et al.~\cite{@@} define weighted bipartite graphs that link source Autonomous Systems (ASes) to destination ports based on the number of packets in TCP scan traffic that ASes send and extract ASes that target similar sets of ports using the Greedy Modularity Algorithm.
 
 
 \subsection{Backscatter Detection}
 
-
 \subsection{Outage Detection}
+Guillot et al.~\cite{2019guillot} detects outages using forecasts of the expected number of unique senders aggregated on per Autonomous System (AS) and per country-level granularities.
+Their forecasts are generated from a seasonal autoregressive integrated moving average (SARIMA) model trained on historical counts derived from all types of darknet traffic, regardless of protocol; sender counts beyond specified thresholds of predicted counts are treated as outages.
+Enyanet et al.~\cite{2024enyanet} propose a methodology that detects outages at various subnet-sized granularities by thresholding forecasts produced from Bayesian inferences.   
 
+\begin{enumerate}
+    \item 
+\end{enumerate}
 
 % We review individual components of each framework, considering their impact on \textit{the high-level }
 % In addition, we include 
@@ -386,6 +415,9 @@ Kanehara et al.~\cite{@@} apply
         Cabana et al.~\cite{2019cabana} & \markX & \markB\markH & \markD\markE & \textit{TODO} \\
         Shaikh et al.~\cite{2018shaikh} & \markX\markY\markZ\markEtc & \textit{TODO} & \markE & \textit{TODO} \\  
         Zakroum et al.~\cite{2022zakroum,2018zakroum} & \markX & \markC\markB & \markG & Dst. Port \\
+        Zakroum et al.~\cite{2023zakroum} & \markX & \markC\markB & \markG & Dst. Port \\
+        Guillot et al.~\cite{2019guillot} & \markZ& \markC\markB & \markG & Dst. Port \\
+        Enyanet et al.~\cite{2024enyanet} & \markZ & \markC\markB & \markG & Dst. Port \\
         \bottomrule
     \end{tabular}
 
@@ -400,56 +432,71 @@ Kanehara et al.~\cite{@@} apply
 
 
 \label{sec:evaluations}
-\section{Empirical Evaluations of Detection Methodologies}
+\section{Empirical Assessments of Detection Methodologies}
 
+To demonstrate the utility of their detection methodologies, prior works conduct assessments using real-world darknet traffic datasets.
+These assessments and their results provide evidence of a method's performance under realistic settings and offer empirical insights into its detection capabilities and general scalability.
+In this section, we characterize prior works along the lines of credibility and reproducibility of their assessments by reviewing:
+(i) characteristics of the darknet traffic datasets they use; and
+(ii) their approach to validating detection outputs of their methodology.
+Furthermore, we consider implementation details of detection methodologies since the reproducibility of assessments and results are closely tied to the availability of method source code and specifications of chosen computational environments.
+
+% review several components of these assessments (summarized in Table~\ref{@@}) as they relate to the credibility and reproducibility of darknet event detection research.
+% We furthermore consider implementation details of detection methodologies since the reproducibility of assessments and results are closely tied to the availability of method source code and specifications of chosen computational environments.
+% We structure our survey of assessments in this section according to 
+
+% Assessing event detection methodologies is crucial for understanding both their scientific credibility and their practical applicability. 
+% Evaluations based on real-world data provide evidence of how well a method performs in realistic settings, offering insight into its detection capabilities and scalability when applied to large-scale darknet traffic. 
+% Moreover, assessments reveal how replicable a methodology is—whether others can implement it and reproduce its results under comparable conditions. 
+% To examine these aspects, we decompose prior works’ empirical assessments into two components: 
+% the implementation of the methodology, which involves coding and executing it within a chosen computational environment, 
+% and the evaluation of its performance on darknet data, including how its detections are validated. 
+% Together, these dimensions form the foundation for understanding the reliability and reproducibility of event detection research.
 
 % This section provides a survey of the empirical evaluations of detection methodologies by examining each of their following aspects:
 % 1) replicability of its detection methodology;
 % 2) characteristics of the datasets used in its experiments; and
 % 3) its means of validating detection outputs.
 
-\begin{enumerate}
-    \item Hypothetical situation: we want to select a detection methodology to apply to a darknet
-    \item Want to know which detection methodology is the most compelling in terms of its detection performance and scalability based on results of their evaluation
-    \item What aspects of evaluation should we look at? What do the aspects tell us?
-    \item So we consider the following aspects:
-    \item replicability of its detection methodology
-    \item characteristics of the datasets used in its experiments
-    \item means of validating detection outputs, reflects the soundness of the evaluation 
-\end{enumerate}
+% \begin{enumerate}
+%     \item Hypothetical situation: we want to select a detection methodology to apply to a darknet
+%     \item Want to know which detection methodology is the most compelling in terms of its detection performance and scalability based on results of their evaluation
+%     \item What aspects of evaluation should we look at? What do the aspects tell us?
+%     \item So we consider the following aspects:
+%     \item replicability of its detection methodology
+%     \item characteristics of the datasets used in its experiments
+%     \item means of validating detection outputs, reflects the soundness of the evaluation 
+% \end{enumerate}
 
-\noindent{\textbf{Replicability of detection methodologies.}}
-\maxnote{tie these back to the main goal of the surveying empirical evaluations}
-
-\begin{enumerate}
-    \item our goal is to compare the detection methodologies
-    \item 
-    \item correct and easily replicable detection methodologies requires available implementations and specifications of hardware 
-    \item in the absence of these two, the next best thing is complete and understandable documentation of the detection methodology itself
-    \item but we don't consider that as an option because its prone to implementation errors
-\end{enumerate}
 
 \noindent{\textbf{Characteristics of darknet traffic datasets.}}
 \begin{enumerate}
     \item We consider the timeframe, telescope and telescope size, and the collected traffic volumes in terms of packets and bytes.
-    \item These are enough to infer: major events that might be embedded in the traffic, whether detection methods caught these events, how scalable the detection method is, 
+    \item We care about these characteristics since we want to discern how much of a method's performance is attributed to its capabilities versus the traffic conditions represented in the dataset.
+    \item Based on their timeframe, datasets might contain major events.
+    \item Traffic volumes could affect the detection performance of methods.
 \end{enumerate}
 
-\noindent{\textbf{Validation of detection outputs.}}
+\noindent{\textbf{Validation of detection methodologies.}}
 \begin{enumerate}
     \item Some authors run their method, grab outputs, manually inspect and interpret the results.
     \item Other authors first label their data, run their method, grab outputs, compute accuracy metrics using pre-labeled data.
     \item Other authors run their method, grab outputs, join outputs against an external data source, and then interpret
 \end{enumerate}
 
-% Here, as a complement to the previous section, we provide a concise overview of empirical evaluations conducted on detection methodologies. 
-% Since assessing in-practice performance of any given methodology rests on the results of well-designed, experimental evaluation, 
+\noindent{\textbf{Replicability of detection methodologies.}}
+\begin{enumerate}
+    \item Sound comparisons of different methods depend on replicable implementations, i.e., available source code, distributable software, details of computational environment
+    \item Without these, the next best thing well-documented descriptions detection methodology itself (though this is prone to implementation errors)
+    \item \textit{Describe findings}
+\end{enumerate}
 
-% The utility of event detection frameworks depend on their performance as demonstrated in well-designed, experimental evaluations. 
-% We provide a concise overview of the components of such evaluation found in our surveyed literature by assessing their replicability, 
-% characteristics of their datasets, and the coverage of side-by-side framework comparisons.
+\section{A Need for A Systemized Evaluation of Darknet Event Detection Methodologies}
 
-\section{A need for systemized evaluation of detection methodologies}
+\begin{enumerate}
+    \item From the combined survey of methods and their assessments, we find: a diverse set of available approaches that have yet to be completely compared.
+    \item In this section, we drill down into the findings that led to this conclusion and details of these gaps.
+\end{enumerate}
 
 \noindent{\textbf{Side-by-side methodology comparisons.}}
 Fewer than half of our surveyed works directly compare detection methodologies via evaluations on the same dataset.
@@ -488,19 +535,6 @@ Slightly more than half of the works do, however, provide specifications of the 
     \item traffic volumes differ by multiple orders of magnitude.
     \item different sources of traffic
     \item mostly non-overlapping timeframes
-\end{enumerate}
-% We find little overlap 
-% Framework evaluations use darknet traffic sourced from a variety of telescopes over different timeframes.
-% Traffic volumes differ by multiple orders of magnitude and likely in other metrics as well.
-% \maxnote{table revision: move annotation}
-
-\begin{enumerate}
-	\item different datasets are used to evaluate frameworks
-	\item These datasets share different characteristics, evident in their traffic volumes and ostensibly other traffic metrics too since they're sourced from different darknets
-	\item Also annotations. 
-	\item Which annotations are commonly used as ground truth? Mira. Which works?
-	\item Epistemic-soundness is an issue, what's used as approximate ground truth? How valid are these annotations?
-	\item When ground-truth isn't available, how is performance evaluated?
 \end{enumerate}
 
 \begin{table*}[h!]
@@ -671,25 +705,18 @@ Slightly more than half of the works do, however, provide specifications of the 
 \label{sec:fw}
 \section{Future Work}
 
-% Our survey identifies that while research efforts have been highly productive in generating compelling frameworks for automating darknet event detection, 
-% critical gaps remain that hinder a comprehensive understanding of their in-practice detection capabilities.
-
 \begin{enumerate}
-    \item there's been a lot of work on detection methodologies, but less focus on evaluating their relative capabilities.
+    \item We discuss how to address the gaps we identified from our survey by providing ideas 
     \item we need a systematic approach to do this, which depends on addressing the limitations mentioned in previous section.
     \item 
 \end{enumerate}
 
 \noindent{\textbf{Curated datasets.}}
-
-% Labels applied to a dataset do not necessarily have to be ground truth, e.g., they can be the outputs of other methodologies, but their definitions 
-% need to be known. 
-
 \begin{enumerate}
-    \item Datasets need to be made available for researchers use in their evaluations
-    \item Labels need to accompany these datasets. 
-    \item Label definitions can be flexible. Examples include signatures of scanning tools, scanning organizations based on registered address ranges, or the outputs of detection methodologies
-    \item Still, the main point is we need common inputs along with measurable targets in order to more rigorously evaluate and compare methodologies
+    \item Sound comparisons between methods rely on shared datasets whose characteristics are well-documented.
+    \item Traffic within these datasets that are associated with major events should be labeled.
+    \item Label definitions can be flexible, but there needs to be agreement on their definitions.
+    \item Examples include signatures of scanning tools, scanning organizations based on registered address ranges, or the outputs of previously assessed detection methodologies
 \end{enumerate}
 
 \noindent{\textbf{Systematic evaluation.}}

@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex paper"] 1760565858.38444 "paper.aux" "paper.bbl" "paper" 1760565861.63407 0
-  "./bib/refs.bib" 1760376764.15598 30208 8df2e2775fb6ab1855fc048c2a8f0d5b ""
+["bibtex paper"] 1760997595.56263 "paper.aux" "paper.bbl" "paper" 1760997598.12294 0
+  "./bib/refs.bib" 1760981372.8862 30446 8e88aea2211d6e5a4ee909cff8ddbbbf ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "paper.aux" 1760565860.8774 10144 638db184e77aa438138f3f1cbc6a69b3 "pdflatex"
+  "paper.aux" 1760997597.57986 10611 91a048bbe7a8f0c5a74d47f3275d2e5d "pdflatex"
   (generated)
   "paper.bbl"
   "paper.blg"
   (rewritten before read)
-["pdflatex"] 1760565858.613 "/home/offsuit27/Workspace/re/paper.tex" "paper.pdf" "paper" 1760565861.63439 0
+["pdflatex"] 1760997595.71924 "/home/offsuit27/Workspace/re/paper.tex" "paper.pdf" "paper" 1760997598.12326 0
   "/etc/texmf/web2c/texmf.cnf" 1760304741.72577 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/offsuit27/Workspace/re/paper.tex" 1760565854.75677 49189 1bdde7140fa4ee46a1e443714269f634 ""
+  "/home/offsuit27/Workspace/re/paper.tex" 1760997592.89379 54513 5a91cd38d86e68507dd817b0abb1233b ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1490131464 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
@@ -45,12 +45,10 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/NewTXMI7.tfm" 1572128992 1556 4df22ac3e5cc03ff0898d83d8817c6cf ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxexa.tfm" 1589834365 760 e8ec875a87aa119f1af7ea4be48da9e8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxexx.tfm" 1699567298 1788 252bc928adbd02cba8c68f0fccd62f6c ""
-  "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxsy.tfm" 1699567298 2028 52e8459eebf22a562b33a44afb65f348 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxsy5.tfm" 1699567298 2024 0dab6936a8d786f55f0dc7a2278c035a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxsy7.tfm" 1699567298 1992 670a73c7d8c003bea90885f098740a17 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxsyc.tfm" 1589834365 1028 2f6cbe812325cff65b38e4c0a517f4cb ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxsym.tfm" 1693080977 1560 755acbe6da75f914298c79fa8bb324fd ""
-  "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/nxlmi.tfm" 1569879884 3284 b46311ccaa7f6b514eba481b40575544 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/nxlmi5.tfm" 1569879884 3308 547f06fb56819535c1e0ce385c4f647b ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/nxlmi7.tfm" 1575323900 3320 6cf9c990505795806c1f3ac537f356c3 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/nxlmia.tfm" 1617586172 2616 0bf54bdee01e38e3ed8342d25e5584f6 ""
@@ -61,7 +59,6 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/wasy/wasy6.tfm" 1579560596 912 8da0595e5e615d33e0b2860959a58bf8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/wasy/wasy7.tfm" 1579560596 912 e43f3049348c6f2670d3b324e657c6e7 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/wasy/wasy8.tfm" 1579560596 904 a3deb54664adaaa632c6cdee911ffe34 ""
-  "/usr/share/texlive/texmf-dist/fonts/tfm/public/wasy/wasy9.tfm" 1579560596 908 743c39e2976b0d6a1c86f6e64b6dd693 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb" 1354061736 548786 1e51d517556d29f2841d57da58668a69 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb" 1354061736 687959 b99c9f5a9b28f3dba077d1c078bceb3f ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinBiolinumTI.pfb" 1354061736 879384 e498f90c951041b56f91c0ffbf77a9d2 ""
@@ -290,12 +287,12 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1760304781.64352 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1760304872 8212785 572b22c96cb68fb4defc06bdf9d8e6ee ""
   "acmart.cls" 1760313498.5674 122400 54cc4edcc7b9cb1bf0a23c528626957c ""
-  "comment.cut" 1760565860.68833 64 0754424945249fbfae64d8991d811e64 "pdflatex"
+  "comment.cut" 1760997597.41098 64 0754424945249fbfae64d8991d811e64 "pdflatex"
   "figures/taxonomy.pdf" 1760483205.28853 7997 e9210f7ca0d2fdb771a46c5cb0b45574 ""
-  "paper.aux" 1760565860.8774 10144 638db184e77aa438138f3f1cbc6a69b3 "pdflatex"
-  "paper.bbl" 1760565858.6033 16162 ee9355cfabc3cfa8b4986833d72ceda6 "bibtex paper"
-  "paper.out" 1760565860.87778 2750 c850916e76a00ca9f025d95f47c63183 "pdflatex"
-  "paper.tex" 1760565854.75677 49189 1bdde7140fa4ee46a1e443714269f634 ""
+  "paper.aux" 1760997597.57986 10611 91a048bbe7a8f0c5a74d47f3275d2e5d "pdflatex"
+  "paper.bbl" 1760997595.71223 16524 b46869780f67099465319b25c4355741 "bibtex paper"
+  "paper.out" 1760997597.58186 2862 3339dedf93d512b9125d5b77fbfb2408 "pdflatex"
+  "paper.tex" 1760997592.89379 54513 5a91cd38d86e68507dd817b0abb1233b ""
   (generated)
   "comment.cut"
   "paper.aux"
