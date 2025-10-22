@@ -43,6 +43,7 @@
 \def\rot{\rotatebox}
 \newcommand*\circled[1]{\tikz[baseline=-3pt]{
             \node (X) [shape=circle,scale=0.5,fill=black,text=white,font=\bfseries, text centered, draw,inner sep=0pt] {\strut #1};}}
+\newcommand{\notcheckmark}{{$\surd$}\textsuperscript{\textcolor{black}{\kern-0.35em{\bf--}}}}
             
 \newcommand{\wc}[1]{\textit{\textcolor{magenta}{#1}}} % Word-Choice macro
 \newcommand{\maxnote}[1]{\textit{\textcolor{violet}{#1 --Max}}}
@@ -278,7 +279,13 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         Han et al.~\cite{2021han,2022han} & \markX & \markA & \markG & Src. /16, Dst. Port \\
         Han et al.~\cite{2020han,2022han} & \markX\markEtc & \markA & \markG & Src. /16 \\
         Kanehara et al.~\cite{2019kanehara,2022han} & \markX & \markA\markH & \markG & Src. /16, Dst. Port \\
-        Kartsioukas et al.~\cite{2023kartsioukas} & \markX & \markA\markH & \markG & \textit{TODO} \\
+
+        Kartsioukas et al.~\cite{2023kartsioukas} & 
+        \markX\markY & 
+        \markA\markH & 
+        \markG & 
+        \textit{TODO} \\
+
         Ban et al.~\cite{2016ban} & \markX & \markA & \markF\markG & Dst. Port \\ 
         Torabi et al.~\cite{2020torabi,2018torabi} & \markX & \markJ & \markD,\markE & \textit{TODO} \\
         Tanaka et al.~\cite{2023tanaka,2021tanaka} & \markX & \textit{TODO} & Source & \textit{TODO} \\
@@ -464,66 +471,74 @@ Slightly more than half of the works do, however, provide specifications of the 
         & $6.3\times10^{7}$ & ---
         & Labeled \\
 
-        Cohen et al.~\cite{2020cohen}
-        & \cite{2016ban}
-        &  & \cmark
-        & Ad hoc ($\approx$/22)
-        & 1y & 2019
-        & --- & $3+\,\mathrm{TB}$
+        % Cohen et al.~\cite{2020cohen}
+        % & \cite{2016ban}
+        % &  & \cmark
+        % & Ad hoc ($\approx$/22)
+        % & 1y & 2019
+        % & --- & $3+\,\mathrm{TB}$
+        % & \wc{manual} \\
+
+        Han et al.~\cite{2020han,2022han}
+        & \cite{2006takeuchi}
+        & \cmark & \cmark
+        & NT-3
+        & 1m & 2018
+        & --- & ---
         & \wc{manual} \\
 
         Han et al.~\cite{2021han,2022han}
         & \cite{2020han,2006takeuchi,2019kanehara}
         & \cmark & 
-        & T3
-        & 1m & 2018
-        & --- & ---
-        & \wc{manual} \\
-
-        Han et al.~\cite{2020han,2022han}
-        & \cite{2006takeuchi}
-        & \cmark & \cmark
-        & T3
+        & NT-3
         & 1m & 2018
         & --- & ---
         & \wc{manual} \\
 
         Kanehara et al.~\cite{2019kanehara,2022han}
-        & 
-        &  & \cmark
-        & T3
-        & 6m & 2018
-        & --- &
-        & \wc{manual} \\
+        & \cite{2021han,2020han,2006takeuchi}
+        & \cmark & \cmark
+        & NT-3
+        & 10m & 2017
+        & --- & ---
+        & Approach 2 \\
+
+        Kartsioukas et al.~\cite{2023kartsioukas}
+        & \cite{2004lakhina}
+        & \cmark & \cmark
+        & NT-2
+        & 1m & 2016
+        & --- & ---
+        & Approach 1 \\
 
         Ban et al.~\cite{2017ban}
         & \cite{2012ban}
         &  & 
-        & T3
+        & NT-3
         & --- & ---
         & --- & ---
-        & Manual \\
+        & Approach 1 \\
 
         Ban et al.~\cite{2016ban}
         & 
         &  & 
-        & T3
+        & NT-3
         & 1y & 2015
         & $3\times10^{7}$ & ---
-        & Manual \\
+        & Approach 2 \\
 
         Bou-Harb et al.~\cite{2014bouharb}
         &  
         &  & 
-        & T7
-        & 1m & 2013
-        & --- & ---
-        &  \\
+        & NT-7
+        & 2d & 2013
+        & $10^6$ & 30GB
+        & Approach 2 \\
 
         Bou-Harb et al.~\cite{2019bouharb,2015bouharb}
         & ~\cite{2018bouharb}
         &  & \cmark
-        & T1,T7
+        & NT-1,NT-7
         & 1m,1m & 2016,2014
         & --- & 670GB, 240GB
         & Approach 2 \\
@@ -531,7 +546,7 @@ Slightly more than half of the works do, however, provide specifications of the 
         Zakroum et al.~\cite{2022zakroum,2018zakroum}
         & ~\cite{2018zakroum}
         & & \cmark
-        & T3, T6
+        & NT-3, NT-6
         & 3.5y & 2017
         & --- & $1.5+\mathrm{TB}$
         &  Approach 2 \\
@@ -539,7 +554,7 @@ Slightly more than half of the works do, however, provide specifications of the 
         Zakroum et al.~\cite{2023zakroum}
         & ~\cite{2023zakroum}
         & &
-        & T3, T6
+        & NT-3, NT-6
         & 4.5y & 2018
         & --- & ---
         & Approach 3 \\
