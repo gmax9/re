@@ -521,116 +521,107 @@ Fewer than half of our surveyed works directly compare detection methodologies v
 
 \begin{table*}[h!]
     \small
-    % \centering
     \setlength{\tabcolsep}{4pt}
-    \caption{Details of empirical evaluation and traffic datasets found in our surveyed work. Appx. Table~\ref{@@} summarizes referenced telescopes.}
-	% \caption{Implementation and evaluation details of our surveyed work. Darknet owner indicates which telescope provided each dataset. Traffic volume is split into packets and bytes.}
+    \caption{Details of empirical evaluation and traffic datasets found in our surveyed work. Appx. Table~\ref{tab:telescopes} summarizes referenced telescopes.}
     \label{tab:eval}
     \begin{tabular}{@{}lccccccccc@{}}
         \toprule
         & \multicolumn{1}{c}{\textbf{Compari-}} 
         & \multicolumn{2}{c}{\bf Replicability} 
-        & \multicolumn{1}{c}{\textbf{Telescope(s)}} 
-        & \multicolumn{4}{c}{\bf Dataset Attributes} 
-        & \multicolumn{1}{c}{\textbf{Annot-}} \\
-        \cmidrule(lr){3-4} \cmidrule(lr){6-9}
-        \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} &  & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
+        & \multicolumn{5}{c}{\bf Dataset Attributes} 
+        & \multicolumn{1}{c}{\textbf{Valid-}} \\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-9}
+        \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} 
+        & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
         \midrule
-        Evrard et al.~\cite{2019evrard}
-        &  
-        &  & 
-        & T3, T6
-        & 9m & 2015
-        & ${\approx}8\times10^{8}$ & ---
-        & Manual \\
 
-        Lagraa et al.~\cite{2017lagraa,2019lagraa}
+        Evrard et al.~\cite{2019evrard}
+        & 
+        &  & 
+        & NT-3,6
+        & 9M & 2015
+        & 8M & ---
+        & A1 \\
+
+        Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
         &  
         &  & \cmark
-        & T6
-        & 2y & 2014
-        & $2\times10^{9}$ & 500 GB
-        & Manual \\
+        & NT-6
+        & 2Y & 2014
+        & 2B & 500 GB
+        & A2 \\
 
-        Soro et al.~\cite{2020soro}
+        Soro et al.\textbf{~\cite{2020soro}}
         &  
         &  & 
-        & T4
-        & 3w & 2019
+        & NT-4,5
+        & 3W,1D & 2020
         & --- & ---
-        & Manual \\
+        & A1 \\
 
         Nishikaze et al.~\cite{2015nishikaze}
         &  
         &  & 
-        & T3
-        & 28d & 2014
-        & $3.03\times10^{8}$ & ---
-        &  Manual \\
+        & NT-3
+        & 28D & 2014
+        & 303M & ---
+        & A2 \\
 
         Kallitsis et al.~\cite{2022kallitsis}
         & \cite{2021gioacchini}
         & \cmark & \cmark
-        & T2
-        & 28d & 2016
-        & $49\times10^{9}$ & ---
-        & Manual, Labeled \\
+        & NT-2
+        & 28D, 1D & 2016,2022
+        & 49B, 3.1B & ---
+        & A2, A3 \\
 
         Iglesias et al.~\cite{2019iglesias}
         &  
         &  & \cmark
-        & T1
-        & 1m & 2012
+        & NT-1
+        & 6M & 2012
         & --- & 2.1 TB
-        & Manual \\
+        & A2 \\
 
-        Gioacchini et al.~\cite{2021gioacchini,2023gioacchini}
-        & \cite{2020cohen}
+        Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
+        & \cite{2020cohen,2017ring}
         & \cmark & \cmark
-        & T4
+        & NT-4
         & 30d & 2021
-        & $>63\times10^{6}$ & ---
+        & 63M & ---
         & A1, A3 \\
 
-        Cohen et al.~\cite{2020cohen}
-        & \cite{2016ban}
-        &  & \cmark
-        & Ad hoc ($\approx$/22)
-        & 1y & 2019
-        & --- & $3+\,\mathrm{TB}$
-        & \wc{manual} \\
-
-        Han et al.~\cite{2020han,2022han}
+        Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
         & \cite{2006takeuchi}
         & \cmark & \cmark
         & NT-3
-        & 1m & 2018
+        & 1M & 2018
         & --- & ---
-        & Approach 2 \\
+        & A2 \\
 
-        Han et al.~\cite{2021han,2022han}
+        Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
         & \cite{2020han,2006takeuchi,2019kanehara}
         & \cmark & 
         & NT-3
-        & 1m & 2018
+        & 1M & 2018
         & --- & ---
-        & \wc{manual} \\
+        & A2 \\
 
-        Kanehara et al.~\cite{2019kanehara,2022han}
+        Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
         & \cite{2021han,2020han,2006takeuchi}
         & \cmark & \cmark
         & NT-3
-        & 10m & 2017
+        & 10M & 2017
         & --- & ---
-        & Approach 2 \\
+        & A2 \\
 
         Kartsioukas et al.~\cite{2023kartsioukas}
         & \cite{2004lakhina}
         & \cmark & \cmark
         & NT-2
-        & 1m & 2016
+        & 1M & 2016
         & --- & ---
-        & Approach 1 \\
+        & A1 \\
 
         Ban et al.~\cite{2017ban}
         & \cite{2012ban}
@@ -638,7 +629,7 @@ Fewer than half of our surveyed works directly compare detection methodologies v
         & NT-3
         & --- & ---
         & --- & ---
-        & Approach 1 \\
+        & A1 \\
 
         Ban et al.~\cite{2016ban}
         & 
@@ -646,39 +637,39 @@ Fewer than half of our surveyed works directly compare detection methodologies v
         & NT-3
         & 1y & 2015
         & $3\times10^{7}$ & ---
-        & Approach 2 \\
+        & A2 \\
 
         Bou-Harb et al.~\cite{2014bouharb}
         &  
         &  & 
         & NT-7
-        & 2d & 2013
+        & 2D & 2013
         & $10^6$ & 30GB
-        & Approach 2 \\
+        & A2 \\
 
-        Bou-Harb et al.~\cite{2019bouharb,2015bouharb}
+        Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
         & ~\cite{2018bouharb}
         &  & \cmark
-        & NT-1,NT-7
-        & 1m,1m & 2016,2014
+        & NT-1,7
+        & 1M,1M & 2016,2014
         & --- & 670GB, 240GB
-        & Approach 2 \\
+        & A2 \\
 
-        Zakroum et al.~\cite{2022zakroum,2018zakroum}
+        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
         & ~\cite{2018zakroum}
         & & \cmark
-        & NT-3, NT-6
-        & 3.5y & 2017
+        & NT-3,6
+        & 3.5Y & 2017
         & --- & $1.5+\mathrm{TB}$
-        &  Approach 2 \\
+        & A2 \\
 
         Zakroum et al.~\cite{2023zakroum}
         & ~\cite{2023zakroum}
         & &
-        & NT-3, NT-6
-        & 4.5y & 2018
+        & NT-3,6
+        & 4.5Y & 2018
         & --- & ---
-        & Approach 3 \\
+        & A3 \\
 
         \midrule
         \textbf{Aggregate}
@@ -691,6 +682,181 @@ Fewer than half of our surveyed works directly compare detection methodologies v
         \bottomrule
     \end{tabular}
 \end{table*}
+
+
+\begin{comment}
+\begin{table*}[h!]
+    \small
+    % \centering
+    \setlength{\tabcolsep}{4pt}
+    \caption{Details of empirical evaluation and traffic datasets found in our surveyed work. Appx. Table~\ref{tab:telescopes} summarizes referenced telescopes.}\label{tab:eval}
+    \begin{tabular}{@{}lccccccccc@{}}
+        \toprule
+        & \multicolumn{1}{c}{\textbf{Compari-}} 
+        & \multicolumn{2}{c}{\bf Replicability} 
+        & \multicolumn{1}{c}{\textbf{Telescope(s)}} 
+        & \multicolumn{4}{c}{\bf Dataset Attributes} 
+        & \multicolumn{1}{c}{\textbf{Valid-}} \\
+        \cmidrule(lr){3-4} \cmidrule(lr){6-9}
+        \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} &  & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
+        \midrule
+
+        Evrard et al.~\cite{2019evrard}
+        & 
+        &  & 
+        & NT-3,6
+        & 9M & 2015
+        & 8M & ---
+        & A1 \\
+
+        Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
+        &  
+        &  & \cmark
+        & NT-6
+        & 2Y & 2014
+        & 2B & 500 GB
+        & A2 \\
+
+        Soro et al.\textbf{~\cite{2020soro}}
+        &  
+        &  & 
+        & NT-4,5
+        & 3W,1D & 2020
+        & --- & ---
+        & A1 \\
+
+        Nishikaze et al.~\cite{2015nishikaze}
+        &  
+        &  & 
+        & NT-3
+        & 28D & 2014
+        & 303M & ---
+        & A2 \\
+
+        Kallitsis et al.~\cite{2022kallitsis}
+        & \cite{2021gioacchini}
+        & \cmark & \cmark
+        & NT-2
+        & 28D, 1D & 2016,2022
+        & 49B, 3.1B & ---
+        & A2, A3 \\
+
+        Iglesias et al.~\cite{2019iglesias}
+        &  
+        &  & \cmark
+        & NT-1
+        & 6M & 2012
+        & --- & 2.1 TB
+        & A2 \\
+
+        Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
+        & \cite{2020cohen,2017ring}
+        & \cmark & \cmark
+        & NT-4
+        & 30d & 2021
+        & 63M & ---
+        & A1, A3 \\
+
+        % Cohen et al.~\cite{2020cohen}
+        % & \cite{2016ban}
+        % &  & \cmark
+        % & Ad hoc ($\approx$/22)
+        % & 1y & 2019
+        % & --- & $3+\,\mathrm{TB}$
+        % & \wc{manual} \\
+
+        Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
+        & \cite{2006takeuchi}
+        & \cmark & \cmark
+        & NT-3
+        & 1M & 2018
+        & --- & ---
+        & A2 \\
+
+        Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
+        & \cite{2020han,2006takeuchi,2019kanehara}
+        & \cmark & 
+        & NT-3
+        & 1M & 2018
+        & --- & ---
+        & A2 \\
+
+        Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
+        & \cite{2021han,2020han,2006takeuchi}
+        & \cmark & \cmark
+        & NT-3
+        & 10M & 2017
+        & --- & ---
+        & A2 \\
+
+        Kartsioukas et al.~\cite{2023kartsioukas}
+        & \cite{2004lakhina}
+        & \cmark & \cmark
+        & NT-2
+        & 1M & 2016
+        & --- & ---
+        & A1 \\
+
+        Ban et al.~\cite{2017ban}
+        & \cite{2012ban}
+        &  & 
+        & NT-3
+        & --- & ---
+        & --- & ---
+        & A1 \\
+
+        Ban et al.~\cite{2016ban}
+        & 
+        &  & 
+        & NT-3
+        & 1y & 2015
+        & $3\times10^{7}$ & ---
+        & A2 \\
+
+        Bou-Harb et al.~\cite{2014bouharb}
+        &  
+        &  & 
+        & NT-7
+        & 2D & 2013
+        & $10^6$ & 30GB
+        & A2 \\
+
+        Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
+        & ~\cite{2018bouharb}
+        &  & \cmark
+        & NT-1,7
+        & 1M,1M & 2016,2014
+        & --- & 670GB, 240GB
+        & A2 \\
+
+        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
+        & ~\cite{2018zakroum}
+        & & \cmark
+        & NT-3,6
+        & 3.5Y & 2017
+        & --- & $1.5+\mathrm{TB}$
+        & A2 \\
+
+        Zakroum et al.~\cite{2023zakroum}
+        & ~\cite{2023zakroum}
+        & &
+        & NT-3,6
+        & 4.5Y & 2018
+        & --- & ---
+        & A3 \\
+
+        \midrule
+        \textbf{Aggregate}
+        & 7/16
+        & 4/16 & 7/16
+        & 8-24
+        & 1w--3.5y & 2012--2021
+        & --- & ---
+        & --- \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+\end{comment}
 
 \label{sec:fw}
 \section{Future Work}

@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex paper"] 1761182609.74817 "paper.aux" "paper.bbl" "paper" 1761182609.91193 0
+["bibtex paper"] 1761249483.57606 "paper.aux" "paper.bbl" "paper" 1761249486.16793 0
   "./bib/refs.bib" 1761182609.54497 32366 6ff465c11cccedf908e649255bda0eb4 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "paper.aux" 1761182495.64223 10665 4f89ce28c5c943058f148e30293fc7df "pdflatex"
+  "paper.aux" 1761249485.6068 10770 009b56d72b806fcd76ae545c51e86bcd "pdflatex"
   (generated)
   "paper.bbl"
   "paper.blg"
   (rewritten before read)
-["pdflatex"] 1761182493.97727 "/home/offsuit27/Workspace/re/paper.tex" "paper.pdf" "paper" 1761182609.91202 0
+["pdflatex"] 1761249483.74075 "/home/offsuit27/Workspace/re/paper.tex" "paper.pdf" "paper" 1761249486.16818 0
   "/etc/texmf/web2c/texmf.cnf" 1760304741.72577 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/offsuit27/Workspace/re/paper.tex" 1761182491.25517 44414 aee861dfeb0b13c5bf307d81d71f2e6e ""
+  "/home/offsuit27/Workspace/re/paper.tex" 1761249481.0908 48184 60a8caa82746410393c8a544cf594f31 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1490131464 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
@@ -64,7 +64,6 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb" 1354061736 490980 e27f1e217a0902faea22205f197918d4 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/marvosym/marvosym.pfb" 1313968873 91705 188e103f30c94f64bce1570c4b989d07 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/newtx/LibertineMathMI7.pfb" 1575323900 36894 0893e50696ed2a200373455c6aff080e ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/newtx/NewTXMI7.pfb" 1572128992 34733 61fa3c01fac511e451670c1b454ff211 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb" 1699567298 45943 7899c7ea4fdd83f3625178689816dcee ""
   "/usr/share/texlive/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb" 1136849748 45955 6dfcb282cf470ceb18d57d017b7898d6 ""
   "/usr/share/texlive/texmf-dist/fonts/vf/public/libertine/LinBiolinumT-tlf-t1.vf" 1490131464 1728 e76e04a950024a95b620698b679c9810 ""
@@ -284,11 +283,11 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1760304781.64352 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1760304872 8212785 572b22c96cb68fb4defc06bdf9d8e6ee ""
   "acmart.cls" 1760313498.5674 122400 54cc4edcc7b9cb1bf0a23c528626957c ""
-  "comment.cut" 1761182495.50092 64 0754424945249fbfae64d8991d811e64 "pdflatex"
-  "paper.aux" 1761182495.64223 10665 4f89ce28c5c943058f148e30293fc7df "pdflatex"
-  "paper.bbl" 1761182609.8937 17760 262b8431d4c73972c0951aac96803ca1 "bibtex paper"
-  "paper.out" 1761182495.64423 2729 cb60fb19ce23482c02356dcd27a2e32d "pdflatex"
-  "paper.tex" 1761182491.25517 44414 aee861dfeb0b13c5bf307d81d71f2e6e ""
+  "comment.cut" 1761249485.46782 64 0754424945249fbfae64d8991d811e64 "pdflatex"
+  "paper.aux" 1761249485.6068 10770 009b56d72b806fcd76ae545c51e86bcd "pdflatex"
+  "paper.bbl" 1761249483.73387 18003 b5982e4b2ea13b5960a46abfaec28158 "bibtex paper"
+  "paper.out" 1761249485.6078 2729 cb60fb19ce23482c02356dcd27a2e32d "pdflatex"
+  "paper.tex" 1761249481.0908 48184 60a8caa82746410393c8a544cf594f31 ""
   (generated)
   "comment.cut"
   "paper.aux"
