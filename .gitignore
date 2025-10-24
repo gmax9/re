@@ -5,3 +5,5 @@ paper.log
 paper.out
 paper.pdf
 paper.synctex.gz
+paper.fls
+paper.fdb_latexmk

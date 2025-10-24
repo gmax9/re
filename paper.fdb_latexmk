@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex paper"] 1761249483.57606 "paper.aux" "paper.bbl" "paper" 1761249486.16793 0
-  "./bib/refs.bib" 1761182609.54497 32366 6ff465c11cccedf908e649255bda0eb4 ""
+["bibtex paper"] 1761264735.34008 "paper.aux" "paper.bbl" "paper" 1761264737.83805 0
+  "./bib/refs.bib" 1761264732.69148 32665 b000513cd49bfe01c264b191a280cac6 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "paper.aux" 1761249485.6068 10770 009b56d72b806fcd76ae545c51e86bcd "pdflatex"
+  "paper.aux" 1761264737.2966 11311 daa19819bf2cfecb80597710ecbdfd25 "pdflatex"
   (generated)
   "paper.bbl"
   "paper.blg"
   (rewritten before read)
-["pdflatex"] 1761249483.74075 "/home/offsuit27/Workspace/re/paper.tex" "paper.pdf" "paper" 1761249486.16818 0
+["pdflatex"] 1761264735.52716 "/home/offsuit27/Workspace/re/paper.tex" "paper.pdf" "paper" 1761264737.83825 0
   "/etc/texmf/web2c/texmf.cnf" 1760304741.72577 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/offsuit27/Workspace/re/paper.tex" 1761249481.0908 48184 60a8caa82746410393c8a544cf594f31 ""
+  "/home/offsuit27/Workspace/re/paper.tex" 1761264671.11221 48957 0120c4be2ef3cfb91502bed01a4bfe89 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1490131464 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
@@ -283,11 +283,11 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1760304781.64352 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1760304872 8212785 572b22c96cb68fb4defc06bdf9d8e6ee ""
   "acmart.cls" 1760313498.5674 122400 54cc4edcc7b9cb1bf0a23c528626957c ""
-  "comment.cut" 1761249485.46782 64 0754424945249fbfae64d8991d811e64 "pdflatex"
-  "paper.aux" 1761249485.6068 10770 009b56d72b806fcd76ae545c51e86bcd "pdflatex"
-  "paper.bbl" 1761249483.73387 18003 b5982e4b2ea13b5960a46abfaec28158 "bibtex paper"
-  "paper.out" 1761249485.6078 2729 cb60fb19ce23482c02356dcd27a2e32d "pdflatex"
-  "paper.tex" 1761249481.0908 48184 60a8caa82746410393c8a544cf594f31 ""
+  "comment.cut" 1761264737.16233 64 0754424945249fbfae64d8991d811e64 "pdflatex"
+  "paper.aux" 1761264737.2966 11311 daa19819bf2cfecb80597710ecbdfd25 "pdflatex"
+  "paper.bbl" 1761264735.51637 18234 0bad3a5ec118bf8885a2c31f92c1b3af "bibtex paper"
+  "paper.out" 1761264737.2976 3589 ed905a0482ab50a596a39d02cccf67b3 "pdflatex"
+  "paper.tex" 1761264671.11221 48957 0120c4be2ef3cfb91502bed01a4bfe89 ""
   (generated)
   "comment.cut"
   "paper.aux"
