@@ -27,7 +27,7 @@
     \begin{figure}[h]
         \centering
     \begin{tikzpicture}
-        \node[anchor=text,text width=\columnwidth-1cm, draw, rounded corners, line width=1pt, fill=#3, inner sep=5mm] (big) {\\#4};
+        \node[anchor=text,text width=\columnwidth-1cm, draw, rounded corners, line width=1pt, fill=#3, inner sep=2.5mm] (big) {\\#4};
         % \node[draw, rounded corners, line width=.5pt, fill=#2, anchor=west, xshift=5mm] (small) at (big.north west) {#1};
     \end{tikzpicture}
     \end{figure}
@@ -465,12 +465,36 @@ Furthermore, we consider implementation details of detection methodologies since
 \subsection{Characteristics of darknet traffic datasets.}
 For the datasets used in prior works, we consider several characteristics relevant to interpreting method assessment results:
 the timeframe over which traffic was collected, the specific darknet that received this traffic, the size of the darknet's address space, and its traffic volume measured in units of packets and bytes.
+Empirical studies~\cite{@@} have found that these factors have a non-negligible impact on
+the observability of senders. %TODO: reword
+
+Across our surveyed works, we identified a total of 7 darknets (listed in Table~\ref{@@}) from which datasets source their traffic. 
+The amount of IPv4 address space occupied by each darknet varies; the largest and smallest sizes respectively span roughly a /9 (approx. 12.5M addresses comprise the UCSD Network Telescope) 
+and three /24 subnetworks (768 addresses operated by Politecnico di Torino). 
+While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc announcements (e.g., for leasing purposes~\cite{@@}) or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
+
+Shown in Figure~\ref{@@}, the aggregate range of time frames covered by traffic datasets span the start of 2012 and extend until late 2023.
+Total coverage over this range by at least a single assessment dataset at a daily granularity sits at 68\%. 
+%Recompute
+Most datasets are short snapshots: over 50\% of all datasets span fewer than two months, while only a third draw from multi-year darknet traffic, and only one in five cover three or more years.
+While a majority of works do not provide clear rationale for their selected time frames, some exceptions such as ~\cite{@@} and ~\cite{@@} do choose their time frames to assess specific events (e.g., Mirai and anomalous TCP-port 0 scans). 
+Still, coverage overlap with major Internet-wide scanning events pictured in Figure~\ref{@@} is incidental and their detectability by methodologies inconclusive.
+% Recompute
+
+% Nonetheless, darknet size directly correlates with traffic volumes and ostensibly more variability in its mixtures; thus the generalizability of method performance is sensitive to 
+% larger darknets tend to receive greater and more varied traffic~\cite{@@} 
 
 % \vspace{0.25em}
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 
-\textbf{Takeaways from Findings:} helloasdfasdfasdf
-
+\textbf{Takeaways:} 
+Prior work assess detection methodologies on datasets of differing degrees of observability given their formation using 
+traffic sourced from a variety of darknets and time periods.
+% Prior work assess detection methodologies on datasets formed using traffic sourced 
+% from a variety of darknets that span different time periods and lengths and thus represent different degrees 
+% of observability.
+Generalizability of assessment results for specific methods remains unclear and prohibits indirect comparisons 
+using individual method performance results drawn from differing datasets.
 }
 
 % \vspace{0.25em}
