@@ -181,7 +181,7 @@ Casado et al.~\cite{2005casado}
 
 % Discuss IBR, how it's been analyzed, practical use-cases for security / outage detection
 
-\label{sec:frameworks}
+\label{sec:methods}
 \section{Methodologies for Darknet Event Detection}
 
 In this section, we provide a broad survey of existing methodologies that have been proposed for detecting darknet activities and 
@@ -450,7 +450,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
 
 
 
-\label{sec:evaluations}
+\label{sec:assessments}
 \section{Empirical Assessments of Detection Methodologies}
 
 To demonstrate the utility of their detection methodologies, prior works conduct assessments using real-world darknet traffic datasets.
@@ -494,7 +494,7 @@ and that the detectability of these events by proposed methodologies still remai
 
 \textbf{Takeaways:} 
 Datasets used throughout method assessments possess different levels of observability in their traffic 
-due to the variety of darknets and time frames sampled.
+due to the variety of darknets and time frames they sample.
 Generalizability of a specific method's performance on one dataset to another remains unclear. 
 }
 
@@ -527,6 +527,8 @@ whether they cross-reference external datasets and the scale of their validation
 
 % \vspace{0.25em}
 % \noindent{\textbf{Replicability of detection methodologies.}}
+
+\label{sec:assess:rep}
 \subsection{Replicability of detection methodologies.}
 To determine the replicability of each detection methodology, we assess whether prior works provide
 1) public access to their implementation, such as source code or software artifacts; 
@@ -536,12 +538,12 @@ We consider a methodology replicable only when both conditions are satisfied.
 
 Less than a third of surveyed works provide source code of their implementations and roughly half detail specifications of their experimental computing environments.
 Of readily-available source code, we found Python and R as the programming languages of choice. Both are popular among numeric and scientific communities given their ease-of-use for implementing analytics workflows and abundant open-source algorithmic libraries.
-Other works such as ~\cite{@@} rely on Java or C, which have become less popular as preferences shift towards higher-languages for analytics use-cases.
+Other works such as ~\cite{2019lagraa,2014bouharb} rely on Java or C, which have become less popular as preferences shift towards higher-languages for analytics use-cases.
 
 Environments used to run experiments range from personal laptop workstations~\cite{@@} to small-scale research compute clusters~\cite{@@}.
 Cluster sizes do not exceed five servers, individually equipped with at most 256GB of memory.
 Most implementations execute strictly on CPUs while a subset of works that leverage representation-learning techniques employ GPUs for model training and evaluation.
-Across our surveyed works, hardware release dates trail publication dates by as much as 10 years.
+Across our surveyed works, release dates of the CPUs and GPUs trail publication dates by as much as 10 years.
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 
@@ -558,15 +560,11 @@ Across our surveyed works, hardware release dates trail publication dates by as 
 \end{enumerate}
 
 \noindent{\textbf{Limited replicability of detection methodologies.}} 
-Less than a third of studies publish source code of their methodologies and of those that do, their releases are seldom packaged as reusable libraries, distributed through package managers, or maintained beyond initial publication. 
-While the primary goal of these studies is to disseminate research ideas rather than deliver production-grade software, their codebases nonetheless lack interfaces and clear documentation needed for straightforward implementation and thereby discourages frictionless replication.
-% Less than a third of the studies publish accompanying source code of their framework implementation and of those that do, 
-% we find that their releases are seldom packaged as reusable libraries, distributed through package managers, or maintained beyond initial publication.
-% This aligns with expectations as the primary goal is to disseminate research ideas rather than deliver production-grade software.
-% Nonetheless, the condition of the codebases we find often lack interfaces and clear documentation needed for straightforward implementation.
-
-Slightly more than half of the works do, however, provide specifications of the computing environment, \textit{e.g., processor capabilities and memory capacity}, used to run evaluations.
-\maxnote{add to significance}
+Despite our findings reported in Section~\ref{sec:assess:rep}, we found low reusability for source code released by the small fraction of works. 
+Our own atttempts to execute this code resulted in failures, remediated only with substantial modifications. 
+While the primary goal of these studies is to demonstrate and disseminate research ideas rather than deliver production-grade software, 
+the quality of the code introduces friction for anyone attempting to reproduce results. 
+Cumulatively, this effect produces a replicability gap that to address, requires attention and thought to the quality of released software.
 
 \noindent{\textbf{methodology comparisons.}}
 Fewer than half of our surveyed works directly compare detection methodologies via evaluations on the same dataset.
@@ -1003,12 +1001,12 @@ the
 		\toprule
 		Telescopes & Country & Size & Data availability\\
 		\midrule
-		\textbf{NT-1.} UCSD-NT~\cite{caida2025ucsdnt} & US & /9+/10 & Raw traces and flow data \\
-		\textbf{NT-2.} Merit ORION~\cite{orion} & US & $\sim$7 $\times$/16s & Raw trace\\
-		\textbf{NT-3.} NICTER~\cite{nicter2025nt} & JP &  /17, /18, 2$\times$/20 & TCP SYN only, anonymized flow data\\
+		\textbf{NT-1.} UCSD-NT~\cite{ucsd-nt} & US & /9+/10 & Raw traces and flow data \\
+		\textbf{NT-2.} Merit ORION~\cite{orion-nt} & US & $\sim$7 $\times$/16s & Raw trace\\
+		\textbf{NT-3.} NICTER~\cite{nicter-nt} & JP &  /17, /18, 2$\times$/20 & TCP SYN only, anonymized flow data\\
 		\textbf{NT-4.} Politecnico di Torino \cite{2020soro} & IT & 3 $\times$ /24 & Unknown\\
 		\textbf{NT-5.} Darknet-BR \cite{CunhaCamargo2025darknetbr} & BR & /19 & Unknown\\
-		\textbf{NT-6.} LHS Nancy~\cite{inria2025nt} & FR & /20 & Raw trace\\
+		\textbf{NT-6.} LHS Nancy~\cite{inria-nt} & FR & /20 & Raw trace\\
 		\textbf{NT-7.} Farsight~\cite{@@} & US & /13 & Private\\
 		\bottomrule
 	\end{tabular}
