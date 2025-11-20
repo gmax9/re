@@ -465,20 +465,25 @@ Furthermore, we consider implementation details of detection methodologies since
 \subsection{Characteristics of darknet traffic datasets.}
 For the datasets used in prior works, we consider several characteristics relevant to interpreting method assessment results:
 the timeframe over which traffic was collected, the specific darknet that received this traffic, the size of the darknet's address space, and its traffic volume measured in units of packets and bytes.
-Empirical studies~\cite{@@} have found that these factors have a non-negligible impact on
-the observability of senders. %TODO: reword
+Empirical studies such as~\cite{@@} establish that these factors have a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
 
-Across our surveyed works, we identified a total of 7 darknets (listed in Table~\ref{@@}) from which datasets source their traffic. 
+Across our surveyed works, we identified a total of 7 darknets (listed in Table~\ref{tab:telescopes}) from which datasets source their traffic. 
 The amount of IPv4 address space occupied by each darknet varies; the largest and smallest sizes respectively span roughly a /9 (approx. 12.5M addresses comprise the UCSD Network Telescope) 
 and three /24 subnetworks (768 addresses operated by Politecnico di Torino). 
-While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc announcements (e.g., for leasing purposes~\cite{@@}) or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
+While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc announcements 
+(e.g., for leasing purposes~\cite{2025mannel} or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
 
 Shown in Figure~\ref{@@}, the aggregate range of time frames covered by traffic datasets span the start of 2012 and extend until late 2023.
 Total coverage over this range by at least a single assessment dataset at a daily granularity sits at 68\%. 
 %Recompute
-Most datasets are short snapshots: over 50\% of all datasets span fewer than two months, while only a third draw from multi-year darknet traffic, and only one in five cover three or more years.
-While a majority of works do not provide clear rationale for their selected time frames, some exceptions such as ~\cite{@@} and ~\cite{@@} do choose their time frames to assess specific events (e.g., Mirai and anomalous TCP-port 0 scans). 
-Still, coverage overlap with major Internet-wide scanning events pictured in Figure~\ref{@@} is incidental and their detectability by methodologies inconclusive.
+Most datasets are short snapshots: over half of all datasets span fewer than two months, 
+roughly a third draw from multi-year darknet traffic, and less than one in five cover three or more years.
+The majority of works do not provide clear rationale for their selection of time frames (with some exceptions such as ~\cite{@@} which choose
+periods corresponding to specific Internet-wide events) and thus we 
+assume that selection is largely opportunistic and based on availability of darknet traffic data from specific darknets when assessments were run.
+We conclude that overlaps, shown in Figure~\ref{@@}, between time frames of assessed datasets and major Internet-wide scanning events is incidental, 
+and that the detectability of these events by proposed methodologies still remains to be determined.
+
 % Recompute
 
 % Nonetheless, darknet size directly correlates with traffic volumes and ostensibly more variability in its mixtures; thus the generalizability of method performance is sensitive to 
@@ -488,21 +493,25 @@ Still, coverage overlap with major Internet-wide scanning events pictured in Fig
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 
 \textbf{Takeaways:} 
-Prior work assess detection methodologies on datasets of differing degrees of observability given their formation using 
-traffic sourced from a variety of darknets and time periods.
-% Prior work assess detection methodologies on datasets formed using traffic sourced 
-% from a variety of darknets that span different time periods and lengths and thus represent different degrees 
-% of observability.
-Generalizability of assessment results for specific methods remains unclear and prohibits indirect comparisons 
-using individual method performance results drawn from differing datasets.}
+Datasets used throughout method assessments possess different levels of observability in their traffic 
+due to the variety of darknets and time frames sampled.
+Generalizability of a specific method's performance on one dataset to another remains unclear. 
+}
 
 % \vspace{0.25em}
 % \noindent{\textbf{Validation of detection results.}}
 \subsection{Validation of detection results.}
-We consider the soundness of method assessments by examining how prior works validate their method's detection outputs in the absence of well-defined ground truth; we identify 3 common approaches.
-In the first approach, authors~\cite{@@} manually inspect detection outputs and interpret their meaning. This non-exhaustive approach to validation serves to illustrate method capabilities in an exploratory manner.
-The second approach extends this process by cross-referencing detection outputs with external datasources, e.g., crowdsourced reports of scanners such as AbuseIPDB~\cite{@@}, \maxnote{enumerate}. Compared to the previous approach, confirmation provided by an additional source can improve confidence in result interpretations.
-The third and most formal approach involves constructing labeled datasets prior to assessment and computing accuracy metrics, e.g., conventional information retrieval metrics such as precision, recall, or F1-score, from subsequently obtained outputs combined with labeled samples. While this approach is the most reproducible, sound comparison of validation results depends on objective definitions for labels.
+Since no definitive "ground truth" exists for attributing darknet traffic to their root causes, 
+method assessments must rely on alternative approaches to validate detection outputs. 
+For our survey, we examined how prior works establish the "meaningfulness" of their results by 
+focusing on two main aspects of their validation approaches:
+whether they cross-reference external datasets and the scale of their validation efforts.
+
+% This yields two broad categories of validation: manual inspection with limited coverage, and systematic validation using external or curated data sources.
+% We consider the soundness of method assessments by examining how prior works validate their method's detection outputs in the absence of well-defined ground truth; we identify 3 common approaches.
+% In the first approach, authors~\cite{@@} manually inspect detection outputs and interpret their meaning. This non-exhaustive approach to validation serves to illustrate method capabilities in an exploratory manner.
+% The second approach extends this process by cross-referencing detection outputs with external datasources, e.g., crowdsourced reports of scanners such as AbuseIPDB~\cite{@@}, \maxnote{enumerate}. Compared to the previous approach, confirmation provided by an additional source can improve confidence in result interpretations.
+% The third and most formal approach involves constructing labeled datasets prior to assessment and computing accuracy metrics, e.g., conventional information retrieval metrics such as precision, recall, or F1-score, from subsequently obtained outputs combined with labeled samples. While this approach is the most reproducible, sound comparison of validation results depends on objective definitions for labels.
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 
