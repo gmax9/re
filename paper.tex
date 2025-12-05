@@ -61,7 +61,7 @@
 
 \begin{document}
 
-\title{PLACEHOLDER}
+\title{A Survey of Darknet Detection Methodologies: Design, Implementation, and Assessment}
 \author{Max Gao}
 % \authornote{Both authors contributed equally to this research.}
 \affiliation{%
@@ -79,7 +79,6 @@ Yet despite the abundance of methods, their comparative capabilities remain uncl
 In this report, we review the evolution of darknet detection methodologies over the past decade and examine in-depth the challenges that face a comprehensive, systematic assessment.
 We conclude with a discussion of future directions for improving assessment rigor and method comparability.
     
-
 % Analysis of network telescope, or darknet, traffic has provided substantial visibility into the security and availability of the Internet for decades.
 % To operationalize darknet monitoring capabilities, researchers have proposed numerous frameworks that automate the detection of Internet-wide events.
 % Despite an abundance of available frameworks, less attention has been directed towards systematic comparison of their capabilities. 
@@ -503,32 +502,41 @@ Generalizability of a specific method's performance on one dataset to another re
 % \vspace{0.25em}
 % \noindent{\textbf{Validation of detection results.}}
 \subsection{Validation of detection results.}
-Since no definitive "ground truth" exists for attributing darknet traffic to their root causes, 
-method assessments must rely on alternative approaches to validate detection outputs. 
-For our survey, we examined how prior works establish the "meaningfulness" of their results by 
-focusing on two main aspects of their validation approaches:
-whether they cross-reference external datasets and the scale of their validation efforts.
 
+Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, prior works rely on improvised approaches to validate the meaningfulness of their method outputs.
+These approaches differ in rigor depending on two characteristics: 
+1) the use of labels (with varying degrees of confidence in their definitions); 
+and 2) whether methods are cross-validated against other traffic datasets and/or compared against baseline methods. 
+Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories: A1, strictly internal or manual validation; A2; weak external validation; and A3, strong external validation. 
+
+\begin{comment}
+% Since no definitive "ground truth" exists for attributing darknet traffic to their root causes, 
+% method assessments must rely on alternative approaches to validate detection outputs. 
+% For our survey, we examined how prior works establish the "meaningfulness" of their results by 
+% focusing on two main aspects of their validation approaches:
+% whether they cross-reference external datasets and the scale of their validation efforts.
+\end{comment}
+
+\begin{comment}
 % This yields two broad categories of validation: manual inspection with limited coverage, and systematic validation using external or curated data sources.
 % We consider the soundness of method assessments by examining how prior works validate their method's detection outputs in the absence of well-defined ground truth; we identify 3 common approaches.
 % In the first approach, authors~\cite{@@} manually inspect detection outputs and interpret their meaning. This non-exhaustive approach to validation serves to illustrate method capabilities in an exploratory manner.
 % The second approach extends this process by cross-referencing detection outputs with external datasources, e.g., crowdsourced reports of scanners such as AbuseIPDB~\cite{@@}, \maxnote{enumerate}. Compared to the previous approach, confirmation provided by an additional source can improve confidence in result interpretations.
 % The third and most formal approach involves constructing labeled datasets prior to assessment and computing accuracy metrics, e.g., conventional information retrieval metrics such as precision, recall, or F1-score, from subsequently obtained outputs combined with labeled samples. While this approach is the most reproducible, sound comparison of validation results depends on objective definitions for labels.
+\end{comment}
+
+\subsubsection{Internal Validation Approaches}
+asdfafds
+
+\subsubsection{Weak External Validation Approaches}
+asdfdsaf
+
+\subsubsection{Strong External Validation Approaches}
+asdf
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
-
-\textbf{Takeaways from Findings:} helloasdfasdfasdf
-
+\textbf{Takeaways:} helloasdfasdfasdf
 }
-
-% \begin{enumerate}
-%     \item Some authors run their method, grab outputs, manually inspect and interpret the results.
-%     \item Other authors first label their data, run their method, grab outputs, compute accuracy metrics using pre-labeled data.
-%     \item Other authors run their method, grab outputs, join outputs against an external data source, and then interpret
-% \end{enumerate}
-
-% \vspace{0.25em}
-% \noindent{\textbf{Replicability of detection methodologies.}}
 
 \label{sec:assess:rep}
 \subsection{Replicability of detection methodologies.}
@@ -961,39 +969,41 @@ Fewer than half of our surveyed works directly compare detection methodologies v
 \label{sec:fw}
 \section{Future Work}
 
-\begin{enumerate}
-    \item We discuss how to address the gaps we identified from our survey by providing ideas 
-    \item We discuss how to address the gaps we identified from our survey by providing ideas 
-    \item we need a systematic approach to do this, which depends on addressing the limitations mentioned in previous section.
-    \item 
-\end{enumerate}
+Our future work intends to bridge the gaps that currently hinder comprehensive assessment of darknet-detection methods. 
+In this section, we describe the major components of a future benchmark framework that addresses limitations discussed previously in this report.
 
-\noindent{\textbf{Curated datasets.}}
-\begin{enumerate}
-    \item Sound comparisons between methods rely on shared datasets whose characteristics are well-documented.
-    \item Traffic within these datasets that are associated with major events should be labeled.
-    \item Label definitions can be flexible, but there needs to be agreement on their definitions.
-    \item Examples include signatures of scanning tools, scanning organizations based on registered address ranges, or the outputs of previously assessed detection methodologies
-    \item Sound comparisons between methods rely on shared datasets whose characteristics are well-documented.
-    \item Traffic within these datasets that are associated with major events should be labeled.
-    \item Label definitions can be flexible, but there needs to be agreement on their definitions.
-    \item Examples include signatures of scanning tools, scanning organizations based on registered address ranges, or the outputs of previously assessed detection methodologies
-\end{enumerate}
+\noindent{\textbf{Curated Darknet-Traffic Datasets.}}
+% \begin{enumerate}
+%     \item Sound comparisons between methods rely on shared datasets whose characteristics are well-documented.
+%     \item Traffic within these datasets that are associated with major events should be labeled.
+%     \item Label definitions can be flexible, but there needs to be agreement on their definitions.
+%     \item Examples include signatures of scanning tools, scanning organizations based on registered address ranges, or the outputs of previously assessed detection methodologies
+%     \item Sound comparisons between methods rely on shared datasets whose characteristics are well-documented.
+%     \item Traffic within these datasets that are associated with major events should be labeled.
+%     \item Label definitions can be flexible, but there needs to be agreement on their definitions.
+%     \item Examples include signatures of scanning tools, scanning organizations based on registered address ranges, or the outputs of previously assessed detection methodologies
+% \end{enumerate}
+Sound benchmarking practice requires assessing method implementations on shared datasets. 
+By providing curated darknet-traffic datasets as inputs to our benchmarking framework, 
+we ensure that differences across outputs stem from the methods themselves rather than from inconsistencies in the data.
+The curation process involves intentional selection of traffic from specific darknets, sampled over historical time periods, ideally rich with known, landmark events. 
+Futher, labels accompany the traffic. \maxnote{elaborate}
 
-\noindent{\textbf{Systematic evaluation.}}
-
-Although some individual works from our survey evaluate their methodologies with the same metrics, \textit{e.g.,} TP, FP, \dots, 
-the
-
-\begin{enumerate}
-	\item Discuss need for standardized evaluation metrics
-	\item Discuss need for experimental consistency
-	\item These depend on reusability of framework implementations
-\end{enumerate}
+\noindent{\textbf{Standardized Assessment Metrics.}}
+% \begin{enumerate}
+% 	\item Discuss need for standardized evaluation metrics
+% 	\item Discuss need for experimental consistency
+% 	\item These depend on reusability of framework implementations
+% \end{enumerate}
+To support expedient comparisons of detection capabilities and computational performance across different methods, our framework 
+applies standard metrics to interpret detection outputs.
+Owing to a shared set of label definitions, conventional information-retrieval metrics (e.g., true/false positives and negatives) 
+quantify detection capabilities on a per-class basis.
+Cases where comparative assessments disregard labeled traffic, \textit{i.e.}, comparisons between raw detection outputs are supported 
+by differential metrics (e.g., Jaccard Index, etc.), though 
 
 % \section{Acknowledgments}
 % asadfadsf
-
 \section{Appendices}
 
 \begin{table}[httb]
