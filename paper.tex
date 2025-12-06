@@ -95,13 +95,18 @@ We conclude with a discussion of future directions for improving assessment rigo
 
 Network telescopes, or darknets, have been instrumental to both researchers and practitioners for their ability to observe Internet-wide phenomena in the unsolicited traffic they receive. 
 Over the past two decades, research efforts have shifted from characterizing darknet phenomena and their observable signals towards translating such empirical insights into operationalizable methodologies for monitoring the Internet's security and availability in near real-time.
+These efforts have culminated in a number of methodologies that, despite sharing a common goal of automatically detecting events in darknet traffic, differ widely in the algorithmic technique(s) they employ (e.g., ), features of the traffic they exploit (e.g, ), and their operational definition of what constitutes an event (e.g.,).
+
+
+% Network telescopes, or darknets, have been instrumental to both researchers and practitioners for their ability to observe Internet-wide phenomena in the unsolicited traffic they receive. 
+% Over the past two decades, research efforts have shifted from characterizing darknet phenomena and their observable signals towards translating such empirical insights into operationalizable methodologies for monitoring the Internet's security and availability in near real-time.
 % This has resulted in a number of methodologies that each leverage different approaches to achieve a common goal of broadly automating darknet event detection. 
 % \maxnote{see other papers for enumerating on specific details in intro} As security risks mount along growing volumes of darknet traffic, such methodologies represents a crucial and necessary transition from conventional post-hoc manual traffic analysis workflows. 
 % However, the utility of these methodologies depend critically on their accuracy and validity which remain elusive to evaluate due to several challenges that we identify through our survey. 
-These efforts have resulted in a variety of methodologies that share the common goal of broadly automating event detection while differing widely in the algorithmic techniques they employ (e.g., statistical forecasting, matrix decompositions, and graph-based models), 
-the traffic features they exploit (e.g., packet counts, port sequences, temporal bursts), 
-and their operational definition of what constitutes an event (ranging from short-lived scans to sustained probing campaigns).
-As security risks mount along growing volumes of darknet traffic, such methodologies represent a crucial and necessary transition from post-hoc manual traffic analysis towards a more \maxnote{dots} means of detection.
+% These efforts have resulted in a variety of methodologies that share the common goal of broadly automating event detection while differing widely in the algorithmic techniques they employ (e.g., statistical forecasting, matrix decompositions, and graph-based models), 
+% the traffic features they exploit (e.g., packet counts, port sequences, temporal bursts), 
+% and their operational definition of what constitutes an event (ranging from short-lived scans to sustained probing campaigns).
+% As security risks mount along growing volumes of darknet traffic, such methodologies represent a crucial and necessary transition from post-hoc manual traffic analysis towards a more \maxnote{dots} means of detection.
 However, the utility of these frameworks depend critically on their accuracy and validity, which remain elusive to evaluate due challenges posed by \dots.
 
 % However, as we identify in our suvey, methodologies differ widely in several ways: the algorithmic techniques they employ (e.g., statistical forecasting, matrix decompositions, and graph-based models), the traffic features they exploit (e.g., packet counts, port sequences, temporal bursts), 
@@ -152,10 +157,10 @@ Finally, using our survey's findings, we conclude with a discussion of challenge
 
 \label{sec:bg}
 \section{Background}
-In this section, we provide a brief overview of network telescopes and highlight their role in Internet measurement research.
-We first discuss technical details of their function as sensors that provide visibility into Internet-wide activities. 
-We then characterize the nature of their received traffic and summarize findings from major studies that have examined its composition and sources.
-Finally, we highlight investigations of notable Internet events enabled by analyzing traffic observed by telescopes.
+In this section, we provide a brief overview of network telescopes and discuss their role in Internet measurement research.
+We first provide a technical explanation of their function as observatories of unsolicited IPv4 Internet traffic.
+We then summarize findings from past works that have studied the nature and composition of this traffic alongside landmark Internet-wide events.
+Finally, we remark on changes in darknet traffic characteristics up to the present day and speculate on the future trajectory of its mixtures.
 
 \label{sec:bg:nt}
 \subsection{Network Telescopes}
@@ -278,7 +283,82 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
 
 \begin{table}[t]
     \small
-    \caption{Characteristics of event detection frameworks proposed in our surveyed literature (excluding algorithms).}
+    \caption{Characteristics of event detection frameworks using Check Marks ($\checkmark$) with 90-degree rotation.}
+    \label{tab:frameworks-checkmark-90deg}
+    \setlength{\tabcolsep}{4pt} % Optional: Adjusts column padding for better fit
+    \begin{tabular}{l|cccc|cccc|cccc|c}
+        \toprule
+        % Top Header Row
+        \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Work}}} & 
+        \multicolumn{4}{c|}{\textbf{Activities}} & 
+        \multicolumn{4}{c|}{\textbf{Techniques}} & 
+        \multicolumn{4}{c|}{\textbf{Traffic Rep.}} & 
+        \multicolumn{1}{c}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Output\\ Attributes\end{tabular}}}} \\
+        \cline{2-13}
+        
+        % Sub Header Row with Rotation
+        % Added \rule to force row height so "Misconfiguration" and "Feature Vector" don't overlap headers
+        & \rot{90}{Scanning} & \rot{90}{DDoS} & \rot{90}{Outage} & \rot{90}{Misconfiguration} 
+        & \rot{90}{Clustering} & \rot{90}{Dim. Red.} & \rot{90}{Forecasting} & \rot{90}{Other} 
+        & \rot{90}{Graph} & \rot{90}{Feature Vector} & \rot{90}{Sequences} & \rot{90}{Time Series} 
+        & \rule{0pt}{12em} \\ % 12em creates vertical space for the long rotated labels
+        \midrule
+
+        Evrard et al.~\cite{2019evrard} & $\checkmark$ & & & & $\checkmark$ & & & & $\checkmark$ & & & & Dst. Port \\
+
+        Lagraa et al.~\cite{2017lagraa,2019lagraa} & $\checkmark$ & & & & $\checkmark$ & & & & $\checkmark$ & & & & Dst. Port \\
+
+        Kallitsis et al.~\cite{2022kallitsis} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & $\checkmark$ & & & Src. IP \\
+
+        Iglesias et al.~\cite{2019iglesias} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & & & $\checkmark$ & & $\checkmark$ & & & Src. IP \\
+
+        Nishikaze et al.~\cite{2015nishikaze} & $\checkmark$ & & & & $\checkmark$ & & & & & $\checkmark$ & & & Src. /16 \\
+
+        Soro et al.~\cite{2020soro} & $\checkmark$ & & & & $\checkmark$ & & & & & & $\checkmark$ & & Src. AS \\
+
+        Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & $\checkmark$ & & Src. IP \\
+
+        Abduaziz et al.~\cite{2025} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & $\checkmark$ & & Src. IP \\
+
+        Han et al.~\cite{2021han,2022han} & $\checkmark$ & & & & & $\checkmark$ & & & & & & $\checkmark$ & Src. /16, Dst. Port \\
+
+        Han et al.~\cite{2020han,2022han} & $\checkmark$ & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ & Src. /16 \\
+
+        Kanehara et al.~\cite{2019kanehara,2022han} & $\checkmark$ & & & & & $\checkmark$ & & $\checkmark$ & & & & $\checkmark$ & Src. /16, Dst. Port \\
+
+        Kartsioukas et al.~\cite{2023kartsioukas} & $\checkmark$ & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & $\checkmark$ & \textit{TODO} \\
+
+        Ban et al.~\cite{2016ban} & $\checkmark$ & & & & & $\checkmark$ & & & & & $\checkmark$ & $\checkmark$ & Dst. Port \\ 
+
+        Torabi et al.~\cite{2020torabi,2018torabi} & $\checkmark$ & & & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & & \textit{TODO} \\
+
+        Tanaka et al.~\cite{2023tanaka,2021tanaka} & $\checkmark$ & & & & & & & & \multicolumn{3}{c|}{Source} & & \textit{TODO} \\
+
+        Niranjana et al.~\cite{2019niranjana} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & \multicolumn{3}{c|}{Source} & & \textit{TODO} \\
+
+        Cabana et al.~\cite{2019cabana} & $\checkmark$ & & & & $\checkmark$ & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & & \textit{TODO} \\
+
+        Shaikh et al.~\cite{2018shaikh} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & & & & & & $\checkmark$ & & & \textit{TODO} \\
+  
+        Zakroum et al. (A)~\cite{2022zakroum,2018zakroum} & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & $\checkmark$ & Dst. Port \\
+        Zakroum et al. (B)~\cite{2023zakroum} & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & $\checkmark$ & Dst. Port \\
+
+        Guillot et al.~\cite{2019guillot} & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & $\checkmark$ & Dst. Port \\
+
+        Enyanet et al.~\cite{2024enyanet} & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & $\checkmark$ & Dst. Port \\
+
+        \bottomrule
+    \end{tabular}
+    
+    \vspace{2pt}
+    \parbox{\linewidth}{\raggedright
+        \textit{Abbreviations:} Dim. Red. = Dimensionality Reduction; Other = Other Techniques (H=Thresholding/Fingerprinting, I=Representation Learning, J=Frequent Pattern Mining).
+    }
+\end{table}
+
+\begin{table}[t]
+    \small
+    \caption{Taxonomy of Detection Methodologies }
     \label{tab:frameworks-noalgos}
     \begin{tabular}{llllc}
         \toprule
@@ -509,13 +589,11 @@ These approaches differ in rigor depending on two characteristics:
 and 2) whether methods are cross-validated against other traffic datasets and/or compared against baseline methods. 
 Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories: A1, strictly internal or manual validation; A2; weak external validation; and A3, strong external validation. 
 
-\begin{comment}
-% Since no definitive "ground truth" exists for attributing darknet traffic to their root causes, 
-% method assessments must rely on alternative approaches to validate detection outputs. 
-% For our survey, we examined how prior works establish the "meaningfulness" of their results by 
-% focusing on two main aspects of their validation approaches:
-% whether they cross-reference external datasets and the scale of their validation efforts.
-\end{comment}
+Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, 
+prior works rely on improvised approaches to validate the meaningfulness of their method outputs. 
+We evaluate the rigor of these approaches based on their use of labels (whose definitions possess varying degrees of confidence) 
+and whether methods are cross-validated against other traffic datasets and/or compared against baseline methods.
+Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories.
 
 \begin{comment}
 % This yields two broad categories of validation: manual inspection with limited coverage, and systematic validation using external or curated data sources.
@@ -525,14 +603,16 @@ Using these characteristics, we define and group (Table~\ref{tab:eval}) validati
 % The third and most formal approach involves constructing labeled datasets prior to assessment and computing accuracy metrics, e.g., conventional information retrieval metrics such as precision, recall, or F1-score, from subsequently obtained outputs combined with labeled samples. While this approach is the most reproducible, sound comparison of validation results depends on objective definitions for labels.
 \end{comment}
 
-\subsubsection{Internal Validation Approaches}
-asdfafds
+\noindent{\textbf{A1 - Strictly Internal/Manual Validation.}}
+Approaches that do not utilize ground-truth labels, relying solely on internal clustering metrics or manual inspection of the output.
 
-\subsubsection{Weak External Validation Approaches}
-asdfdsaf
+\noindent{\textbf{A2 - Weak External Validation.}}
+Approaches that incorporate external validation but rely on labels with uncertain confidence or lack sufficient cross-comparison 
+with other methods.
 
-\subsubsection{Strong External Validation Approaches}
-asdf
+\noindent{\textbf{A3 - Strong External Validation.}}
+The most rigorous approach, employing high-confidence ground-truth labels and validating results 
+through extensive cross-comparison with independent datasets or established techniques.
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 \textbf{Takeaways:} helloasdfasdfasdf
@@ -616,7 +696,7 @@ Fewer than half of our surveyed works directly compare detection methodologies v
         & \multicolumn{1}{c}{\textbf{Valid-}} \\
         \cmidrule(lr){3-4} \cmidrule(lr){5-9}
         \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} 
-        & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
+        & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ation} \\
         \midrule
 
         Evrard et al.~\cite{2019evrard}
@@ -641,7 +721,7 @@ Fewer than half of our surveyed works directly compare detection methodologies v
         & NT-4,5
         & 3W,1D & 2020
         & --- & ---
-        & A1 \\
+        & A2 \\
 
         Nishikaze et al.~\cite{2015nishikaze}
         &  
@@ -657,7 +737,7 @@ Fewer than half of our surveyed works directly compare detection methodologies v
         & NT-2
         & 28D, 1D & 2016,2022
         & 49B, 3.1B & ---
-        & A2, A3 \\
+        & A3 \\
 
         Iglesias et al.~\cite{2019iglesias}
         &  
