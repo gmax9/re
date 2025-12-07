@@ -95,9 +95,12 @@ We conclude with a discussion of future directions for improving assessment rigo
 
 Network telescopes, or darknets, have been instrumental to both researchers and practitioners for their ability to observe Internet-wide phenomena in the unsolicited traffic they receive. 
 Over the past two decades, research efforts have shifted from characterizing darknet phenomena and their observable signals towards translating such empirical insights into operationalizable methodologies for monitoring the Internet's security and availability in near real-time.
-These efforts have culminated in a number of methodologies that, despite sharing a common goal of automatically detecting events in darknet traffic, differ widely in the algorithmic technique(s) they employ (e.g., ), features of the traffic they exploit (e.g, ), and their operational definition of what constitutes an event (e.g.,).
+These efforts have culminated in a number of methodologies that, despite sharing a common goal of automatically detecting events from darknet traffic, 
+differ widely in the technique(s) they employ (\textit{e.g.,} dimensionality reduction, forecasting, representation learning), features of the traffic they exploit (\textit{e.g.,} packet inter-arrival times, destination port sequences), and their operational definition of what constitutes an event (\textit{e.g.,} a shift in sender clusters, anomalous traffic volumes towards specific ports). 
+The diversity represented in these methodologies poses a challenge to assessing their comparative capabilities, which still remain unestablished, in real-world experiments.
+As we experienced while designing and evaluating our prior work, DarkSim~\cite{2024gao}, this challenge takes form in limited replicability of implementations, inconsistent approaches to validation, and non-standardized metrics for measuring performance.
 
-
+\begin{comment}
 % Network telescopes, or darknets, have been instrumental to both researchers and practitioners for their ability to observe Internet-wide phenomena in the unsolicited traffic they receive. 
 % Over the past two decades, research efforts have shifted from characterizing darknet phenomena and their observable signals towards translating such empirical insights into operationalizable methodologies for monitoring the Internet's security and availability in near real-time.
 % This has resulted in a number of methodologies that each leverage different approaches to achieve a common goal of broadly automating darknet event detection. 
@@ -107,7 +110,7 @@ These efforts have culminated in a number of methodologies that, despite sharing
 % the traffic features they exploit (e.g., packet counts, port sequences, temporal bursts), 
 % and their operational definition of what constitutes an event (ranging from short-lived scans to sustained probing campaigns).
 % As security risks mount along growing volumes of darknet traffic, such methodologies represent a crucial and necessary transition from post-hoc manual traffic analysis towards a more \maxnote{dots} means of detection.
-However, the utility of these frameworks depend critically on their accuracy and validity, which remain elusive to evaluate due challenges posed by \dots.
+% However, the utility of these frameworks depend critically on their accuracy and validity, which remain elusive to evaluate due challenges posed by \dots.
 
 % However, as we identify in our suvey, methodologies differ widely in several ways: the algorithmic techniques they employ (e.g., statistical forecasting, matrix decompositions, and graph-based models), the traffic features they exploit (e.g., packet counts, port sequences, temporal bursts), 
 % and their operational definition of what constitutes an event (ranging from short-lived scans to sustained probing campaigns).
@@ -145,15 +148,29 @@ However, the utility of these frameworks depend critically on their accuracy and
 
 % Traffic Growth
 % Complexity Growth - new 
+\end{comment}
 
-In this report, we survey an extensive body of literature to construct a taxonomy of darknet event detection methodologies followed by a separate taxonomy that details their assessments in empirical evaluations. 
+In this report, we survey an extensive body of literature that proposes darknet event detection methodologies to investigate the extent to which challenges we encountered likewise extend to method assessment at large. 
+We begin with an overview of canonical literature that \dots in Section~\ref{sec:bg} .
+We then describe our taxonomy of methodologies in Section~\ref{sec:frameworks}, blah blah intution.
+In Section~\ref{sec:assessments}, we review their empirical assessments to identify gaps that prevent \dots.
+Finally, Section~\ref{sec:fw} closes our report with a discussion of future work we intend in order to enable more rigorous, systematic assessments of darknet event detection methodologies.
+
+In this report, we survey an extensive body of literature on darknet event detection methodologies to investigate the extent to which challenges we encountered affect this topic of research at large. 
 We begin with an overview of prior work that characterizes network telescope traffic and chronicles its major changes in Section~\ref{sec:bg}.
-We then describe our taxonomy of methodologies in Section~\ref{sec:frameworks}, comparing\dots\maxnote{brief summary}, followed by a review of their evaluation in Section~\ref{sec:evaluations}.
+We then describe our taxonomy of methodologies in Section~\ref{sec:frameworks}, comparing\dots\maxnote{brief summary}, followed by a review of their evaluation in Section~\ref{sec:assessments}.
 Finally, using our survey's findings, we conclude with a discussion of challenges in this area as well as directions for future work in Section~\ref{sec:fw}.
+
+% In this report, we survey an extensive body of literature to construct a taxonomy of darknet event detection methodologies followed by a separate taxonomy that details their assessments in empirical evaluations. 
+% We begin with an overview of prior work that characterizes network telescope traffic and chronicles its major changes in Section~\ref{sec:bg}.
+% We then describe our taxonomy of methodologies in Section~\ref{sec:frameworks}, comparing\dots\maxnote{brief summary}, followed by a review of their evaluation in Section~\ref{sec:assessments}.
+% Finally, using our survey's findings, we conclude with a discussion of challenges in this area as well as directions for future work in Section~\ref{sec:fw}.
 
 % We begin this report with an overview of network telescopes, the traffic they collect, and the types of Internet-wide events inferrable through analysis of such traffic.
 % We then survey various frameworks that have been proposed to automate event detection and construct a taxonomy that compares their 1) analysis goals and designs; and 2) performance as informed by empirical evaluations on real-world darknet traffic.
 % Using this taxonomy, we identify challenges and opportunities for future research where efforts may yield improvements over the current state-of-art.
+
+% \clearpage
 
 \label{sec:bg}
 \section{Background}
@@ -162,10 +179,28 @@ We first provide a technical explanation of their function as observatories of u
 We then summarize findings from past works that have studied the nature and composition of this traffic alongside landmark Internet-wide events.
 Finally, we remark on changes in darknet traffic characteristics up to the present day and speculate on the future trajectory of its mixtures.
 
-\label{sec:bg:nt}
-\subsection{Network Telescopes}
+% \label{sec:bg:nt}
+% \subsection{Network Telescopes}
+\begin{table}[t!]
+	\small
+	\caption{Summary of network telescopes.}\label{tab:telescopes}
+	\begin{tabular}{cccc}
+		\toprule
+		Telescopes & Country & Size & Data availability\\
+		\midrule
+		\textbf{NT-1.} UCSD-NT~\cite{ucsd-nt} & US & /9+/10 & Raw traces and flow data \\
+		\textbf{NT-2.} Merit ORION~\cite{orion-nt} & US & $\sim$7 $\times$/16s & Raw trace\\
+		\textbf{NT-3.} NICTER~\cite{nicter-nt} & JP &  /17, /18, 2$\times$/20 & TCP SYN only, anonymized flow data\\
+		\textbf{NT-4.} Politecnico di Torino \cite{2020soro} & IT & 3 $\times$ /24 & Unknown\\
+		\textbf{NT-5.} Darknet-BR \cite{CunhaCamargo2025darknetbr} & BR & /19 & Unknown\\
+		\textbf{NT-6.} LHS Nancy~\cite{inria-nt} & FR & /20 & Raw trace\\
+		\textbf{NT-7.} Farsight~\cite{@@} & US & /13 & Private\\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
-\begin{figure}[htbp]
+
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figures/traffic_growth.pdf}
     \caption{15 years of darknet traffic growth. Daily compressed PCAP filesizes have exceeded 3.5 terabytes per day.}
@@ -1093,23 +1128,7 @@ by differential metrics (e.g., Jaccard Index, etc.), though
 % asadfadsf
 \section{Appendices}
 
-\begin{table}[httb]
-	\small
-	\caption{Summary of network telescopes.}\label{tab:telescopes}
-	\begin{tabular}{cccc}
-		\toprule
-		Telescopes & Country & Size & Data availability\\
-		\midrule
-		\textbf{NT-1.} UCSD-NT~\cite{ucsd-nt} & US & /9+/10 & Raw traces and flow data \\
-		\textbf{NT-2.} Merit ORION~\cite{orion-nt} & US & $\sim$7 $\times$/16s & Raw trace\\
-		\textbf{NT-3.} NICTER~\cite{nicter-nt} & JP &  /17, /18, 2$\times$/20 & TCP SYN only, anonymized flow data\\
-		\textbf{NT-4.} Politecnico di Torino \cite{2020soro} & IT & 3 $\times$ /24 & Unknown\\
-		\textbf{NT-5.} Darknet-BR \cite{CunhaCamargo2025darknetbr} & BR & /19 & Unknown\\
-		\textbf{NT-6.} LHS Nancy~\cite{inria-nt} & FR & /20 & Raw trace\\
-		\textbf{NT-7.} Farsight~\cite{@@} & US & /13 & Private\\
-		\bottomrule
-	\end{tabular}
-\end{table}
+
 
 \begin{table}[]
     \small
