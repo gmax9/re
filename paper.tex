@@ -156,7 +156,7 @@ We then describe our taxonomy of methodologies in Section~\ref{sec:frameworks}, 
 In Section~\ref{sec:assessments}, we review their empirical assessments to identify gaps that prevent \dots.
 Finally, Section~\ref{sec:fw} closes our report with a discussion of future work we intend in order to enable more rigorous, systematic assessments of darknet event detection methodologies.
 
-In this report, we survey an extensive body of literature on darknet event detection methodologies to investigate the extent to which challenges we encountered affect this topic of research at large. 
+In this report, we survey an extensive body of literature on darknet event detection methodologies to investigate the extent that the challenges we encountered affect this topic of research at large. 
 We begin with an overview of prior work that characterizes network telescope traffic and chronicles its major changes in Section~\ref{sec:bg}.
 We then describe our taxonomy of methodologies in Section~\ref{sec:frameworks}, comparing\dots\maxnote{brief summary}, followed by a review of their evaluation in Section~\ref{sec:assessments}.
 Finally, using our survey's findings, we conclude with a discussion of challenges in this area as well as directions for future work in Section~\ref{sec:fw}.
@@ -210,7 +210,10 @@ Finally, we remark on changes in darknet traffic characteristics up to the prese
 % Brief overview of darknets and their traffic (IBR)
 Network telescopes, or darknets, consist of IPv4 address space that receive, but do not respond to, unsolicited Internet traffic via routes announced through the Border Gateway Protocol (BGP).
 For decades, researchers have studied this unidirectional traffic to understand its mixtures and origins, attributing its causes to Internet-wide activity ranging from 
-malicious scanning~\cite{@@}, residual backscatter from DoS attacks~\cite{@@}, Internet outages~\cite{2011dainotti,2013benson,2015benson,2012dainotti,2021padmanabhan}, and non-trivial network misconfigurations~\cite{@@}.
+malicious scanning~\cite{2024griffioen,2015dainotti,2017antonakakis,2023bischof,2014durumeric}, 
+residual backscatter from DoS attacks~\cite{2014rossow,2017jonker,2017blenn,2021griffioen,2023nawrocki,2024hiesgen}, 
+Internet outages~\cite{2011dainotti,2013benson,2012dainotti,2021padmanabhan}, 
+and non-trivial network misconfigurations~\cite{2015benson}.
 
 \begin{enumerate}
     \item three types of Internet-wide activity (summarize findings from each of the past major works, characterization of IBR and its changes, major events studied)
@@ -1163,23 +1166,23 @@ by differential metrics (e.g., Jaccard Index, etc.), though
 \end{table}
 
 
-\begin{acks}
-To Robert, for the bagels and explaining CMYK and color spaces.
-\end{acks}
+% \begin{acks}
+% To Robert, for the bagels and explaining CMYK and color spaces.
+% \end{acks}
 
 \bibliographystyle{plain}
 \bibliography{bib/refs.bib}
 
-\appendix
-\section{Research Methods}
+% \appendix
+% \section{Research Methods}
 
-\subsection{Part One}
+% \subsection{Part One}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-malesuada, quam in pulvinar varius, metus nunc fermentum urna, id
-sollicitudin purus odio sit amet enim. Aliquam ullamcorper eu ipsum
-vel mollis. Curabitur quis dictum nisl. Phasellus vel semper risus, et
-lacinia dolor. Integer ultricies commodo sem nec semper.
+% Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+% malesuada, quam in pulvinar varius, metus nunc fermentum urna, id
+% sollicitudin purus odio sit amet enim. Aliquam ullamcorper eu ipsum
+% vel mollis. Curabitur quis dictum nisl. Phasellus vel semper risus, et
+% lacinia dolor. Integer ultricies commodo sem nec semper.
 
 \end{document}
 \endinput

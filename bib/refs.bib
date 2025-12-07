@@ -60,27 +60,90 @@
   journal = {ACM Transactions on Computer Systems},
   year = {2006},
   doi = {https://catalog.caida.org/paper/2006_backscatter_dos}}
-@inproceedings{2024hiesgen,
-  author = {Hiesgen, Raphael and Nawrocki, Marcin and Barcellos, Marinho and Kopp, Daniel and Hohlfeld, Oliver and Chan, Echo and Dobbins, Roland and Doerr, Christian and Rossow, Christian and Thomas, Daniel R. and Jonker, Mattijs and Mok, Ricky and Luo, Xiapu and Kristoff, John and Schmidt, Thomas C. and W\"{a}hlisch, Matthias and claffy, kc},
-  title = {The Age of DDoScovery: An Empirical Comparison of Industry and Academic DDoS Assessments},
-  year = {2024},
-  booktitle = {Proceedings of the 2024 ACM on Internet Measurement Conference},
-  doi = {10.1145/3646547.3688451}}
-@inproceedings{2017jonker,
-  author = {Jonker, Mattijs and King, Alistair and Krupp, Johannes and Rossow, Christian and Sperotto, Anna and Dainotti, Alberto},
-  title = {Millions of targets under attack: a macroscopic characterization of the DoS ecosystem},
+@article{2003moore,
+  author={Moore, D. and Paxson, V. and Savage, S. and Shannon, C. and Staniford, S. and Weaver, N.},
+  journal={IEEE Security & Privacy}, 
+  title={Inside the Slammer worm}, 
+  year={2003},
+  doi={10.1109/MSECP.2003.1219056}}
+%%%%%%%%%%%%%%%%%%%%%%
+%%% Phen - Scanning %%
+%%%%%%%%%%%%%%%%%%%%%%
+@article{2015dainotti,
+  author={Dainotti, Alberto and King, Alistair and Claffy, Kimberly and Papale, Ferdinando and Pescapé, Antonio},
+  journal={IEEE/ACM Transactions on Networking}, 
+  title={Analysis of a “/0” Stealth Scan From a Botnet}, 
+  year={2015},
+  doi={10.1109/TNET.2013.2297678}}
+@inproceedings{2017antonakakis,
+  author = {Manos Antonakakis and Tim April and Michael Bailey and Matt Bernhard and Elie Bursztein and Jaime Cochran and Zakir Durumeric and J. Alex Halderman and Luca Invernizzi and Michalis Kallitsis and Deepak Kumar and Chaz Lever and Zane Ma and Joshua Mason and Damian Menscher and Chad Seaman and Nick Sullivan and Kurt Thomas and Yi Zhou},
+  title = {Understanding the Mirai Botnet},
+  booktitle = {26th USENIX Security Symposium (USENIX Security 17)},
   year = {2017},
-  doi = {10.1145/3131365.3131383},
-  booktitle = {Proceedings of the 2017 Internet Measurement Conference}}
-%%%%%%%%%%%%%%%%%%%%%
-%%% Phen - Outages %%
-%%%%%%%%%%%%%%%%%%%%%
+  doi = {doi/10.5555/3241189.3241275}}
 @inproceedings{2023bischof,
   author = {Bischof, Zachary S. and Pitcher, Kennedy and Carisimo, Esteban and Meng, Amanda and Bezerra Nunes, Rafael and Padmanabhan, Ramakrishna and Roberts, Margaret E. and Snoeren, Alex C. and Dainotti, Alberto},
   title = {Destination Unreachable: Characterizing Internet Outages and Shutdowns},
   year = {2023},
   doi = {10.1145/3603269.3604883},
   booktitle = {Proceedings of the ACM SIGCOMM 2023 Conference}}
+@inproceedings{2014durumeric,
+  author = {Durumeric, Zakir and Bailey, Michael and Halderman, J. Alex},
+  title = {An internet-wide view of internet-wide scanning},
+  year = {2014},
+  booktitle = {Proceedings of the 23rd USENIX Conference on Security Symposium},
+  doi = {10.5555/2671225.2671230}}
+@inproceedings{2024griffioen,
+  author = {Griffioen, Harm and Koursiounis, Georgios and Smaragdakis, Georgios and Doerr, Christian},
+  title = {Have you SYN me? Characterizing Ten Years of Internet Scanning},
+  year = {2024},
+  doi = {10.1145/3646547.3688409},
+  booktitle = {Proceedings of the 2024 ACM on Internet Measurement Conference}}
+@inproceedings{2025ferrero,
+  author = {Ferrero, Dario and Bassetti, Enrico and Griffioen, Harm and Smaragdakis, Georgios},
+  title = {Have you SYN What I See? Analyzing TCP SYN Payloads in the Wild},
+  year = {2025},
+  doi = {10.1145/3730567.3764498},
+  booktitle = {Proceedings of the 2025 ACM Internet Measurement Conference}}
+%%%%%%%%%%%%%%%%%%%%%%
+%%% Phen - DoS      %%
+%%%%%%%%%%%%%%%%%%%%%%
+@inproceedings{2014rossow,
+  author = {Rossow, Christian},
+  title = {Amplification Hell: Revisiting Network Protocols for DDoS Abuse},
+  year = {2014},
+  doi = {10.14722/ndss.2014.23233},
+  booktitle = {Proceedings of the 12th International Conference on Availability, Reliability and Security}}
+@inproceedings{2017jonker,
+  author = {Jonker, Mattijs and King, Alistair and Krupp, Johannes and Rossow, Christian and Sperotto, Anna and Dainotti, Alberto},
+  title = {Millions of targets under attack: a macroscopic characterization of the DoS ecosystem},
+  year = {2017},
+  doi = {10.1145/3131365.3131383},
+  booktitle = {Proceedings of the 2017 Internet Measurement Conference}}
+@inproceedings{2017blenn,
+  author = {Blenn, Norbert and Ghi\"{e}tte, Vincent and Doerr, Christian},
+  title = {Quantifying the Spectrum of Denial-of-Service Attacks through Internet Backscatter},
+  year = {2017},
+  doi = {10.1145/3098954.3098985},
+  booktitle = {Proceedings of the 12th International Conference on Availability, Reliability and Security}}
+@inproceedings{2021griffioen,
+  author = {Griffioen, Harm and Oosthoek, Kris and van der Knaap, Paul and Doerr, Christian},
+  title = {Scan, Test, Execute: Adversarial Tactics in Amplification DDoS Attacks},
+  year = {2021},
+  doi = {10.1145/3460120.3484747},
+  booktitle = {Proceedings of the 2021 ACM SIGSAC Conference on Computer and Communications Security}}
+@INPROCEEDINGS{2023nawrocki,
+  author={Nawrocki, Marcin and Kristoff, John and Hiesgen, Raphael and Kanich, Chris and Schmidt, Thomas C. and Wählisch, Matthias},
+  booktitle={2023 IEEE 8th European Symposium on Security and Privacy (EuroS{\&}P)}, 
+  title={SoK: A Data-driven View on Methods to Detect Reflective Amplification DDoS Attacks Using Honeypots}, 
+  year={2023},
+  doi={10.1109/EuroSP57164.2023.00041}}
+@inproceedings{2024hiesgen,
+  author = {Hiesgen, Raphael and Nawrocki, Marcin and Barcellos, Marinho and Kopp, Daniel and Hohlfeld, Oliver and Chan, Echo and Dobbins, Roland and Doerr, Christian and Rossow, Christian and Thomas, Daniel R. and Jonker, Mattijs and Mok, Ricky and Luo, Xiapu and Kristoff, John and Schmidt, Thomas C. and W\"{a}hlisch, Matthias and claffy, kc},
+  title = {The Age of DDoScovery: An Empirical Comparison of Industry and Academic DDoS Assessments},
+  year = {2024},
+  booktitle = {Proceedings of the 2024 ACM on Internet Measurement Conference},
+  doi = {10.1145/3646547.3688451}}
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% Events - Outages %%
 %%%%%%%%%%%%%%%%%%%%%%%
