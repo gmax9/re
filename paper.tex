@@ -22,6 +22,7 @@
 \usepackage{threeparttable}
 \usepackage{enumerate}
 \usepackage{comment}
+\usepackage{arydshln}
 
 \newcommand{\mybox}[4]{
     \begin{figure}[h]
@@ -97,16 +98,23 @@ Network telescopes, or darknets, have been instrumental to both researchers and 
 Over the past two decades, research efforts have shifted from characterizing darknet phenomena and their observable signals towards translating such empirical insights into operationalizable methodologies for monitoring the Internet's security and availability in near real-time.
 These efforts have culminated in a number of methodologies that, despite sharing a common goal of automatically detecting events from darknet traffic, 
 differ widely in the technique(s) they employ (\textit{e.g.,} dimensionality reduction, forecasting, representation learning), features of the traffic they exploit (\textit{e.g.,} packet inter-arrival times, destination port sequences), and their operational definition of what constitutes an event (\textit{e.g.,} a shift in sender clusters, anomalous traffic volumes towards specific ports). 
-The diversity represented in these methodologies poses a challenge to assessing their comparative capabilities, which still remain unestablished, in real-world experiments.
-As we encountered in our prior work~\cite{2024gao} while devising assessments used to compare a baseline method against ours,
-validation of detection results is not straightforward in the absence of curated data, implementations are not guaranteed to be replicable, and meaningful metrics require alignment.
+% Beyond the diversity represented by these methodologies, many of them have been developed, implemented, and assessed independently by different research groups without a uniform standard for best-practices.
+% As we experienced while developing our prior work~\cite{2024gao}, this poses several challenges that limit development of new and existing methodologies.
+However, many of these methodologies have been developed, implemented, and assessed independently by different research groups without a uniform standard for best-practices. 
+This fragmentation discourages the development of new or improvement to existing methodologies due to several challenges that we encountered in our prior work~\cite{2024gao} and later describe in this report.
 
-In this report, we survey an extensive body of literature that propose darknet event detection methodologies to investigate the extent that the challenges we encountered apply to comparative method assessments at large. 
+In this report, we survey an extensive body of literature that proposes darknet event detection methodologies to investigate the extent that the challenges we encountered impact the development and assessments of darknet-event detection methodologies at large. 
+Overall, we find a low degree of replicability among proposed methodologies and inconsistencies across datasets and validation approaches in their assessments.
 Section 1 provides an overview of canonical literature that characterizes darknet traffic and its associated phenomena.
 We discuss notable findings from past empirical studies and their role in monitoring darknet traffic. 
-Section 2 introduces our taxonomy of detection methodologies, summarizing intuitions guiding the design of each method while emphasizing their distinguishing features. 
-Section 3 reviews empirical assessments of prior work separate from methods themselves to highlight gaps that prevent rigorous comparative assessments.
-Finally, we conclude our survey's findings with directions for future work that addresses these gaps to enable...
+Section 2 introduces our taxonomy of detection methodologies with a breakdown of their detected activities, employed techniques, and the features and representations of their traffic inputs alongside 
+summarized intuitions guiding their design.
+Section 3 reviews empirical assessments of prior work separate from methods themselves to highlight specific gaps that result from the lack of standard practices. 
+Finally, we conclude our survey's findings with directions for future work intended 
+to support more robust evidence-informed method selection for darknet event detection tasks 
+by enabling systematic comparative assessments.
+
+
 
 % As we experienced while designing and evaluating our prior work, DarkSim~\cite{2024gao}, this challenge takes form in limited replicability of implementations, inconsistent approaches to validation, and non-standardized metrics for measuring performance.
 
@@ -387,6 +395,199 @@ In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph d
 Soro et al.~\cite{2020soro} define weighted bipartite graphs that link source Autonomous Systems (ASes) to destination ports based on the number of packets in TCP scan traffic that ASes send and extract ASes that target similar sets of ports using the Greedy Modularity Algorithm.
 
 
+
+\label{sec:methods:dos}
+\subsection{Backscatter Detection}
+Several of the previously mentioned methodologies in Section~\ref{sec:methods:scan} detect both scans and backscatter since reflected response traffic generated by spoofed DoS attacks can resemble scanning behavior, e.g., a DoS victim's response to spoofed traffic compared to high-volume horizontal scans.
+While distinguishing backscatter from scans in stateful protocol traffic such as TCP, e.g., by inspecting untampered TCP flags, for stateless protocols such as ICMP and UDP it is less so. 
+\maxnote{enumerate works here}
+
+\label{sec:methods:outage}
+\subsection{Outage Detection}
+In contrast to scanning and backscatter detection, outage detection methodologies aim to identify the absence of expected traffic.
+These methodologies frame detection in terms of traffic sources defined at varying spatial grains (e.g., per-subnet, per-AS, or per-country) which may depend on darknet-exogenous data for geolocation or AS-organization lookups.
+
+Our survey identifies two works that propose complete outage detection methodologies.
+Guillot et al. propose Chocolatine~\cite{2019guillot} which forecasts the expected number of unique senders aggregated at per-AS and per-country granularities by training a Seasonal Autoregressive Integrated Moving Average (SARIMA) model over historical sender counts of unfiltered, protocol-agnostic traffic inputs; 
+sender counts beyond specified 5-minute prediction thresholds are flagged as potential outages.
+Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian approach for inferring outages down to a coarser spatial grain of a /24 subnetwork in comparison to Chocolatine. Furthermore, Durbin optimizes parameters per-subnet and and claims to more flexibly exploit space-time precision trade-offs by doing so. 
+
+% \begin{table}[t]
+%     \small
+%     \caption{Taxonomy of Detection Methodologies }
+%     \label{tab:frameworks-noalgos}
+%     \begin{tabular}{llllc}
+%         \toprule
+%         \multicolumn{1}{c}{Work} & \multicolumn{4}{c}{Framework} \\
+%         \midrule
+%         & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
+%         \midrule
+
+%         Evrard et al.~\cite{2019evrard} &
+%         \markX &
+%         \markB &
+%         \markD &
+%         Dst. Port \\
+
+%         Lagraa et al.~\cite{2017lagraa,2019lagraa} &
+%         \markX &
+%         \markB &
+%         \markD &
+%         Dst. Port \\
+
+%         Kallitsis et al.~\cite{2022kallitsis} &
+%         \markX\markY &
+%         \markI\markA\markB &
+%         \markE &
+%         Src. IP \\
+
+%         Iglesias et al.~\cite{2019iglesias} &
+%         \markX\markY &
+%         \markB\markH &
+%         \markE &
+%         Src. IP \\
+
+%         Nishikaze et al.~\cite{2015nishikaze} &
+%         \markX &
+%         \markB &
+%         \markE &
+%         Src. /16 \\
+
+%         Soro et al.~\cite{2020soro} &
+%         \markX &
+%         \markB &
+%         \markF &
+%         Src. AS \\
+
+%         Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} &
+%         \markX &
+%         \markA\markB &
+%         \markF &
+%         Src. IP \\
+
+%         Abduaziz et al.~\cite{2025} &
+%         \markX &
+%         \markA\markB &
+%         \markF &
+%         Src. IP \\
+
+%         Han et al.~\cite{2021han,2022han} &
+%         \markX &
+%         \markA &
+%         \markG &
+%         Src. /16, Dst. Port \\
+
+%         Han et al.~\cite{2020han,2022han} &
+%         \markX\markEtc &
+%         \markA &
+%         \markG &
+%         Src. /16 \\
+
+%         Kanehara et al.~\cite{2019kanehara,2022han} &
+%         \markX &
+%         \markA\markH &
+%         \markG &
+%         Src. /16, Dst. Port \\
+
+
+%         Kartsioukas et al.~\cite{2023kartsioukas} & 
+%         \markX\markY & 
+%         \markA\markH & 
+%         \markG & 
+%         \textit{TODO} \\
+
+%         Ban et al.~\cite{2016ban} & 
+%         \markX & 
+%         \markA & 
+%         \markF\markG & 
+%         Dst. Port \\ 
+
+%         Torabi et al.~\cite{2020torabi,2018torabi} &
+%         \markX &
+%         \markJ &
+%         \markD,\markE &
+%         \textit{TODO} \\
+
+%         Tanaka et al.~\cite{2023tanaka,2021tanaka} &
+%         \markX &
+%         \textit{TODO} &
+%         Source &
+%         \textit{TODO} \\
+
+%         Niranjana et al.~\cite{2019niranjana} &
+%         \markX &
+%         \markA\markB &
+%         Source &
+%         \textit{TODO} \\
+
+%         Cabana et al.~\cite{2019cabana} &
+%         \markX &
+%         \markB\markH &
+%         \markD\markE &
+%         \textit{TODO} \\
+
+%         Shaikh et al.~\cite{2018shaikh} &
+%         \markX\markY\markZ\markEtc &
+%         \textit{TODO} &
+%         \markE &
+%         \textit{TODO} \\
+  
+%         Zakroum et al.~\cite{2022zakroum,2018zakroum} &
+%         \markX &
+%         \markC\markB &
+%         \markG &
+%         Dst. Port \\
+
+%         Zakroum et al.~\cite{2023zakroum} &
+%         \markX &
+%         \markC\markB &
+%         \markG &
+%         Dst. Port \\
+
+%         Guillot et al.~\cite{2019guillot} &
+%         \markZ&
+%         \markC\markB &
+%         \markG &
+%         Dst. Port \\
+
+%         Enyanet et al.~\cite{2024enyanet} &
+%         \markZ &
+%         \markC\markB &
+%         \markG &
+%         Dst. Port \\
+
+%         Zakroum et al.~\cite{2023zakroum} &
+%         \markX &
+%         \markC\markB &
+%         \markG &
+%         Dst. Port \\
+
+%         Guillot et al.~\cite{2019guillot} &
+%         \markZ&
+%         \markC\markB &
+%         \markG &
+%         Dst. Port \\
+
+%         Enyanet et al.~\cite{2024enyanet} &
+%         \markZ &
+%         \markC\markB &
+%         \markG &
+%         Dst. Port \\
+
+%         \bottomrule
+%     \end{tabular}
+
+%     \vspace{2pt}
+%     \parbox{\linewidth}{\raggedright
+%         \textit{Activities:} \markX~Scanning, \markY~DDoS, \markZ~Outage, \markEtc~Misconfiguration.\\
+%         \textit{Techniques:} \markA~Dimensionality Reduction, \markB~Clustering, \markC~Forecasting, \markH~Thresholding, \markI~Representation Learning, \markJ~Frequent Pattern Mining, \markH~Fingerprinting.\\
+%         \textit{Traffic representation:} \markD~Graph, \markE~Feature Vector, \markF~Sequences, \markG~Time Series.
+%     }
+% \end{table}
+
+\label{sec:assessments}
+\section{Empirical Assessments of Detection Methodologies}
+
 \begin{table*}[t!]
     \small
     \setlength{\tabcolsep}{4pt}
@@ -574,208 +775,6 @@ Soro et al.~\cite{2020soro} define weighted bipartite graphs that link source Au
         \bottomrule
     \end{tabular}
 \end{table*}
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figures/coverage_graph.pdf}
-    \caption{Time frames and darknet sources of datasets used in detection methodology assessments in our surveyed works shown with dates of darknet-observable Internet-wide events.}
-    \label{fig:traffic_growth}
-\end{figure}
-
-\label{sec:methods:dos}
-\subsection{Backscatter Detection}
-Several of the previously mentioned methodologies in Section~\ref{sec:methods:scan} detect both scans and backscatter since reflected response traffic generated by spoofed DoS attacks can resemble scanning behavior, e.g., a DoS victim's response to spoofed traffic compared to high-volume horizontal scans.
-While distinguishing backscatter from scans in stateful protocol traffic such as TCP, e.g., by inspecting untampered TCP flags, for stateless protocols such as ICMP and UDP it is less so. 
-\maxnote{enumerate works here}
-
-\label{sec:methods:outage}
-\subsection{Outage Detection}
-In contrast to scanning and backscatter detection, outage detection methodologies aim to identify the absence of expected traffic.
-These methodologies frame detection in terms of traffic sources defined at varying spatial grains (e.g., per-subnet, per-AS, or per-country) which may depend on darknet-exogenous data for geolocation or AS-organization lookups.
-
-Our survey identifies two works that propose complete outage detection methodologies.
-Guillot et al. propose Chocolatine~\cite{2019guillot} which forecasts the expected number of unique senders aggregated at per-AS and per-country granularities by training a Seasonal Autoregressive Integrated Moving Average (SARIMA) model over historical sender counts of unfiltered, protocol-agnostic traffic inputs; 
-sender counts beyond specified 5-minute prediction thresholds are flagged as potential outages.
-Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian approach for inferring outages down to a coarser spatial grain of a /24 subnetwork in comparison to Chocolatine. Furthermore, Durbin optimizes parameters per-subnet and and claims to more flexibly exploit space-time precision trade-offs by doing so. 
-
-
-
-% \begin{table}[t]
-%     \small
-%     \caption{Taxonomy of Detection Methodologies }
-%     \label{tab:frameworks-noalgos}
-%     \begin{tabular}{llllc}
-%         \toprule
-%         \multicolumn{1}{c}{Work} & \multicolumn{4}{c}{Framework} \\
-%         \midrule
-%         & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
-%         \midrule
-
-%         Evrard et al.~\cite{2019evrard} &
-%         \markX &
-%         \markB &
-%         \markD &
-%         Dst. Port \\
-
-%         Lagraa et al.~\cite{2017lagraa,2019lagraa} &
-%         \markX &
-%         \markB &
-%         \markD &
-%         Dst. Port \\
-
-%         Kallitsis et al.~\cite{2022kallitsis} &
-%         \markX\markY &
-%         \markI\markA\markB &
-%         \markE &
-%         Src. IP \\
-
-%         Iglesias et al.~\cite{2019iglesias} &
-%         \markX\markY &
-%         \markB\markH &
-%         \markE &
-%         Src. IP \\
-
-%         Nishikaze et al.~\cite{2015nishikaze} &
-%         \markX &
-%         \markB &
-%         \markE &
-%         Src. /16 \\
-
-%         Soro et al.~\cite{2020soro} &
-%         \markX &
-%         \markB &
-%         \markF &
-%         Src. AS \\
-
-%         Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} &
-%         \markX &
-%         \markA\markB &
-%         \markF &
-%         Src. IP \\
-
-%         Abduaziz et al.~\cite{2025} &
-%         \markX &
-%         \markA\markB &
-%         \markF &
-%         Src. IP \\
-
-%         Han et al.~\cite{2021han,2022han} &
-%         \markX &
-%         \markA &
-%         \markG &
-%         Src. /16, Dst. Port \\
-
-%         Han et al.~\cite{2020han,2022han} &
-%         \markX\markEtc &
-%         \markA &
-%         \markG &
-%         Src. /16 \\
-
-%         Kanehara et al.~\cite{2019kanehara,2022han} &
-%         \markX &
-%         \markA\markH &
-%         \markG &
-%         Src. /16, Dst. Port \\
-
-
-%         Kartsioukas et al.~\cite{2023kartsioukas} & 
-%         \markX\markY & 
-%         \markA\markH & 
-%         \markG & 
-%         \textit{TODO} \\
-
-%         Ban et al.~\cite{2016ban} & 
-%         \markX & 
-%         \markA & 
-%         \markF\markG & 
-%         Dst. Port \\ 
-
-%         Torabi et al.~\cite{2020torabi,2018torabi} &
-%         \markX &
-%         \markJ &
-%         \markD,\markE &
-%         \textit{TODO} \\
-
-%         Tanaka et al.~\cite{2023tanaka,2021tanaka} &
-%         \markX &
-%         \textit{TODO} &
-%         Source &
-%         \textit{TODO} \\
-
-%         Niranjana et al.~\cite{2019niranjana} &
-%         \markX &
-%         \markA\markB &
-%         Source &
-%         \textit{TODO} \\
-
-%         Cabana et al.~\cite{2019cabana} &
-%         \markX &
-%         \markB\markH &
-%         \markD\markE &
-%         \textit{TODO} \\
-
-%         Shaikh et al.~\cite{2018shaikh} &
-%         \markX\markY\markZ\markEtc &
-%         \textit{TODO} &
-%         \markE &
-%         \textit{TODO} \\
-  
-%         Zakroum et al.~\cite{2022zakroum,2018zakroum} &
-%         \markX &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Zakroum et al.~\cite{2023zakroum} &
-%         \markX &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Guillot et al.~\cite{2019guillot} &
-%         \markZ&
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Enyanet et al.~\cite{2024enyanet} &
-%         \markZ &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Zakroum et al.~\cite{2023zakroum} &
-%         \markX &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Guillot et al.~\cite{2019guillot} &
-%         \markZ&
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Enyanet et al.~\cite{2024enyanet} &
-%         \markZ &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         \bottomrule
-%     \end{tabular}
-
-%     \vspace{2pt}
-%     \parbox{\linewidth}{\raggedright
-%         \textit{Activities:} \markX~Scanning, \markY~DDoS, \markZ~Outage, \markEtc~Misconfiguration.\\
-%         \textit{Techniques:} \markA~Dimensionality Reduction, \markB~Clustering, \markC~Forecasting, \markH~Thresholding, \markI~Representation Learning, \markJ~Frequent Pattern Mining, \markH~Fingerprinting.\\
-%         \textit{Traffic representation:} \markD~Graph, \markE~Feature Vector, \markF~Sequences, \markG~Time Series.
-%     }
-% \end{table}
-
-\label{sec:assessments}
-\section{Empirical Assessments of Detection Methodologies}
-
-
 
 To demonstrate the utility of their detection methodologies, prior works conduct assessments using real-world darknet traffic datasets.
 These assessments and their results provide evidence of a method's performance under realistic settings and offer empirical insights into its detection capabilities and general scalability.
@@ -783,6 +782,7 @@ In this section, we characterize prior works along the lines of credibility and 
 (i) characteristics of the darknet traffic datasets they use; and
 (ii) their approach to validating detection outputs of their methodology.
 Furthermore, we consider implementation details of detection methodologies since the reproducibility of assessments and results are closely tied to the availability of method source code and specifications of chosen computational environments.
+
 
 % \vspace{0.25em}
 \subsection{Characteristics of darknet traffic datasets.}
@@ -796,16 +796,17 @@ and three /24 subnetworks (768 addresses operated by Politecnico di Torino).
 While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc announcements 
 (e.g., for leasing purposes~\cite{2025mannel} or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
 
-Shown in Figure~\ref{@@}, the aggregate range of time frames covered by traffic datasets span the start of 2012 and extend until late 2023.
-Total coverage over this range by at least a single assessment dataset at a daily granularity sits at 68\%. 
-%Recompute
-Most datasets are short snapshots: over half of all datasets span fewer than two months, 
-roughly a third draw from multi-year darknet traffic, and less than one in five cover three or more years.
-The majority of works do not provide clear rationale for their selection of time frames (with some exceptions such as ~\cite{2022kallitsis} which choose
-periods corresponding to specific Internet-wide events) and thus we 
-assume that selection is largely opportunistic and based on availability of darknet traffic data from specific darknets when assessments were run.
-We conclude that overlaps, shown in Figure~\ref{@@}, between time frames of assessed datasets and major Internet-wide scanning events is incidental, 
-and that the detectability of these events by proposed methodologies still remains to be determined.
+
+Shown in Figure~\ref{fig:cov_assess}, 
+the combined range of timeframes covered by darknet-traffic datasets span the start of 2012 and extend until late 2023. 
+The proportion covered over this range by at least a single assessment dataset (at a daily granularity) sits at 68\%. 
+Most datasets are short snapshots: over half of all datasets span fewer than two months, roughly a third cover under three years of darknet traffic, and less than a fifth cover three or more years. 
+A majority of works do not provide clear rationale for their timeframe selection, thus we infer that selection is largely opportunistic and based on availability of darknet traffic data at the time of assessment. 
+
+Some exceptions~\cite{2022kallitsis,2023kartsioukas} select specific timeframes centered around landmark Internet-wide events, e.g., the Mirai botnet, for validation purposes (later discussed in Section~\ref{sec:fw}).
+In addition to Mirai, Figure~\ref{fig:cov_assess} plots the start date of X additional events (Table~\ref{@}), observable in darknet traffic, identified as either major vulnerabilities or scans by botnets.
+While X\% of these events are covered by dataset timeframes, none are mentioned explicitly in surveyed works besides the exceptions previously mentioned which further strengthens our inference. 
+We discuss another implication for future work in Section~\ref{sec:fw}.
 
 % Recompute
 
@@ -817,9 +818,46 @@ and that the detectability of these events by proposed methodologies still remai
 
 \textbf{Takeaways:} 
 Datasets used throughout method assessments possess different levels of observability in their traffic 
-due to the variety of darknets and time frames they sample.
+due to the variety of darknets and timeframes they sample.
 Generalizability of a specific method's performance on one dataset to another remains unclear. 
 }
+\begin{table}[ht!]
+    \caption{Historic landmark events associated with Internet-wide traffic either purported or confirmed observed by darknets.}
+    \label{tab:events}
+    \centering
+    \begin{tabular}{lll : lll}
+    \hline
+    \textbf{ID} & \textbf{Event Name} & \textbf{Type} &
+    \textbf{ID} & \textbf{Event Name} & \textbf{Type} \\
+    \hline
+    I    & Carna         & Botnet                &
+    X     & Reaper         & Botnet \\
+    II   & Heartbleed    & Major Vulnerability    &
+    XI    & VPNFilter      & Botnet \\
+    III  & Shellshock    & Major Vulnerability    &
+    XII   & Crackonosh     & Botnet \\
+    IV   & Mirai         & Botnet                &
+    XIII  & BlueKeep       & Major Vulnerability \\
+    V    & Eternal Blue  & Major Vulnerability    &
+    XIV   & Ripple20       & Major Vulnerability \\
+    VI   & WannaCry      & Botnet                &
+    XV    & SMBGhost       & Major Vulnerability \\
+    VII  & BrickerBot    & Botnet                &
+    XVI   & Log4JShell     & Major Vulnerability \\
+    VIII & Amnesia       & Botnet                &
+    XVII  & PrintNightmare & Major Vulnerability \\
+    IX   & NotPetya      & Botnet                &
+          &               &  \\
+    \hline
+    \end{tabular}
+\end{table}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/coverage_graph.pdf}
+    \caption{Timeframes and sources of darknet-traffic datasets used by detection methodology assessments, overlapped with dates of darknet-observable Internet-wide events (listed in Table~\ref{tab:events}).}
+    \label{fig:cov_assess}
+\end{figure}
+
 
 % \vspace{0.25em}
 % \noindent{\textbf{Validation of detection results.}}
