@@ -98,7 +98,17 @@ Over the past two decades, research efforts have shifted from characterizing dar
 These efforts have culminated in a number of methodologies that, despite sharing a common goal of automatically detecting events from darknet traffic, 
 differ widely in the technique(s) they employ (\textit{e.g.,} dimensionality reduction, forecasting, representation learning), features of the traffic they exploit (\textit{e.g.,} packet inter-arrival times, destination port sequences), and their operational definition of what constitutes an event (\textit{e.g.,} a shift in sender clusters, anomalous traffic volumes towards specific ports). 
 The diversity represented in these methodologies poses a challenge to assessing their comparative capabilities, which still remain unestablished, in real-world experiments.
-As we experienced while designing and evaluating our prior work, DarkSim~\cite{2024gao}, this challenge takes form in limited replicability of implementations, inconsistent approaches to validation, and non-standardized metrics for measuring performance.
+As we encountered in our prior work~\cite{2024gao} while devising assessments used to compare a baseline method against ours,
+validation of detection results is not straightforward in the absence of curated data, implementations are not guaranteed to be replicable, and meaningful metrics require alignment.
+
+In this report, we survey an extensive body of literature that propose darknet event detection methodologies to investigate the extent that the challenges we encountered apply to comparative method assessments at large. 
+Section 1 provides an overview of canonical literature that characterizes darknet traffic and its associated phenomena.
+We discuss notable findings from past empirical studies and their role in monitoring darknet traffic. 
+Section 2 introduces our taxonomy of detection methodologies, summarizing intuitions guiding the design of each method while emphasizing their distinguishing features. 
+Section 3 reviews empirical assessments of prior work separate from methods themselves to highlight gaps that prevent rigorous comparative assessments.
+Finally, we conclude our survey's findings with directions for future work that addresses these gaps to enable...
+
+% As we experienced while designing and evaluating our prior work, DarkSim~\cite{2024gao}, this challenge takes form in limited replicability of implementations, inconsistent approaches to validation, and non-standardized metrics for measuring performance.
 
 \begin{comment}
 % Network telescopes, or darknets, have been instrumental to both researchers and practitioners for their ability to observe Internet-wide phenomena in the unsolicited traffic they receive. 
@@ -150,11 +160,11 @@ As we experienced while designing and evaluating our prior work, DarkSim~\cite{2
 % Complexity Growth - new 
 \end{comment}
 
-In this report, we survey an extensive body of literature that proposes darknet event detection methodologies to investigate the extent to which challenges we encountered extend to method assessment at large.
-Section 1 first provides an overview of canonical literature that characterizes darknet traffic and discusses major findings of previous studies. 
-Section 2 introduces our taxonomy of detection methodologies that breaks down their components and highlights the intuitions underlying each of their approaches.
-Section 3 reviews the empirical assessments of methods, identifying gaps that currently obscure a complete picture of the comparative capabilities between methods.
-We conclude our survey's findings with directions for future work aimed at enabling more rigorous, systematic assessments.
+% In this report, we survey an extensive body of literature that proposes darknet event detection methodologies to investigate the extent to which challenges we encountered extend to method assessment at large.
+% Section 1 first provides an overview of canonical literature that characterizes darknet traffic and discusses major findings of previous studies. 
+% Section 2 introduces our taxonomy of detection methodologies that breaks down their components and highlights the intuitions underlying each of their approaches.
+% Section 3 reviews the empirical assessments of methods, identifying gaps that currently obscure a complete picture of the comparative capabilities between methods.
+% We conclude our survey's findings with directions for future work aimed at enabling more rigorous, systematic assessments.
 
 % In this report, we survey an extensive body of literature that proposes darknet event detection methodologies to investigate the extent to which challenges we encountered likewise extend to method assessment at large. 
 % We begin with an overview of canonical literature that \dots in Section~\ref{sec:bg} .
@@ -380,7 +390,7 @@ Soro et al.~\cite{2020soro} define weighted bipartite graphs that link source Au
 \begin{table*}[t!]
     \small
     \setlength{\tabcolsep}{4pt}
-    \caption{Details of empirical evaluation and traffic datasets found in our surveyed work. Appx. Table~\ref{tab:telescopes} summarizes referenced telescopes.}
+    \caption{Empirical assessment details and darknet traffic datasets found in our surveyed works. Table~\ref{tab:telescopes} lists expanded details of the telescopes referenced in this table.}
     \label{tab:eval}
     \begin{tabular}{@{}lccccccccc@{}}
         \toprule
@@ -1145,7 +1155,7 @@ by differential metrics (e.g., Jaccard Index, etc.), though
 
 % \section{Acknowledgments}
 % asadfadsf
-\section{Appendices}
+% \section{Appendices}
 
 
 
