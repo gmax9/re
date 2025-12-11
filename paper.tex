@@ -200,20 +200,20 @@ by enabling systematic comparative assessments.
 \section{Background}
 In this section, we provide a brief overview of network telescopes and discuss their role in Internet measurement research.
 We first provide a technical explanation of their function as observatories of unsolicited IPv4 Internet traffic.
-We then summarize findings from past works that have studied the nature and composition of this traffic alongside landmark Internet-wide events.
-Finally, we remark on changes in darknet traffic characteristics up to the present day and speculate on the future trajectory of its mixtures.
+We then summarize findings from past works that have studied the nature and composition of this traffic during landmark Internet-wide events.
+Finally, we remark on changes in characteristics of such traffic up to present day and speculate on the future development of its traffic and flows.
 
 % \label{sec:bg:nt}
 % \subsection{Network Telescopes}
 \begin{table}[t!]
 	\small
-	\caption{Summary of network telescopes.}\label{tab:telescopes}
+	\caption{Summary of network telescopes referenced in surveyed works.}\label{tab:telescopes}
 	\begin{tabular}{cccc}
 		\toprule
 		Telescopes & Country & Size & Data availability\\
 		\midrule
 		\textbf{NT-1.} UCSD-NT~\cite{ucsd-nt} & US & /9+/10 & Raw traces and flow data \\
-		\textbf{NT-2.} Merit ORION~\cite{orion-nt} & US & $\sim$7 $\times$/16s & Raw trace\\
+		\textbf{NT-2.} Merit ORION~\cite{orion-nt} & US & $\sim$7 $\times$/16s & Raw trace, custom-defined event data\\
 		\textbf{NT-3.} NICTER~\cite{nicter-nt} & JP &  /17, /18, 2$\times$/20 & TCP SYN only, anonymized flow data\\
 		\textbf{NT-4.} Politecnico di Torino \cite{2020soro} & IT & 3 $\times$ /24 & Unknown\\
 		\textbf{NT-5.} Darknet-BR \cite{2025camargo} & BR & /19 & Unknown\\
@@ -227,11 +227,11 @@ Finally, we remark on changes in darknet traffic characteristics up to the prese
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figures/traffic_growth.pdf}
-    \caption{15 years of darknet traffic growth. Daily compressed PCAP filesizes have exceeded 3.5 terabytes per day.}
+    \caption{Growth in volumes of darknet-traffic collected at UCSD-NT over 15 years. Daily compressed PCAP filesizes have exceeded 3.5 terabytes per day.}
     \label{fig:traffic_growth}
 \end{figure}
 
-Network telescopes, or darknets, consist of IPv4 address space that receive, but do not respond to, unsolicited Internet traffic via routes announced through the Border Gateway Protocol (BGP).
+Network telescopes, or darknets, consist of IPv4 address space that receives, but does not respond to, unsolicited Internet traffic via routes announced through the Border Gateway Protocol (BGP).
 Researchers have studied this unidirectional traffic to understand its mixtures and origins with foundational work attributing its causes to Internet-wide activity that includes
 malicious scanning~\cite{2024griffioen,2015dainotti,2017antonakakis,2023bischof,2014durumeric}, 
 residual backscatter from DoS attacks~\cite{2014rossow,2017jonker,2017blenn,2021griffioen,2023nawrocki,2024hiesgen}, 
@@ -787,8 +787,11 @@ Furthermore, we consider implementation details of detection methodologies since
 % \vspace{0.25em}
 \subsection{Characteristics of darknet traffic datasets.}
 For the datasets used in prior works, we consider several characteristics relevant to interpreting method assessment results:
-the timeframe over which traffic was collected, the specific darknet that received this traffic, the size of the darknet's address space, and its traffic volume measured in units of packets and bytes.
-Empirical studies such as~\cite{2025camargo,2019soro} establish that these factors have a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
+the timeframe over which traffic was collected, 
+the specific darknet that received this traffic, 
+the size of the darknet's address space, and its traffic volume measured in units of packets and bytes.
+Empirical studies such as~\cite{2025camargo,2019soro} established that address space size has a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
+\maxnote{revisit articulating this...}
 
 Across our surveyed works, we identified a total of 7 darknets (listed in Table~\ref{tab:telescopes}) from which datasets source their traffic. 
 The amount of IPv4 address space occupied by each darknet varies; the largest and smallest sizes respectively span roughly a /9 (approx. 12.5M addresses comprise the UCSD Network Telescope) 
@@ -796,15 +799,14 @@ and three /24 subnetworks (768 addresses operated by Politecnico di Torino).
 While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc announcements 
 (e.g., for leasing purposes~\cite{2025mannel} or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
 
-
 Shown in Figure~\ref{fig:cov_assess}, 
 the combined range of timeframes covered by darknet-traffic datasets span the start of 2012 and extend until late 2023. 
-The proportion covered over this range by at least a single assessment dataset (at a daily granularity) sits at 68\%. 
+The proportion of time covered over this range by at least a single dataset (at a daily granularity) sits at 68\%. 
 Most datasets are short snapshots: over half of all datasets span fewer than two months, roughly a third cover under three years of darknet traffic, and less than a fifth cover three or more years. 
 A majority of works do not provide clear rationale for their timeframe selection, thus we infer that selection is largely opportunistic and based on availability of darknet traffic data at the time of assessment. 
 
 Some exceptions~\cite{2022kallitsis,2023kartsioukas} select specific timeframes centered around landmark Internet-wide events, e.g., the Mirai botnet, for validation purposes (later discussed in Section~\ref{sec:fw}).
-In addition to Mirai, Figure~\ref{fig:cov_assess} plots the start date of X additional events (Table~\ref{@}), observable in darknet traffic, identified as either major vulnerabilities or scans by botnets.
+In addition to Mirai, Figure~\ref{fig:cov_assess} plots the start date of X additional events (Table~\ref{tab:events}), observable in darknet traffic, identified as either major vulnerabilities or scans by botnets.
 While X\% of these events are covered by dataset timeframes, none are mentioned explicitly in surveyed works besides the exceptions previously mentioned which further strengthens our inference. 
 We discuss another implication for future work in Section~\ref{sec:fw}.
 
@@ -822,58 +824,59 @@ due to the variety of darknets and timeframes they sample.
 Generalizability of a specific method's performance on one dataset to another remains unclear. 
 }
 \begin{table}[ht!]
-    \caption{Historic landmark events associated with Internet-wide traffic either purported or confirmed observed by darknets.}
+    \caption{Historic landmark events either purported or confirmed to have been observed by darknets.}
     \label{tab:events}
     \centering
-    \begin{tabular}{lll : lll}
+    \begin{tabular}{l c r l : l c r l}
     \hline
-    \textbf{ID} & \textbf{Event Name} & \textbf{Type} &
-    \textbf{ID} & \textbf{Event Name} & \textbf{Type} \\
+    \textbf{ID} & \textbf{Date} & \textbf{Event Name} & \textbf{Type} &
+    \textbf{ID} & \textbf{Date} & \textbf{Event Name} & \textbf{Type} \\
     \hline
-    I    & Carna         & Botnet                &
-    X     & Reaper         & Botnet \\
-    II   & Heartbleed    & Major Vulnerability    &
-    XI    & VPNFilter      & Botnet \\
-    III  & Shellshock    & Major Vulnerability    &
-    XII   & Crackonosh     & Botnet \\
-    IV   & Mirai         & Botnet                &
-    XIII  & BlueKeep       & Major Vulnerability \\
-    V    & Eternal Blue  & Major Vulnerability    &
-    XIV   & Ripple20       & Major Vulnerability \\
-    VI   & WannaCry      & Botnet                &
-    XV    & SMBGhost       & Major Vulnerability \\
-    VII  & BrickerBot    & Botnet                &
-    XVI   & Log4JShell     & Major Vulnerability \\
-    VIII & Amnesia       & Botnet                &
-    XVII  & PrintNightmare & Major Vulnerability \\
-    IX   & NotPetya      & Botnet                &
-          &               &  \\
+    I    & 2012-04 & Carna            & Botnet        &
+    X     & 2017-10 & Reaper           & Botnet \\
+    II   & 2014-03 & Heartbleed       & Remote Exp.   &
+    XI    & 2018-05 & VPNFilter        & Botnet \\
+    III  & 2014-09 & Shellshock       & Remote Exp.   &
+    XII   & 2018-06 & Crackonosh       & Botnet \\
+    IV   & 2016-08 & Mirai            & Botnet        &
+    XIII  & 2019-05 & BlueKeep         & Remote Exp. \\
+    V    & 2017-04 & Eternal Blue     & Remote Exp.   &
+    XIV   & 2020-06 & Ripple20         & Remote Exp. \\
+    VI   & 2017-05 & WannaCry         & Botnet        &
+    XV    & 2020-03 & SMBGhost         & Remote Exp. \\
+    VII  & 2017-04 & BrickerBot       & Botnet        &
+    XVI   & 2021-12 & Log4JShell       & Remote Exp. \\
+    VIII & 2016-03 & Amnesia          & Botnet        &
+    XVII  & 2021-06 & PrintNightmare   & Remote Exp. \\
+    IX   & 2017-06 & NotPetya         & Botnet        &
+          &         &                  &  \\
     \hline
     \end{tabular}
 \end{table}
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figures/coverage_graph.pdf}
-    \caption{Timeframes and sources of darknet-traffic datasets used by detection methodology assessments, overlapped with dates of darknet-observable Internet-wide events (listed in Table~\ref{tab:events}).}
+    \caption{Timeframes and sources of darknet-traffic datasets used in assessments (Section~\ref{sec:assessments}) of detection methodologies, overlapped with dates of Internet-wide events (listed in Table~\ref{tab:events}) observable by darknets.}
     \label{fig:cov_assess}
 \end{figure}
-
 
 % \vspace{0.25em}
 % \noindent{\textbf{Validation of detection results.}}
 \subsection{Validation of detection results.}
 
+Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, 
+prior works rely on improvised approaches to validate method outputs. 
+We evaluate the rigor of these approaches based on their use of labels (whose definitions possess varying degrees of confidence) 
+and whether methods are cross-validated against other traffic datasets and/or compared against baseline methods.
+Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories.
+
+\begin{comment}
 Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, prior works rely on improvised approaches to validate the meaningfulness of their method outputs.
 These approaches differ in rigor depending on two characteristics: 
 1) the use of labels (with varying degrees of confidence in their definitions); 
 and 2) whether methods are cross-validated against other traffic datasets and/or compared against baseline methods. 
 Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories: A1, strictly internal or manual validation; A2; weak external validation; and A3, strong external validation. 
-
-Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, 
-prior works rely on improvised approaches to validate the meaningfulness of their method outputs. 
-We evaluate the rigor of these approaches based on their use of labels (whose definitions possess varying degrees of confidence) 
-and whether methods are cross-validated against other traffic datasets and/or compared against baseline methods.
-Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories.
+\end{comment}
 
 \begin{comment}
 % This yields two broad categories of validation: manual inspection with limited coverage, and systematic validation using external or curated data sources.
@@ -893,6 +896,7 @@ with other methods.
 \noindent{\textbf{A3 - Strong External Validation.}}
 The most rigorous approach, employing high-confidence ground-truth labels and validating results 
 through extensive cross-comparison with independent datasets or established techniques.
+
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 \textbf{Takeaways:} 
