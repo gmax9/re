@@ -23,6 +23,7 @@
 \usepackage{enumerate}
 \usepackage{comment}
 \usepackage{arydshln}
+\usepackage{enumitem}
 
 \newcommand{\mybox}[4]{
     \begin{figure}[h]
@@ -76,9 +77,11 @@
 \begin{abstract}
 Network telescope (darknet) traffic has been instrumental in providing visibility into Internet-wide phenomena related to security and availability such as malicious scanning, denial-of-service (DoS) backscatter, and outages. 
 To better operationalize darknets for their monitoring capabilities, researchers have proposed a number of automated detection methodologies which span a diverse set of analytical techniques applied to different features of darknet traffic. 
-Yet despite the abundance of methods, their comparative capabilities remain unclear due to limited labeled datasets, difficultings in replicating their implementations, and the lack of a unified validation approach.
-In this report, we review the evolution of darknet detection methodologies over the past decade and examine in-depth the challenges that face a comprehensive, systematic assessment.
-We conclude with a discussion of future directions for improving assessment rigor and method comparability.
+Yet despite the abundance of methods, a comprehensive view of their comparative capabilities remains unclear due to gaps across their implementations and inconsistencies across their empirical assessments. 
+In this report, we review the evolution of darknet event detection methodologies over the past decade and examine in-depth the challenges that face a comprehensive, systematic assessment. We conclude with a discussion of future directions to address these challenges.
+% Yet despite the abundance of methods, their comparative capabilities remain unclear due to limited labeled datasets, difficultings in replicating their implementations, and the lack of a unified validation approach.
+% In this report, we review the evolution of darknet detection methodologies over the past decade and examine in-depth the challenges that face a comprehensive, systematic assessment.
+% We conclude with a discussion of future directions for improving assessment rigor and method comparability.
     
 % Analysis of network telescope, or darknet, traffic has provided substantial visibility into the security and availability of the Internet for decades.
 % To operationalize darknet monitoring capabilities, researchers have proposed numerous frameworks that automate the detection of Internet-wide events.
@@ -107,7 +110,7 @@ In this report, we survey an extensive body of literature that proposes darknet 
 Overall, we find a low degree of replicability among proposed methodologies and inconsistencies across datasets and validation approaches in their assessments.
 Section 1 provides an overview of canonical literature that characterizes darknet traffic and its associated phenomena.
 We discuss notable findings from past empirical studies and their role in monitoring darknet traffic. 
-Section 2 introduces our taxonomy of detection methodologies with a breakdown of their detected activities, employed techniques, and the features and representations of their traffic inputs alongside 
+Section 2 introduces our taxonomy of detection methodologies with a breakdown of their detected events, employed techniques, and the features and representations of their traffic inputs alongside 
 summarized intuitions guiding their design.
 Section 3 reviews empirical assessments of prior work separate from methods themselves to highlight specific gaps that result from the lack of standard practices. 
 Finally, we conclude our survey's findings with directions for future work intended 
@@ -590,6 +593,197 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
 
 \begin{table*}[t!]
     \small
+    \setlength{\tabcolsep}{2.5pt}
+    \caption{Empirical assessment details and darknet traffic datasets found in our surveyed works. Table~\ref{tab:telescopes} lists expanded details of the telescopes referenced in this table.}
+    \label{tab:eval}
+    \begin{tabular}{@{}lccccccccc@{}}
+        \toprule
+        & \multicolumn{2}{c}{\bf Replicability} 
+        & \multicolumn{5}{c}{\bf Dataset Attributes} 
+        & \multicolumn{1}{c}{\textbf{Compar-}}
+        & \multicolumn{1}{c}{\textbf{Labels}} \\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-8}
+        \textbf{Work} 
+        & \textbf{Code} & \textbf{Specs} 
+        & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} 
+        & \textbf{ison} 
+        & \textbf{Labels} \\
+        \midrule
+
+        Evrard et al.~\cite{2019evrard}
+        &  & 
+        & NT-3,6
+        & 9M & 2015
+        & 8M & ---
+        & 
+        & A1 \\
+
+        Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
+        &  & \cmark
+        & NT-6
+        & 2Y & 2014
+        & 2B & 500 GB
+        & 
+        & A1 \\
+
+        Soro et al.\textbf{~\cite{2020soro}}
+        &  & 
+        & NT-4,5
+        & 3W,1D & 2020
+        & --- & ---
+        & 
+        & A2 \\
+
+        Nishikaze et al.~\cite{2015nishikaze}
+        &  & 
+        & NT-3
+        & 28D & 2014
+        & 303M & ---
+        & 
+        & A1 \\
+
+        Kallitsis et al.~\cite{2022kallitsis}
+        & \cmark & \cmark
+        & NT-2
+        & 28D, 1D & 2016,2022
+        & 49B, 3.1B & ---
+        & \cite{2021gioacchini}
+        & A3 \\
+
+        Iglesias et al.~\cite{2019iglesias}
+        &  & \cmark
+        & NT-1
+        & 6M & 2012
+        & --- & 2.1 TB
+        & 
+        & A1 \\
+
+        Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
+        & \cmark & \cmark
+        & NT-4
+        & 30D & 2021
+        & 63M & ---
+        & \cite{2020cohen,2017ring}
+        & A3, A3 \\
+
+        Abduaziz et al.~\cite{2025abduaziz}
+        &  & \cmark
+        & NT-1,3
+        & 7D,10D & 2022,2023
+        & --- & 1.18, 7.61GB
+        & \cite{2020cohen}
+        & A3,A3 \\
+
+        Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
+        & \cmark & \cmark
+        & NT-3
+        & 1M & 2018
+        & --- & ---
+        & \cite{2006takeuchi}
+        & A1 \\
+
+        Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
+        & \cmark & 
+        & NT-3
+        & 1M & 2018
+        & --- & ---
+        & \cite{2020han,2006takeuchi,2019kanehara}
+        & A3 \\
+
+        Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
+        & \cmark & \cmark
+        & NT-3
+        & 10M & 2017
+        & --- & ---
+        & \cite{2021han,2020han,2006takeuchi}
+        & A1 \\
+
+        Kartsioukas et al.~\cite{2023kartsioukas}
+        & \cmark & \cmark
+        & NT-2
+        & 1M & 2016
+        & --- & ---
+        & \cite{2004lakhina}
+        & A1 \\
+
+        Ban et al.~\cite{2017ban}
+        &  & 
+        & NT-3
+        & --- & ---
+        & --- & ---
+        & \cite{2012ban}
+        & A2 \\
+
+        Ban et al.~\cite{2016ban}
+        &  & 
+        & NT-3
+        & 1y & 2015
+        & $3\times10^{7}$ & ---
+        & 
+        & A1 \\
+
+        Bou-Harb et al.~\cite{2014bouharb}
+        &  & 
+        & NT-7
+        & 2D & 2013
+        & $10^6$ & 30GB
+        & 
+        & A2 \\
+
+        Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
+        &  & \cmark
+        & NT-1,7
+        & 1M,1M & 2016,2014
+        & --- & 670, 240GB
+        & \cite{2018bouharb}
+        & A3 \\
+
+        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
+        &  & \cmark
+        & NT-3,6
+        & 3.5Y & 2017
+        & --- & $1.5+\mathrm{TB}$
+        & \cite{2018zakroum}
+        & A2 \\
+
+        Zakroum et al.~\cite{2023zakroum}
+        &  &
+        & NT-3,6
+        & 4.5Y & 2018
+        & --- & ---
+        & \cite{2023zakroum}
+        & A3 \\
+
+        Guillot et al.~\cite{2019guillot} 
+        & \cmark &
+        & NT-1
+        & 9Y & 2009--2018
+        & --- & ---
+        & \cite{2013quan}
+        & A3 \\
+
+        Enyanet et al.~\cite{2024enyanet} 
+        & &
+        &
+        & &
+        & &
+        & &
+        \\
+
+        \midrule
+        \textbf{Aggregate}
+        & 4/16 & 7/16
+        & 8--24
+        & 1w--3.5y & 2012--2021
+        & --- & ---
+        & 7/16
+        & --- \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+\begin{table*}[t!]
+    \small
     \setlength{\tabcolsep}{4pt}
     \caption{Empirical assessment details and darknet traffic datasets found in our surveyed works. Table~\ref{tab:telescopes} lists expanded details of the telescopes referenced in this table.}
     \label{tab:eval}
@@ -618,7 +812,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-6
         & 2Y & 2014
         & 2B & 500 GB
-        & A2 \\
+        & A1 \\
 
         Soro et al.\textbf{~\cite{2020soro}}
         &  
@@ -634,7 +828,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-3
         & 28D & 2014
         & 303M & ---
-        & A2 \\
+        & A1 \\
 
         Kallitsis et al.~\cite{2022kallitsis}
         & \cite{2021gioacchini}
@@ -650,7 +844,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-1
         & 6M & 2012
         & --- & 2.1 TB
-        & A2 \\
+        & A1 \\
 
         Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
         & \cite{2020cohen,2017ring}
@@ -658,7 +852,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-4
         & 30D & 2021
         & 63M & ---
-        & A1, A3 \\
+        & A3, A3 \\
 
         Abduaziz et al.~\cite{2025abduaziz}
         & \cite{2020cohen}
@@ -666,7 +860,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-1,3
         & 7D,10D & 2022,2023
         & --- & 1.18, 7.61GB
-        & A1,A3 \\
+        & A3,A3 \\
 
         Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
         & \cite{2006takeuchi}
@@ -674,7 +868,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-3
         & 1M & 2018
         & --- & ---
-        & A2 \\
+        & A1 \\
 
         Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
         & \cite{2020han,2006takeuchi,2019kanehara}
@@ -682,7 +876,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-3
         & 1M & 2018
         & --- & ---
-        & A2 \\
+        & A3 \\
 
         Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
         & \cite{2021han,2020han,2006takeuchi}
@@ -690,7 +884,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-3
         & 10M & 2017
         & --- & ---
-        & A2 \\
+        & A1 \\
 
         Kartsioukas et al.~\cite{2023kartsioukas}
         & \cite{2004lakhina}
@@ -706,7 +900,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-3
         & --- & ---
         & --- & ---
-        & A1 \\
+        & A2 \\
 
         Ban et al.~\cite{2016ban}
         & 
@@ -714,7 +908,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-3
         & 1y & 2015
         & $3\times10^{7}$ & ---
-        & A2 \\
+        & A1 \\
 
         Bou-Harb et al.~\cite{2014bouharb}
         &  
@@ -730,7 +924,7 @@ Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian appr
         & NT-1,7
         & 1M,1M & 2016,2014
         & --- & 670, 240GB
-        & A2 \\
+        & A3 \\
 
         Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
         & ~\cite{2018zakroum}
@@ -786,29 +980,40 @@ Furthermore, we consider implementation details of detection methodologies since
 
 % \vspace{0.25em}
 \subsection{Characteristics of darknet traffic datasets.}
-For the datasets used in prior works, we consider several characteristics relevant to interpreting method assessment results:
-the timeframe over which traffic was collected, 
-the specific darknet that received this traffic, 
-the size of the darknet's address space, and its traffic volume measured in units of packets and bytes.
-Empirical studies such as~\cite{2025camargo,2019soro} established that address space size has a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
-\maxnote{revisit articulating this...}
+
+We consider several characteristics of each dataset used to assess detection methodologies in prior work.
+These include 1) the timeframe covered by the dataset, 2) the darknet whose traffic comprises the dataset, 3) and the dataset's traffic volume measured in units of packets and bytes.
+% For the datasets used in prior works, we consider several characteristics relevant to interpreting method assessment results:
+% the timeframe over which traffic was collected, 
+% the specific darknet that received this traffic, 
+% the size of the darknet's address space, and its traffic volume measured in units of packets and bytes.
+% Empirical studies such as~\cite{2025camargo,2019soro} established that address space size has a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
 
 Across our surveyed works, we identified a total of 7 darknets (listed in Table~\ref{tab:telescopes}) from which datasets source their traffic. 
 The amount of IPv4 address space occupied by each darknet varies; the largest and smallest sizes respectively span roughly a /9 (approx. 12.5M addresses comprise the UCSD Network Telescope) 
 and three /24 subnetworks (768 addresses operated by Politecnico di Torino). 
 While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc announcements 
 (e.g., for leasing purposes~\cite{2025mannel} or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
+Empirical studies such as~\cite{2025camargo,2019soro} show that the size and ranges of IP addresses occupied by a darknet have a non-trivial impact on the observability, i.e., in terms of traffic composition and source visibility) of small-scale scanning events.
+% Empirical studies such as~\cite{2025camargo,2019soro} established that address space size has a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
+Thus, assessments results may not generalize across datasets sourced from different darknets.
 
 Shown in Figure~\ref{fig:cov_assess}, 
 the combined range of timeframes covered by darknet-traffic datasets span the start of 2012 and extend until late 2023. 
 The proportion of time covered over this range by at least a single dataset (at a daily granularity) sits at 68\%. 
 Most datasets are short snapshots: over half of all datasets span fewer than two months, roughly a third cover under three years of darknet traffic, and less than a fifth cover three or more years. 
-A majority of works do not provide clear rationale for their timeframe selection, thus we infer that selection is largely opportunistic and based on availability of darknet traffic data at the time of assessment. 
+Since a majority of works do not provide clear rationale for their timeframe selection, we infer that selection is largely opportunistic and based on availability of darknet traffic data at the time of assessment. 
 
-Some exceptions~\cite{2022kallitsis,2023kartsioukas} select specific timeframes centered around landmark Internet-wide events, e.g., the Mirai botnet, for validation purposes (later discussed in Section~\ref{sec:fw}).
-In addition to Mirai, Figure~\ref{fig:cov_assess} plots the start date of X additional events (Table~\ref{tab:events}), observable in darknet traffic, identified as either major vulnerabilities or scans by botnets.
-While X\% of these events are covered by dataset timeframes, none are mentioned explicitly in surveyed works besides the exceptions previously mentioned which further strengthens our inference. 
-We discuss another implication for future work in Section~\ref{sec:fw}.
+Some exceptions~\cite{2022kallitsis,2023kartsioukas} use known dates of landmark Internet-wide events, e.g., the Mirai botnet, to guide their selection of timeframes. 
+In addition to Mirai, Figure 2 plots the start date of X additional events (further summarized in Table 5) identified as either major remote execution vulnerabilities or scans originated by botnets. 
+While the traffic associated with these events, in theory, should have been observed by darknets, besides~\cite{2022kallitsis,2023kartsioukas} there have been no explicit studies of their detectability in darknet traffic despite 
+the fact that X\% of events are covered by the timeframes of datasets used in method assessments.
+We further discuss the implication of this finding in Section~\ref{sec:fw}.
+
+% Some exceptions~\cite{2022kallitsis,2023kartsioukas} select specific timeframes centered around landmark Internet-wide events, e.g., the Mirai botnet, for validation purposes (later discussed in Section~\ref{sec:fw}).
+% In addition to Mirai, Figure~\ref{fig:cov_assess} plots the start date of X additional events (summarized in Table~\ref{tab:events}), observable in darknet traffic, identified as either major vulnerabilities or scans by botnets.
+% While X\% of these events are covered by dataset timeframes, none are mentioned explicitly in surveyed works besides the exceptions previously mentioned which further strengthens our inference. 
+% We discuss another implication for future work in Section~\ref{sec:fw}.
 
 % Recompute
 
@@ -865,10 +1070,31 @@ Generalizability of a specific method's performance on one dataset to another re
 \subsection{Validation of detection results.}
 
 Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, 
-prior works rely on improvised approaches to validate method outputs. 
-We evaluate the rigor of these approaches based on their use of labels (whose definitions possess varying degrees of confidence) 
-and whether methods are cross-validated against other traffic datasets and/or compared against baseline methods.
-Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories.
+prior works rely on improvised strategies for validating their method outputs.
+The defining components of these strategies include their use of well-defined labeled data,
+whether they incorporate external datasets, and whether they use outputs of baseline methods
+as a reference point for comparison.
+We review these components, indicated in Table~\ref{tab:eval}, for each validation strategy to
+determine their soundness and robustness.
+
+% Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, 
+% prior works rely on improvised approaches to validate their method outputs.
+% The defining components of these approaches include their use of labels (and more specifically the reliability of their definitions) 
+% and whether outputs are cross-validated against external datasets and/or baseline methods. 
+% % These components dictate the scale and rigor of each individual validation approach, which we define and group into three categories:
+% These components, indicated in Table~\ref{tab:eval}, determine the soudness and robustness of each individual validation approach. 
+
+Of our surveyed works, we found 8~\cite{2019evrard,2019lagraa,2015nishikaze,2019iglesias,2016ban,2020han,2019kanehara,2023kartsioukas}
+that rely on purely internal validation approaches, which are often limited in scope and suited for the purpose of confirming exploratory analyses results. 
+While some approaches validate outputs against labels for metric computaiton, these labels are self-defined and thus may not have been subject to outside review.
+For example, \dots.
+
+% that rely on purely internal validation approaches which typically reflect and are justified by the objective and scope of these works' assessments, 
+% \textit{i.e.}, confirmation of exploratory analyses.
+% Labels used to compute validation metrics are self-defined, i.e., based on human domain-expertise, and thus may not have been subject to outside review.
+% Of our surveyed works, we found 8 
+
+The remaining 10 works offer
 
 \begin{comment}
 Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, prior works rely on improvised approaches to validate the meaningfulness of their method outputs.
@@ -886,23 +1112,40 @@ Using these characteristics, we define and group (Table~\ref{tab:eval}) validati
 % The third and most formal approach involves constructing labeled datasets prior to assessment and computing accuracy metrics, e.g., conventional information retrieval metrics such as precision, recall, or F1-score, from subsequently obtained outputs combined with labeled samples. While this approach is the most reproducible, sound comparison of validation results depends on objective definitions for labels.
 \end{comment}
 
-\noindent{\textbf{A1 - Strictly Internal/Manual Validation.}}
-Approaches that do not utilize ground-truth labels, relying solely on internal clustering metrics or manual inspection of the output.
+% \begin{itemize}[leftmargin=*]
+%     \item \textbf{A1 - Limited Internal Validation} 
+%     Approaches which rely on solely internal validation metrics or limited-in-scope manual inspection of method outputs. 
+%     \item \textbf{A2 - Weak External Validation}
+%     Although these approaches use external validation metrics, label definitions vary in 
+%     \item \textbf{A3 - Strong External Validation}
+%     These approaches assess methods using validation metrics computed from 
+% \end{itemize}
 
-\noindent{\textbf{A2 - Weak External Validation.}}
-Approaches that incorporate external validation but rely on labels with uncertain confidence or lack sufficient cross-comparison 
-with other methods.
+% Table~\ref{tab:eval} enumerates categories we assigned to each work. 
 
-\noindent{\textbf{A3 - Strong External Validation.}}
-The most rigorous approach, employing high-confidence ground-truth labels and validating results 
-through extensive cross-comparison with independent datasets or established techniques.
+% A1 validation approaches include \cite{2019evrard,2019lagraa}.
+% Some exceptions such as~\cite{2019evrard}, validates their model parameterization on an external dataset. but this dataset is collected from backbone traffic instead of a darknet.
+
+% \noindent{\textbf{A1 - Strictly Internal/Manual Validation.}}
+% Approaches that do not utilize ground-truth labels, relying solely on internal clustering metrics or manual inspection of the output.
+
+% \noindent{\textbf{A2 - Weak External Validation.}}
+% Approaches that incorporate external validation but rely on labels with uncertain confidence or lack sufficient cross-comparison 
+% with other methods.
+
+% \noindent{\textbf{A3 - Strong External Validation.}}
+% The most rigorous approach, employing high-confidence ground-truth labels and validating results 
+% through extensive cross-comparison with independent datasets or established techniques.
 
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
-\textbf{Takeaways:} 
-Most darknet detection methods operate under severe ground-truth limitations, resulting in a spectrum of validation rigor. 
-Internal-only validation remains the norm, weak external validation is common but inconsistent, and strong validation—while the most convincing—is rare. 
-As a consequence, it is often difficult to determine whether a method detects genuine Internet events or artifacts of the dataset and evaluation procedure.
+\textbf{Takeaways:}
+We find little uniformity across the defining factors of improvised strategies used to validate method assessments. 
+However, we find a small subset of works that set a standard for designing a robust validation strategy in the absence of defintiive ground-truth.
+% \textbf{Takeaways:} 
+% Most darknet detection methods operate under severe ground-truth limitations, resulting in a spectrum of validation rigor. 
+% Internal-only validation remains the norm, weak external validation is common but inconsistent, and strong validation—while the most convincing—is rare. 
+% As a consequence, it is often difficult to determine whether a method detects genuine Internet events or artifacts of the dataset and evaluation procedure.
 }
 
 \label{sec:assess:rep}
