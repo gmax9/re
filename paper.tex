@@ -1,5 +1,6 @@
 \PassOptionsToPackage{table}{xcolor}
 \documentclass[manuscript,nonacm]{acmart}
+% \documentclass[sigconf,anonymous]{acmart}
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
     Bib\TeX}}}
@@ -215,12 +216,12 @@ Finally, we remark on changes in characteristics of such traffic up to present d
 % \label{sec:bg:nt}
 % \subsection{Network Telescopes}
 
-\begin{figure}[ht!]
+\begin{figure*}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figures/traffic_growth.pdf}
     \caption{Growth in volumes of darknet-traffic collected at UCSD-NT over 15 years. Daily compressed PCAP filesizes have exceeded 3.5 terabytes per day.}
     \label{fig:traffic_growth}
-\end{figure}
+\end{figure*}
 
 Network telescopes, or darknets, consist of IPv4 address space that receives, but does not respond to, unsolicited Internet traffic via routes announced through the Border Gateway Protocol (BGP).
 Researchers have studied this unidirectional traffic to understand its mixtures and origins with foundational work attributing its causes to Internet-wide activity that includes
@@ -229,12 +230,16 @@ residual backscatter from DoS attacks~\cite{2014rossow,2017jonker,2017blenn,2021
 Internet outages~\cite{2011dainotti,2013benson,2012dainotti,2021padmanabhan}, 
 and non-trivial network misconfigurations~\cite{2015benson}.
 
-Large-scale empirical studies have characterized darknet-traffic composition and its changes over the past decades.
-In 2004, Pang et. al~\cite{2004pang} was the first to conduct a systematic analysis of darknet traffic in terms of its activities and sources. %from darknets (/8, 2 x /19, and 10 x /24), followed by a study in 2010 by Wustrow et al.~\cite{@@} that found traffic volumes had grown nearly four-fold along with a reversal in SYN/SYN-ACK trends in the years since.
+Large-scale empirical studies have characterized darknet-traffic composition and its changes over the past decades. 
+In 2004, Pang et al.~\cite{2004pang} was the first to conduct a systematic analysis of darknet traffic\footnote{Pang et al. used a /8, two /19, and ten /24 sized darknets.} in terms of its activities and source, 
+followed by a study in 2010 by Wustrow et al.~\cite{2010wustrow} that found traffic volumes\footnote{Wustrow et al. used five different /8 darknets.} 
+had grown nearly four-fold along with a reversal in SYN/SYN-ACK trends in the years since. 
 Later in 2014, following the release of high-speed scanning tools (ZMap~\cite{2013durumeric} and Masscan~\cite{masscan}), 
-Durumeric et al.~\cite{2014durumeric} report that horizontal-scans have become common with most malicious scans originating from bullet-proof hosting providers. 
-More recently in 2024, Griffioen et al.~\cite{2024griffioen} conduct a 10-year longitudinal study and find a 30-fold increase in scan traffic whose sources 
-rapidly change geographic locations and port targets.
+Durumeric et al.~\cite{2014durumeric} report\footnote{Durumeric et al. used a darknet roughly the size of a /9.} that horizontal-scans have become common with most malicious scans originating from bullet-proof hosting providers. 
+More recently in 2024, Griffioen et al.~\cite{2024griffioen} conduct a 10-year longitudinal study and find a 30-fold increase in scan traffic\footnote{Griffioen et al. use their /16 darknet to draw comparisons.}
+whose sources rapidly change geographic locations and port targets.
+Between these studies, researchers also have studied alternative instrumentation for darknet traffic collection as IPv4 address space exhaustion pressures traditional darknet operation.
+DScope~\cite{@@}, Metatelescope~\cite{@@}, and foundational works~\cite{@@}.
 
 % Early studies focused on characterizing the composition of traffic and often uncover patterns that inform detection approaches.
 % % Yegneswaran et al.~\cite{2004yegneswaran} quantified the volume of traffic and distributions of senders responsible for originating malicious scans, 
@@ -275,68 +280,68 @@ Within these 3 categories, we organize methods by the analytical subtasks they p
 \begin{table}[t]
     \small
     \caption{Characteristics of event detection methodologies}
-    \label{tab:frameworks-checkmark-90deg}
-    \setlength{\tabcolsep}{3pt} % Reduced column padding for better fit with 15 columns
-    \begin{tabular}{lcccccccccccccc} % 15 columns total: 1 + 4 + 6 + 4
+    \label{tab:methodologies}
+    \setlength{\tabcolsep}{3pt} 
+    \begin{tabular}{lccccccccccccccc p{2cm}}
         \toprule
-        % Top Header Row - 15 columns, no vertical or horizontal dividers
         \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Work}}} & 
         \multicolumn{4}{c}{\textbf{Activities}} & 
-        \multicolumn{6}{c}{\textbf{Techniques}} & % Techniques now spans 6 columns
-        \multicolumn{4}{c}{\textbf{Traffic Representation}} \\
-        \cline{2-15} % Adjusted cline to span 2 to 15
+        \multicolumn{6}{c}{\textbf{Techniques}} & 
+        \multicolumn{4}{c}{\textbf{Traffic Representation}} & 
+        \multicolumn{1}{c}{\textbf{Traffic Features}} \\
+        \cline{2-16}
         
-        % Sub Header Row with Rotation - 14 ampersands total
         & \rot{90}{Scanning} & \rot{90}{DDoS} & \rot{90}{Outage} & \rot{90}{Misconfiguration} 
         & \rot{90}{Clustering} & \rot{90}{Dimensionality Reduction} & \rot{90}{Forecasting} 
-        & \rot{90}{Thresholding/Fingerprinting} % New Column (H)
-        & \rot{90}{Representation Learning} % New Column (I)
-        & \rot{90}{Frequent Pattern Mining} % New Column (J)
-        & \rot{90}{Graph} & \rot{90}{Feature Vector} & \rot{90}{Sequences} & \rot{90}{Time Series}\rule{0pt}{12em} \\ 
+        & \rot{90}{Thresholding/Fingerprinting} 
+        & \rot{90}{Representation Learning} 
+        & \rot{90}{Frequent Pattern Mining} 
+        & \rot{90}{Graph} & \rot{90}{Feature Vector} & \rot{90}{Sequences} & \rot{90}{Time Series} & \\ 
         \midrule
 
-        Evrard et al.~\cite{2019evrard} & $\checkmark$ & & & & $\checkmark$ & & & & & & $\checkmark$ & & & \\
+        2025 Abduaziz et al.~\cite{2025} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & & & $\checkmark$ & & \\
 
-        Lagraa et al.~\cite{2017lagraa,2019lagraa} & $\checkmark$ & & & & $\checkmark$ & & & & & & $\checkmark$ & & & \\
+        2024 Enyanet et al.~\cite{2024enyanet} & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
 
-        Kallitsis et al.~\cite{2022kallitsis} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & $\checkmark$ & & \\
+        2023 Kartsioukas et al.~\cite{2023kartsioukas} & $\checkmark$ & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ & \\
 
-        Iglesias et al.~\cite{2019iglesias} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & & & $\checkmark$ & & & & $\checkmark$ & & \\
+        2023 Tanaka et al.~\cite{2023tanaka,2021tanaka} & $\checkmark$ & & & & & & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & \\
 
-        Nishikaze et al.~\cite{2015nishikaze} & $\checkmark$ & & & & $\checkmark$ & & & & & & & $\checkmark$ & & \\
+        2023 Zakroum et al. (B)~\cite{2023zakroum} & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
 
-        Soro et al.~\cite{2020soro} & $\checkmark$ & & & & $\checkmark$ & & & & & & & & $\checkmark$ & \\
+        2022 Kallitsis et al.~\cite{2022kallitsis} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & $\checkmark$ & & & \\
 
-        Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & & & $\checkmark$ & \\
+        2022 Zakroum et al. (A)~\cite{2022zakroum,2018zakroum} & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
 
-        Abduaziz et al.~\cite{2025} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & & & $\checkmark$ & \\
+        2021 Han et al.~\cite{2021han,2022han} & $\checkmark$ & & & & & $\checkmark$ & & & & & & & & $\checkmark$ & \\
 
-        Han et al.~\cite{2021han,2022han} & $\checkmark$ & & & & & $\checkmark$ & & & & & & & & $\checkmark$ \\
+        2021 Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & & & $\checkmark$ & & \\
 
-        Han et al.~\cite{2020han,2022han} & $\checkmark$ & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & & & $\checkmark$ \\
+        2020 Han et al.~\cite{2020han,2022han} & $\checkmark$ & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & & & $\checkmark$ & \\
 
-        Kanehara et al.~\cite{2019kanehara,2022han} & $\checkmark$ & & & & & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ \\
+        2020 Torabi et al.~\cite{2020torabi,2018torabi} & $\checkmark$ & & & & & & & & & & $\checkmark$ & $\checkmark$ & & & \\
 
-        Kartsioukas et al.~\cite{2023kartsioukas} & $\checkmark$ & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ \\
+        2020 Soro et al.~\cite{2020soro} & $\checkmark$ & & & & $\checkmark$ & & & & & & & & $\checkmark$ & & \\
 
-        Ban et al.~\cite{2016ban} & $\checkmark$ & & & & & $\checkmark$ & & & & & & & $\checkmark$ & $\checkmark$ \\ 
+        2019 Evrard et al.~\cite{2019evrard} & $\checkmark$ & & & & $\checkmark$ & & & & & & $\checkmark$ & & & & \\
 
-        Torabi et al.~\cite{2020torabi,2018torabi} & $\checkmark$ & & & & & & & & & & $\checkmark$ & $\checkmark$ & & \\
+        2019 Iglesias et al.~\cite{2019iglesias} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & & & $\checkmark$ & & & & $\checkmark$ & & & \\
 
-        Tanaka et al.~\cite{2023tanaka,2021tanaka} & $\checkmark$ & & & & & & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\
+        2019 Niranjana et al.~\cite{2019niranjana} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & \\
 
-        Niranjana et al.~\cite{2019niranjana} & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\
+        2019 Cabana et al.~\cite{2019cabana} & $\checkmark$ & & & & $\checkmark$ & & & $\checkmark$ & & & $\checkmark$ & $\checkmark$ & & & \\
 
-        Cabana et al.~\cite{2019cabana} & $\checkmark$ & & & & $\checkmark$ & & & $\checkmark$ & & & $\checkmark$ & $\checkmark$ & & \\
+        2019 Kanehara et al.~\cite{2019kanehara,2022han} & $\checkmark$ & & & & & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ & \\
 
-        Shaikh et al.~\cite{2018shaikh} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & & & & & & & & $\checkmark$ & & \\
-  
-        Zakroum et al. (A)~\cite{2022zakroum,2018zakroum} & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ \\
-        Zakroum et al. (B)~\cite{2023zakroum} & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ \\
+        2019 Guillot et al.~\cite{2019guillot} & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
 
-        Guillot et al.~\cite{2019guillot} & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ \\
+        2018 Shaikh et al.~\cite{2018shaikh} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & & & & & & & & $\checkmark$ & & & \\
 
-        Enyanet et al.~\cite{2024enyanet} & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ \\
+        2017 Lagraa et al.~\cite{2017lagraa,2019lagraa} & $\checkmark$ & & & & $\checkmark$ & & & & & & $\checkmark$ & & & & \\
+
+        2016 Ban et al.~\cite{2016ban} & $\checkmark$ & & & & & $\checkmark$ & & & & & & & $\checkmark$ & $\checkmark$ & \\ 
+
+        2015 Nishikaze et al.~\cite{2015nishikaze} & $\checkmark$ & & & & $\checkmark$ & & & & & & & $\checkmark$ & & & \\
 
         \bottomrule
     \end{tabular}
@@ -1244,13 +1249,14 @@ Across our surveyed works, release dates of the CPUs and GPUs trail publication 
     However, these that do are implemented using widely-adopted programming languages and leverage accessible hardware for experiment execution.
 }
 
-\section{A Need for A Systemized Evaluation of Darknet Event Detection Methodologies}
+% \section{A Need for A Systemized Evaluation of Darknet Event Detection Methodologies}
+\section{Challenges to a comprehensive systematic assessment of methods}
 
-\begin{enumerate}
-    \item From the combined survey of methods and their assessments, we find: a diverse set of available approaches that have yet to be completely compared.
-    \item In this section, we drill down into the findings that led to this conclusion and details of these gaps.
-\end{enumerate}
+Our survey of current existing method assessments revealed inconsistencies in their datasets, implementations, and the strategies 
+used for validating their results.
+In this section, we elaborate on these challenges and how they hinder a comprehensive assessment for rigorous comparisons.
 
+\vspace{0.25em}
 \noindent{\textbf{Limited replicability of detection methodologies.}} 
 Despite our findings reported in Section~\ref{sec:assess:rep}, we found low reusability for source code released by the small fraction of works. 
 Our own atttempts to execute this code resulted in failures, remediated only with substantial modifications. 
@@ -1258,6 +1264,7 @@ While the primary goal of these studies is to demonstrate and disseminate resear
 the quality of the code introduces friction for anyone attempting to reproduce results. 
 Cumulatively, this effect produces a replicability gap that to address, requires attention and thought to the quality of released software.
 
+\vspace{0.25em}
 \noindent{\textbf{Few direct comparative assessments.}}
 % Fewer than half of our surveyed works directly compare detection methodologies via evaluations on the same dataset.
 A second constraint arises from the scarcity of direct comparisons between detection methodologies. 
@@ -1282,6 +1289,7 @@ In several instances, no more than two frameworks have ever been demonstrated on
 % 	\item What's the highest number of frameworks that use the same dataset?
 % \end{enumerate}
 
+\vspace{0.25em}
 \noindent{\textbf{Non-overlapping datasets used for experimentation.}}
 The challenge of comparison is further compounded by the heterogeneity of datasets used across studies. 
 There is very little overlap in the traffic traces employed to evaluate frameworks: timeframes rarely coincide, traffic volumes often differ by multiple orders of magnitude, and data originate from distinct darknet deployments, network telescope sizes, and geographic vantage points. 
@@ -1296,7 +1304,6 @@ Collectively, this fragmentation of datasets reinforces the difficulty of establ
 %     \item different sources of traffic
 %     \item mostly non-overlapping timeframes
 % \end{enumerate}
-
 
 \begin{comment}
 \begin{table*}[h!]
@@ -1479,9 +1486,6 @@ We conclude this report by describing several directions for future work to over
 
 \vspace{0.25em}
 \noindent{\textbf{Curated darknet traffic datasets.}}
-% Sound comparisons between methods require that their assessments use shared reference datasets. 
-% As 
-Our survey found only a few studies that conducted sound comparative method assessments.
 One way to lower the barrier to conducting such assessments is to improve the availability of curated reference datasets.
 Such curation involves intentional selection of darknet traffic and enrichment using well-defined labels to assess method performance.
 These label definitions may include the malicious senders reported by IP blocklists~\cite{abuseipdb,firehol}, 
@@ -1495,16 +1499,28 @@ and packet fingerprints tied to scanning tools~\cite{2024griffioen} or malware~\
 % Futher, labels accompany the traffic. \maxnote{elaborate}
 
 \vspace{0.25em}
-\noindent{\textbf{Standardized metrics}}
-% Our future work intends to bridge the gaps that currently hinder comprehensive assessment of darknet-detection methods. 
-% In this section, we describe the major components of a future benchmark framework that addresses limitations discussed previously in this report.
-% To support expedient comparisons of detection capabilities and computational performance across different methods, our framework 
-% applies standard metrics to interpret detection outputs.
-Enabled by assessments using shared reference datasets,
-conventional metrics (\textit{e.g.,} true/false positives/negatives and their derivative measures) 
-facilitate comparisons of method performance on labeled classes of traffic. 
-On the other hand, differential metrics (\textit{e.g.,} jaccard index) support comparisons 
-assessments using unlabeled traffic data. 
+\noindent{\textbf{Consistent method implementations.}}
+Consistency across the software used to implement methods and the execution environments that run assessments 
+ensures the validity of performance metrics and improves interpretability of results.
+While in-practice this is difficult to achieve when multiple parties reproduce assessments,
+more thorough documentation (\textit{e.g.,} software libraries, CPUs, GPUs, memory, IO, and storage hardware components) 
+can substitute for up to a degree of inconsistency.
+% not only ensure the validity of computational performance results between different methods, 
+% but also improves overall reproducibility of assessments by reducing the friction of executing source code.
+% Practically, this may involve documentation of execution environments (\textit{e.g.}, CPUs, GPUs, memory, IO, and storage components)
+% and alignment.
+
+\vspace{0.25em}
+\noindent{\textbf{Standardized validation strategies.}}
+Enabled by labeled reference datasets and consistent method implementations, 
+standard metrics to assess detection and computational performance are components of a standardized 
+approach crucial to interpretation of assessment results.
+
+% Enabled by assessments using shared reference datasets,
+% conventional metrics (\textit{e.g.,} true/false positives/negatives and their derivative measures) 
+% facilitate comparisons of method performance on labeled classes of traffic. 
+% On the other hand, differential metrics (\textit{e.g.,} jaccard index) support comparisons 
+% assessments using unlabeled traffic data. 
 
 % \section{Acknowledgments}
 % asadfadsf
