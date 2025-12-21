@@ -255,17 +255,22 @@ Our survey reviews the design, implementation, and assessments of these methods 
 
 \label{sec:methods}
 \section{Methodologies for detecting darknet scanning events}
+
+In this section, we provide a broad survey of the methods that have been proposed to detect scanning activity in darknet traffic. 
+To construct the body of works for this survey, we selected only those that assessed their method on real-world traffic.
+We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodologies}), organized based on the key technique(s) their detection methods employ.
+In addition, we describe several additional components of each method's design that we briefly discuss before elaborating on individual works.
+
+\begin{comment}
 % A portion of darknet traffic mixtures results from scans that probe the space of Internet addresses, oftentimes targeting application-layer ports.
 % Detection of these scans involves identifying their sources and targets through analysis of behavioral patterns, thereby enabling further inference and/or classification of their intent.
 % This section provides a survey of the methodologies proposed for detecting scanning activities in darknet traffic. 
 % In this section, we provide a broad survey of the methods that have been proposed for the detection of scanning activity from darknet traffic. 
 % We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodologies}) and organize their proposed methods based on general detection task they perform.
 % We briefly discuss components of each methodology's design, which include: features of darknet traffic they ingest, traffic representations these features are transformed into, and the general techniques and specific algorithms that operate on such traffic representations to achieve their detection task.
+\end{comment}
 
-Here, we describe these components before elaborating on individual works.
-In this section, we provide a broad survey of the methods that have been proposed for the detection of scanning activity in darknet traffic. 
-We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodologies}) and organize, for each work, detection methods by the key technique they employ. We briefly discuss components of each methodology's design before elaborating on individual methods.
-
+\begin{comment}
 % In this section, we provide a broad survey of existing methodologies that have been proposed for detecting darknet activities and 
 % organize prior works into a taxonomy that identifies the need for a systematic evaluation approach to account for the diversity of methods.
 % We structure our survey by categorizing detection methodologies primarily based on the type of darknet activity they aim to detect. 
@@ -284,6 +289,7 @@ We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodol
 % 1) the class(es) of general \textit{techniques} they employ for detection; and 
 % 2) their definition(s) of an \textit{event} belonging under their broader type of targeted activity.
 % We briefly discuss these aspects before discussing the methodologies that comprise our taxonomy as shown in Figure~\ref{fig:taxonomy}.
+\end{comment}
 
 \begin{table}[t]
     \small
@@ -292,7 +298,7 @@ We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodol
     \label{tab:methodologies}
     \renewcommand{\arraystretch}{1.1}
     \setlength{\tabcolsep}{3pt} 
-    \begin{tabular}{l p{3cm} ccccccc p{2.2cm} cccc}
+    \begin{tabular}{l p{3cm} ccccccc p{3.5cm} cccc}
         \toprule
         \textbf{Work} &
         \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}\textbf{Detection}\\\textbf{Tasks}\end{tabular}} &
@@ -309,24 +315,114 @@ We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodol
         \rot{90}{Graph} & \rot{90}{Feature Vector} & \rot{90}{Sequences} & \rot{90}{Time Series} \\
         \midrule
 
-        2025 Abduaziz et al. & Source Categorization & $\checkmark$ & $\checkmark$ & & & & & & & & & $\checkmark$ & \\
-        2023 Kartsioukas et al. & Target Identification & & $\checkmark$ & & & $\checkmark$ & & & & & & & $\checkmark$ \\
-        2023 Zakroum et al. (B) & Source Categorization  & $\checkmark$ & & $\checkmark$ & & & & & & & & & $\checkmark$ \\
-        2022 Kallitsis et al. & Source Categorization & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ & & \\
-        2022 Zakroum et al. (A) & Target Identification & $\checkmark$ & & $\checkmark$ & & & & & & & & & $\checkmark$ \\
-        2021 Han et al. & Source and Target Identif. & & $\checkmark$ & & & & & & & & & & $\checkmark$ \\
-        2021 Gioacchini et al. & Source Categorization & $\checkmark$ & $\checkmark$ & & & & & & & & & $\checkmark$ & \\
-        2020 Cohen et al. & Source and Target Identif. & & $\checkmark$ & & & & & & (TCP dest. port...) & & & & $\checkmark$ \\
-        2020 Han et al. & Source and Target Identif. & & $\checkmark$ & & & & & & & & & & $\checkmark$ \\
-        2020 Torabi et al. &  & & & & & & & $\checkmark$ & & $\checkmark$ & $\checkmark$ & & \\
-        2020 Soro et al. & Source Categorization & $\checkmark$ & & & & & & & & & $\checkmark$ & & \\
-        2019 Evrard et al. & Source Categorization & $\checkmark$ & & & & & & & & $\checkmark$ & & & \\
-        2019 Iglesias et al. & Source Categorization & $\checkmark$ & & & & $\checkmark$ & & & & & $\checkmark$ & & \\
-        2019 Niranjana et al. &  & $\checkmark$ & $\checkmark$ & & & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\
-        2019 Kanehara et al. & Source and Target Identif. & & $\checkmark$ & & & $\checkmark$ & & & & & & & $\checkmark$ \\
-        2017 Lagraa et al. & Source Identification & $\checkmark$ & & & & & & & & $\checkmark$ & & & \\
-        2016 Ban et al. & Source Identification & & $\checkmark$ & & & & & & & & & $\checkmark$ & $\checkmark$ \\
-        2015 Nishikaze et al. & Source Categorization & $\checkmark$ & & & & & & & & & $\checkmark$ & & \\
+        2025 Abduaziz et al.~\cite{2025abduaziz} 
+        & Source Categorization 
+        & \cmark & \cmark & & & & \cmark & 
+        & Per-sIP: <\textit{seq(dport)}>
+        & & & \cmark & \\
+
+        2023 Kartsioukas et al.~\cite{2023kartsioukas}
+        & Target Identification 
+        & & \cmark & & & \cmark & & 
+        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
+        & & & & \cmark \\
+
+        2023 Zakroum et al.~\cite{2023zakroum}
+        & Source Categorization  
+        & \cmark & & \cmark & & & & 
+        & 
+        & & & & \cmark \\
+
+        2022 Kallitsis et al.~\cite{2022kallitsis}
+        & Source Categorization 
+        & \cmark & \cmark & & \cmark & & &
+        & 
+        & & \cmark & & \\
+
+        2022 Zakroum et al.~\cite{2022zakroum} 
+        & Target Identification 
+        & \cmark & & \cmark & & & & 
+        & 
+        & & & & \cmark \\
+
+        2021 Han et al.~\cite{2021han}
+        & Source and Target Identif. 
+        & & \cmark & & & & & 
+        & Per-sIP: 
+        & & & & \cmark \\
+
+        2021 Gioacchini et al.~\cite{2021gioacchini}  
+        & Source Categorization 
+        & \cmark & \cmark & & & & &
+        & Per-TCP dport: \textit{saddr}
+        & & & \cmark & \\
+
+        2020 Cohen et al.~\cite{2020cohen}       
+        & Source and Target Identif. 
+        & & \cmark & & & & & 
+        & Per-sIP: \textit{TCP dport}
+        & & & & \cmark \\
+
+        2020 Han et al.~\cite{2020han}       
+        & Source and Target Identif. 
+        & & \cmark & & & & & 
+        & s16->nt: <\textit{pktcnt}>
+        & & & & \cmark \\
+        
+        2020 Torabi et al.~\cite{2020torabi}      
+        &  
+        & & & & & & & \cmark 
+        & Per-Flow: \textit{dports, protocol, TTL, TCP flags, IP length, packet count}
+        & \cmark & \cmark & & \\
+
+        2020 Soro et al.~\cite{2020soro}   
+        & Source Categorization 
+        & \cmark & & & & & &
+        & Per-sAS,dport: \textit{packet count}
+        & & \cmark & & \\
+        
+        2019 Evrard et al.~\cite{2019evrard}
+        & Source Categorization 
+        & \cmark & & & & & & 
+        & Per-saddr: \textit{TCP dports}
+        & \cmark & & & \\
+        
+        2019 Iglesias et al.~\cite{2019iglesias}    
+        & Source Categorization 
+        & \cmark & & & & \cmark & & 
+        & Per-saddr: \textit{22 total features}
+        & & \cmark & & \\
+
+        2019 Niranjana et al.~\cite{2019niranjana} 
+        & Sender Classification 
+        & \cmark & & & & & & 
+        & Per-
+        & & \cmark & & \\
+
+        2019 Kanehara et al.~\cite{2019kanehara}    
+        & Source and Target Identif. 
+        & & \cmark & & & \cmark & & 
+        & Per-sIP,dPort: \textit{ts, pktcnt}
+        & & & & \cmark \\
+        
+        2017 Lagraa et al.~\cite{2017lagraa}
+        & Source Identification 
+        & \cmark & & & & & &
+        & \textit{}
+        & \cmark & & & \\
+        
+        2016 Ban et al.~\cite{2016ban}
+        & Source Identification 
+        & & \cmark & & & & & 
+        & \textit{saddr, dport,}
+        & 
+        & & \cmark & \cmark \\
+
+        2015 Nishikaze et al.~\cite{2015nishikaze}
+        & Source Categorization 
+        & \cmark & & & & & & 
+        & saddr16: \textit{pktcnt, sport, dport, daddr, scantype}
+        & & \cmark & & \\
 
         \bottomrule
     \end{tabular}
@@ -405,8 +501,10 @@ We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodol
 % \end{table}
 
 \vspace{0.25em}
-\noindent{\textbf{Detection tasks}} involve the identification of either senders of darknet traffic or targets that receive darknet traffic.
-\maxnote{revise}
+\noindent{\textbf{Detection tasks}} refer to three types of objectives generalized from specifically-defined tasks in our surveyed works. 
+We define these types based on the \dots.
+% involve the identification of either senders of darknet traffic or targets that receive darknet traffic.
+\maxnote{Circle back to this, explanation unclear}
 
 % \vspace{0.25em}
 % \noindent{\textbf{Class(es) of activity}} correspond to the canonical activities observed in darknet traffic as described in Section~\ref{sec:bg}. 
@@ -434,35 +532,27 @@ Most methodologies employ a combination of techniques
 to accomplish analysis subtasks.
 
 \vspace{0.25em}
-\noindent{\textbf{Traffic features and representations}} \maxnote{revise}
+\noindent{\textbf{Traffic features and representations.}} 
+Methods consist of a preprocessing step that parses properties of raw darknet traffic into representations usable by their algorithms.
+Depending on the method's detection task, traffic features are defined per-source, per-target, or per-flow at different levels of aggregation
+and encoded as one of the four main types of representations: \textit{graphs}, \textit{feature vectors}, \textit{sequences}, \textit{time series}.
 
-% \begin{figure}
-%     \begin{tikzpicture}
-%         \draw (0, 0) node[inner sep=0] {\includegraphics[]{figures/taxonomy.pdf}};
-%         \draw (-4, -4) node {Kallitsis et al.~\cite{2022kallitsis}};
-%     \end{tikzpicture}
-%     \caption{A taxonomy of our \maxnote{number} surveyed works and their methodologies categorized under the broad type of darknet activity they target and specific event definitions.}
-%     \label{fig:taxonomy}
-% \end{figure}
-
-% \vspace{0.25em}
-% \noindent{\textbf{}}
-
-
-% \label{sec:methods:scan}
-% \subsection{Scan Detection}
-
-% \vspace{0.25em}
-% \noindent{\textbf{Graph-Mining Methods}}
 \subsection{Graph-mining methods}
-One line of work proposes methdologies which apply thresholding and clustering techniques to graphical models of darknet traffic. 
-Lagraa et al.~\cite{2017lagraa,2019lagraa} and Evrard et al.~\cite{2019evrard} model TCP scan traffic as unipartite graphs, \textit{i.e.}, nodes and edges represent respectively ports and consecutive port scans from the same sender).
-% Lagraa et al. define graphs per individual sender, while 
-To extract similarly probed ports, Evrard et al.~\cite{2019evrard} threshold a shortest-path similarity metric while Lagraa et al.~\cite{2017lagraa} instead threshold node centrality measures, such as degree centrality and betweenness measure, applied to a unified scan-graph.
-In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph definition aimed to detect horizontal scanners by redefining nodes as darknet destination addresses probed on the same port and employ an alternative clustering metric that measures graph modularity.
-Soro et al.~\cite{2020soro} define weighted bipartite graphs that link source Autonomous Systems (ASes) to destination ports based on the number of packets in TCP scan traffic that ASes send and extract ASes that target similar sets of ports using the Greedy Modularity Algorithm.
+One line of work proposes methdologies that rely on graphical models of darknet scan traffic.
+% which represent darknet traffic using graphical models and apply thresholding/clustering techniques to identify similar groups of activities.
+Lagraa et al.~\cite{2017lagraa,2019lagraa} and Evrard et al.~\cite{2019evrard} model TCP traffic as unipartite graphs (nodes and edges represent respectively ports and consecutive port scans from the same sender) aggregated from per-sender port scans.
+To extract similar probed ports, both apply thresholding graph metrics (shortest-path similarity in ~\cite{2019evrard}, node centrality in ~\cite{2017lagraa}).
+In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph definition to detect horizontal scanners (nodes redefined as darknet destination addresses probed on the same port) and employ an alternative clustering algorithm which uses graph modularity as a metric.
+Soro et al.~\cite{2020soro} construct weighted bipartite graphs that represent TCP scan traffic sent between source Autonomous Systems (ASes) and destination ports. 
+Using the Greedy Modularity Algorithm, they extract groups of ASes that target similar sets of ports associated with vulnerable applications.
 
+% Despite their straightforward design, 
+% - typically used for exploratory analyses
+% - no direct comparisons 
+
+% source Autonomous Systems (ASes) to destination ports based on the number of packets in TCP scan traffic that ASes send and extract ASes that target similar sets of ports using the Greedy Modularity Algorithm.
 % Evrard et al.~\cite{2019evrard} and Lagraa et al.~\cite{2017lagraa,2019lagraa} represent TCP scan traffic as unipartite graphs, where nodes represent ports and edges represent consecutive port scans, respectively on a global- and individual sender IP-basis. 
+% To extract similarly probed ports, Evrard et al.~\cite{2019evrard} threshold a shortest-path similarity metric while Lagraa et al.~\cite{2017lagraa} instead threshold node centrality measures, such as degree centrality and betweenness measure, applied to a unified scan-graph.
 % To extract similarly probed ports, Evrard et al.~\cite{2019evrard} threshold a shortest-path similarity metric while Lagraa et al.~\cite{2017lagraa} instead threshold node centrality measures, such as degree centrality and betweenness measure, applied to a unified scan-graph.
 % In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph definition aimed to detect horizontal scanners by redefining nodes as darknet destination addresses probed on the same port and employ an alternative clustering metric that measures graph modularity.
 
@@ -470,11 +560,21 @@ Soro et al.~\cite{2020soro} define weighted bipartite graphs that link source Au
 \subsection{Representation learning methods}
 Representation learning techniques play a key role in modern machine-learning.
 Given a dataset, their algorithms have the capability to automatically learn a lower-dimensional representation of raw data for downstream modeling tasks.
+
 Beginning in 2020 with the Word2Vec~\cite{2013mikolov} algorithm, researchers began devising methodologies that incorporated these techniques into darknet traffic analysis.
 Cohen et al.~\cite{2020cohen} proposed \textit{Dante} which leveraged this algorithm to map \textit{sequences of ports} targeted by individual senders of darknet traffic into lower-dimensional vector spaces for subsequent application of unsupervised clustering techniques.
 Gioacchini et al.~\cite{2021gioacchini} later proposed \textit{DarkVec} which in contrast to \textit{Dante}, uses Word2Vec to map \textit{sequences of senders} that arrive at grouped destination ports. 
 In their follow-up work~\cite{2023gioacchini}, \textit{i-DarkVec}, Gioacchini et al. improve their previous methodology by scaling to larger volumes of traffic. 
 Abduaziz et al.~\cite{2025abduaziz} replicate \textit{Dante}'s embedding generation step and instead apply semi-supervised clustering techniques.
+
+From 2022 onward, more sophisticated representation learning methods emerged.
+Compared to Word2Vec-based methods, these ingest larger numbers of darknet traffic features, relying on more complex algorithms and neural-network architectures to achieve their detection tasks.
+Using a set of 12 features to profile darknet traffic sources, 
+Kallitsis et al.~\cite{2022kallitsis}'s method employs an autoencoder neural network architecture to map senders into lower-dimensional vector spaces.
+Results of their comparison against \textit{DarkVec} showed that their method more accurately clustered labeled senders of classes.
+
+% Zakroum et al.~\cite{2023zakroum} 
+% ~\cite{2022zakroum}
 
 % Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} propose a domain-specific adaptation of Word2Vec to embed senders based on their order of arrival from packet sequences \maxnote{defined over variations of port combinations}.
 % Kallitsis et al.~\cite{2022kallitsis} include a more comprehensive set of features to train autoencoders and subsequently cluster sender embeddings of a lower-dimensional space. 
@@ -484,11 +584,23 @@ Abduaziz et al.~\cite{2025abduaziz} replicate \textit{Dante}'s embedding generat
 % \vspace{0.25em}
 % \noindent{\textbf{Time Series Dimensionality Reduction Methods}}
 \subsection{Time series dimensionality reduction methods}
-Han et al.~\cite{2020han,2021han}, Kanehara et al.~\cite{2019kanehara}, and Kartsioukas et al.~\cite{2023kartsioukas} employ classic dimensionality reduction techniques, specifically on time-series representations of darknet traffic, 
-alongside ad-hoc thresholding techniques to identify timeframes containing sources of coordinated scanning or targeted services by their ports.
-These techniques include algorithms such as Non-negative matrix factorization (NMF)~\cite{2000lee}, Non-negative tucker-decomposition (NTD)~\cite{2015zhou}, and  Incremental Principal Component Analysis (i-PCA)~\cite{2012arora}, 
-each of which reduce the space of potential source and destination tuples by filtering for those whose time series possess high reconstruction errors. 
-Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identifying non-trivial correlations in TCP-SYN packet volumes sent by source /16 subnetworks.
+In 2019, Kanehara et al.~\cite{2019kanehara} proposed a method that applied Nonnegative Tucker Decomposition (NTD)~\cite{2015zhou} to time series of packet counts for each unique sender and their contacted destination ports.
+Their findings from real-world traffic analysis identified groups of behaviorally-similar senders on several ports of applications containing known vulnerabilities.
+Han et al. proposed \textit{DarkNMF}~\cite{2021han} and \textit{DarkGLASSO}~\cite{2020han}, which respectively apply Nonnegative Matrix Factorization (NMF)~\cite{2000lee} and Graphical LASSO~\cite{2008friedman} to 
+time series of packet counts per source host (for \textit{DarkNMF}, also per destination port).
+Kartsioukas et al.~\cite{2023kartsioukas} apply Incremental Principal Component Analysis (iPCA)~\cite{2012arora} to time series of unique senders per TCP, UDP ports and ICMP.
+% In 2023, the same authors 
+
+% Methods that are well-suited for detecting anomalous traffic that targets specific ports or arrives from coordinated groups of senders.
+% Han et al.~\cite{2020han,2021han}, Kanehara et al.~\cite{2019kanehara}, and Kartsioukas et al.~\cite{2023kartsioukas} employ classic dimensionality reduction techniques, specifically on time-series representations of darknet traffic, 
+% alongside ad-hoc thresholding techniques to identify timeframes containing sources of coordinated scanning or targeted services by their ports.
+% These techniques include algorithms such as Non-negative matrix factorization (NMF)~\cite{2000lee}, Non-negative tucker-decomposition (NTD)~\cite{2015zhou}, and  Incremental Principal Component Analysis (i-PCA)~\cite{2012arora}, 
+% each of which reduce the space of potential source and destination tuples by filtering for those whose time series possess high reconstruction errors. 
+% Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identifying non-trivial correlations in TCP-SYN packet volumes sent by source /16 subnetworks.
+
+
+% Nishikaze et al.~\cite{2015nishikaze}
+% Torabi et al.~\cite{2020torabi}
 
 
 % \label{sec:methods:dos}
@@ -686,120 +798,164 @@ Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identif
 \begin{table*}[t!]
     \small
     \setlength{\tabcolsep}{2.5pt}
-    \caption{Empirical assessment details and darknet traffic datasets found in our surveyed works. Table~\ref{tab:telescopes} lists expanded details of the telescopes referenced in this table.}
+    \caption{
+        Details of method assessments found in our surveyed works. 
+        Multiple citations per entry indicate groups of highly similar works; assessment details reflect bolded citations.
+        Table~\ref{tab:telescopes} lists additional details of telescopes referenced in this table.
+    }
     \label{tab:eval}
-    \begin{tabular}{@{}lccccccccc@{}}
+    \begin{tabular}{@{}lcccccccccc@{}}
         \toprule
-        & \multicolumn{2}{c}{\bf Replicability} 
+        & \multicolumn{3}{c}{\bf Replicability} 
         & \multicolumn{5}{c}{\bf Dataset Attributes} 
         & \multicolumn{1}{c}{\textbf{Compar-}}
         & \multicolumn{1}{c}{\textbf{Labels}} \\
-        \cmidrule(lr){2-3} \cmidrule(lr){4-8}
+        \cmidrule(lr){2-4} \cmidrule(lr){5-9}
         \textbf{Work} 
-        & \textbf{Code} & \textbf{Specs} 
+        & \textbf{Code} & \textbf{Specs} & \textbf{Data}
         & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} 
         & \textbf{ison} 
         & \textbf{Labels} \\
         \midrule
 
-        Evrard et al.~\cite{2019evrard}
-        &  & 
-        & NT-3,6
-        & 9M & 2015
-        & 8M & ---
-        & 
-        & A1 \\
-
-        Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
-        &  & \cmark
-        & NT-6
-        & 2Y & 2014
-        & 2B & 500 GB
-        & 
-        & A1 \\
-
-        Soro et al.\textbf{~\cite{2020soro}}
-        &  & 
-        & NT-4,5
-        & 3W,1D & 2020
-        & --- & ---
-        & 
-        & A2 \\
-
-        Nishikaze et al.~\cite{2015nishikaze}
-        &  & 
-        & NT-3
-        & 28D & 2014
-        & 303M & ---
-        & 
-        & A1 \\
-
-        Kallitsis et al.~\cite{2022kallitsis}
-        & \cmark & \cmark
-        & NT-2
-        & 28D, 1D & 2016,2022
-        & 49B, 3.1B & ---
-        & \cite{2021gioacchini}
-        & A3 \\
-
-        Iglesias et al.~\cite{2019iglesias}
-        &  & \cmark
-        & NT-1
-        & 6M & 2012
-        & --- & 2.1 TB
-        & 
-        & A1 \\
-
-        Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
-        & \cmark & \cmark
-        & NT-4
-        & 30D & 2021
-        & 63M & ---
-        & \cite{2020cohen,2017ring}
-        & A3, A3 \\
-
         Abduaziz et al.~\cite{2025abduaziz}
-        &  & \cmark
+        &  & \cmark & ---
         & NT-1,3
         & 7D,10D & 2022,2023
         & --- & 1.18, 7.61GB
         & \cite{2020cohen}
         & A3,A3 \\
 
-        Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
-        & \cmark & \cmark
-        & NT-3
-        & 1M & 2018
+        Kartsioukas et al.~\cite{2023kartsioukas}
+        &  &  & ---
+        & NT-2
+        & 1M & 2016
         & --- & ---
-        & \cite{2006takeuchi}
-        & A1 \\
+        & \cite{2004lakhina}
+        & \cmark \\
+
+        Zakroum et al.~\cite{2023zakroum}
+        &  &  & ---
+        & NT-3,6
+        & 4.5Y & 2018
+        & --- & ---
+        & \cite{2023zakroum}
+        & A3 \\
+
+        Kallitsis et al.~\cite{2022kallitsis}
+        & \cmark & \cmark & ---
+        & NT-2
+        & 28D, 1D & 2016,2022
+        & 49B, 3.1B & ---
+        & \cite{2021gioacchini}
+        & A3 \\
+
+        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
+        &  & \cmark & ---
+        & NT-3,6
+        & 3.5Y & 2017
+        & --- & $1.5+\mathrm{TB}$
+        & \cite{2018zakroum}
+        & A2 \\
 
         Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
-        & \cmark & 
+        & \cmark &  & ---
         & NT-3
         & 1M & 2018
         & --- & ---
         & \cite{2020han,2006takeuchi,2019kanehara}
         & A3 \\
 
+        Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
+        & \cmark & \cmark & ---
+        & NT-4
+        & 30D & 2021
+        & 63M & ---
+        & \cite{2020cohen,2017ring}
+        & A3, A3 \\
+
+        Cohen et al.\textbf{~\cite{2020cohen}}
+        & & & ---
+        & NT-4
+        & 30D & 2021
+        & 63M & ---
+        & \cite{2020cohen,2017ring}
+        & A3, A3 \\
+
+        Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
+        & \cmark & \cmark & ---
+        & NT-3
+        & 1M & 2018
+        & --- & ---
+        & \cite{2006takeuchi}
+        & A1 \\
+
+        Torabi et al.~\cite{2020torabi}
+        & \cmark & \cmark & ---
+        & 
+        & & 
+        & --- & ---
+        & 
+        & \\
+
+        Soro et al.~\cite{2020soro}
+        &  &  & ---
+        & NT-4,5
+        & 3W,1D & 2020
+        & --- & ---
+        & 
+        & A2 \\
+
+        Evrard et al.~\cite{2019evrard}
+        &  &  & ---
+        & NT-3,6
+        & 9M & 2015
+        & 8M & ---
+        & 
+        & A1 \\
+
+        Iglesias et al.~\cite{2019iglesias}
+        &  & \cmark & ---
+        & NT-1
+        & 6M & 2012
+        & --- & 2.1 TB
+        & 
+        & A1 \\
+
+        Niranjana et al.~\cite{2019niranjana}
+        &  &  & ---
+        & 
+        & & 
+        & & ---
+        & 
+        & \\
+
         Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
-        & \cmark & \cmark
+        & \cmark & \cmark & ---
         & NT-3
         & 10M & 2017
         & --- & ---
         & \cite{2021han,2020han,2006takeuchi}
         & A1 \\
 
-        Kartsioukas et al.~\cite{2023kartsioukas}
-        & \cmark & \cmark
-        & NT-2
-        & 1M & 2016
-        & --- & ---
-        & \cite{2004lakhina}
+        Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
+        &  & \cmark & ---
+        & NT-6
+        & 2Y & 2014
+        & 2B & 500 GB
+        & 
         & A1 \\
 
+        Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
+        &  & \cmark & ---
+        & NT-1,7
+        & 1M,1M & 2016,2014
+        & --- & 670, 240GB
+        & \cite{2018bouharb}
+        & A3 \\
+
         Ban et al.~\cite{2017ban}
-        &  & 
+        &  &  & ---
         & NT-3
         & --- & ---
         & --- & ---
@@ -807,7 +963,7 @@ Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identif
         & A2 \\
 
         Ban et al.~\cite{2016ban}
-        &  & 
+        &  &  & ---
         & NT-3
         & 1y & 2015
         & $3\times10^{7}$ & ---
@@ -815,36 +971,20 @@ Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identif
         & A1 \\
 
         Bou-Harb et al.~\cite{2014bouharb}
-        &  & 
+        &  &  & ---
         & NT-7
         & 2D & 2013
         & $10^6$ & 30GB
         & 
         & A2 \\
 
-        Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
-        &  & \cmark
-        & NT-1,7
-        & 1M,1M & 2016,2014
-        & --- & 670, 240GB
-        & \cite{2018bouharb}
-        & A3 \\
-
-        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
-        &  & \cmark
-        & NT-3,6
-        & 3.5Y & 2017
-        & --- & $1.5+\mathrm{TB}$
-        & \cite{2018zakroum}
-        & A2 \\
-
-        Zakroum et al.~\cite{2023zakroum}
-        &  &
-        & NT-3,6
-        & 4.5Y & 2018
-        & --- & ---
-        & \cite{2023zakroum}
-        & A3 \\
+        Nishikaze et al.~\cite{2015nishikaze}
+        &  &  & ---
+        & NT-3
+        & 28D & 2014
+        & 303M & ---
+        & 
+        & A1 \\
 
         % Guillot et al.~\cite{2019guillot} 
         % & \cmark &
@@ -864,7 +1004,7 @@ Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identif
 
         \midrule
         \textbf{Aggregate}
-        & 4/16 & 7/16
+        & 4/16 & 7/16 & ---
         & 8--24
         & 1w--3.5y & 2012--2021
         & --- & ---
@@ -891,195 +1031,6 @@ Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identif
 	\end{tabular}
 \end{table}
 
-
-% \begin{table*}[t!]
-%     \small
-%     \setlength{\tabcolsep}{4pt}
-%     \caption{Empirical assessment details and darknet traffic datasets found in our surveyed works. Table~\ref{tab:telescopes} lists expanded details of the telescopes referenced in this table.}
-%     \label{tab:eval}
-%     \begin{tabular}{@{}lccccccccc@{}}
-%         \toprule
-%         & \multicolumn{1}{c}{\textbf{Compari-}} 
-%         & \multicolumn{2}{c}{\bf Replicability} 
-%         & \multicolumn{5}{c}{\bf Dataset Attributes} 
-%         & \multicolumn{1}{c}{\textbf{Valid-}} \\
-%         \cmidrule(lr){3-4} \cmidrule(lr){5-9}
-%         \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} 
-%         & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ation} \\
-%         \midrule
-
-%         Evrard et al.~\cite{2019evrard}
-%         & 
-%         &  & 
-%         & NT-3,6
-%         & 9M & 2015
-%         & 8M & ---
-%         & A1 \\
-
-%         Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
-%         &  
-%         &  & \cmark
-%         & NT-6
-%         & 2Y & 2014
-%         & 2B & 500 GB
-%         & A1 \\
-
-%         Soro et al.\textbf{~\cite{2020soro}}
-%         &  
-%         &  & 
-%         & NT-4,5
-%         & 3W,1D & 2020
-%         & --- & ---
-%         & A2 \\
-
-%         Nishikaze et al.~\cite{2015nishikaze}
-%         &  
-%         &  & 
-%         & NT-3
-%         & 28D & 2014
-%         & 303M & ---
-%         & A1 \\
-
-%         Kallitsis et al.~\cite{2022kallitsis}
-%         & \cite{2021gioacchini}
-%         & \cmark & \cmark
-%         & NT-2
-%         & 28D, 1D & 2016,2022
-%         & 49B, 3.1B & ---
-%         & A3 \\
-
-%         Iglesias et al.~\cite{2019iglesias}
-%         &  
-%         &  & \cmark
-%         & NT-1
-%         & 6M & 2012
-%         & --- & 2.1 TB
-%         & A1 \\
-
-%         Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
-%         & \cite{2020cohen,2017ring}
-%         & \cmark & \cmark
-%         & NT-4
-%         & 30D & 2021
-%         & 63M & ---
-%         & A3, A3 \\
-
-%         Abduaziz et al.~\cite{2025abduaziz}
-%         & \cite{2020cohen}
-%         & & \cmark
-%         & NT-1,3
-%         & 7D,10D & 2022,2023
-%         & --- & 1.18, 7.61GB
-%         & A3,A3 \\
-
-%         Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
-%         & \cite{2006takeuchi}
-%         & \cmark & \cmark
-%         & NT-3
-%         & 1M & 2018
-%         & --- & ---
-%         & A1 \\
-
-%         Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
-%         & \cite{2020han,2006takeuchi,2019kanehara}
-%         & \cmark & 
-%         & NT-3
-%         & 1M & 2018
-%         & --- & ---
-%         & A3 \\
-
-%         Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
-%         & \cite{2021han,2020han,2006takeuchi}
-%         & \cmark & \cmark
-%         & NT-3
-%         & 10M & 2017
-%         & --- & ---
-%         & A1 \\
-
-%         Kartsioukas et al.~\cite{2023kartsioukas}
-%         & \cite{2004lakhina}
-%         & \cmark & \cmark
-%         & NT-2
-%         & 1M & 2016
-%         & --- & ---
-%         & A1 \\
-
-%         Ban et al.~\cite{2017ban}
-%         & \cite{2012ban}
-%         &  & 
-%         & NT-3
-%         & --- & ---
-%         & --- & ---
-%         & A2 \\
-
-%         Ban et al.~\cite{2016ban}
-%         & 
-%         &  & 
-%         & NT-3
-%         & 1y & 2015
-%         & $3\times10^{7}$ & ---
-%         & A1 \\
-
-%         Bou-Harb et al.~\cite{2014bouharb}
-%         &  
-%         &  & 
-%         & NT-7
-%         & 2D & 2013
-%         & $10^6$ & 30GB
-%         & A2 \\
-
-%         Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
-%         & ~\cite{2018bouharb}
-%         &  & \cmark
-%         & NT-1,7
-%         & 1M,1M & 2016,2014
-%         & --- & 670, 240GB
-%         & A3 \\
-
-%         Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
-%         & ~\cite{2018zakroum}
-%         & & \cmark
-%         & NT-3,6
-%         & 3.5Y & 2017
-%         & --- & $1.5+\mathrm{TB}$
-%         & A2 \\
-
-%         Zakroum et al.~\cite{2023zakroum}
-%         & ~\cite{2023zakroum}
-%         & &
-%         & NT-3,6
-%         & 4.5Y & 2018
-%         & --- & ---
-%         & A3 \\
-
-%         Guillot et al.~\cite{2019guillot} 
-%         & ~\cite{2013quan}
-%         & \cmark &
-%         & NT-1
-%         & 9Y & 2009-2018
-%         & --- & ---
-%         & A3 \\
-
-%         Enyanet et al.~\cite{2024enyanet} 
-%         & 
-%         & &
-%         &
-%         & &
-%         & &
-%         & \\
-
-%         \midrule
-%         \textbf{Aggregate}
-%         & 7/16
-%         & 4/16 & 7/16
-%         & 8-24
-%         & 1w--3.5y & 2012--2021
-%         & --- & ---
-%         & --- \\
-%         \bottomrule
-%     \end{tabular}
-% \end{table*}
-
 To demonstrate the utility of their detection methodologies, prior works conduct assessments using real-world darknet traffic datasets.
 These assessments and their results provide evidence of a method's performance under realistic settings and offer empirical insights into its detection capabilities and general scalability.
 In this section, we characterize prior works along the lines of credibility and reproducibility of their assessments by reviewing:
@@ -1091,7 +1042,7 @@ Furthermore, we consider implementation details of detection methodologies since
 % \vspace{0.25em}
 \subsection{Characteristics of darknet traffic datasets.}
 
-We consider several characteristics of each dataset used to assess detection methodologies in prior work.
+We consider three characteristics of each dataset used in prior work to assess detection methodologies.
 These include 1) the timeframe covered by the dataset, 2) the darknet whose traffic comprises the dataset, 3) and the dataset's traffic volume measured in units of packets and bytes.
 % For the datasets used in prior works, we consider several characteristics relevant to interpreting method assessment results:
 % the timeframe over which traffic was collected, 
@@ -1100,21 +1051,20 @@ These include 1) the timeframe covered by the dataset, 2) the darknet whose traf
 % Empirical studies such as~\cite{2025camargo,2019soro} established that address space size has a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
 
 Across our surveyed works, we identified a total of 7 darknets (listed in Table~\ref{tab:telescopes}) from which datasets source their traffic. 
-The amount of IPv4 address space occupied by each darknet varies; the largest and smallest sizes respectively span roughly a /9 (approx. 12.5M addresses comprise the UCSD Network Telescope) 
-and three /24 subnetworks (768 addresses operated by Politecnico di Torino). 
-While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc announcements 
+The amount of IPv4 address space occupied by each darknet varies; the largest and smallest sizes respectively span roughly a /9 (approx. 12.5M addresses in NT-1) 
+and three /24 networks (768 addresses in NT-4). 
+While these numbers represent the most up-to-date sizes reported by operators, darknet address space in practice may fluctuate based on ad-hoc BGP announcements 
 (e.g., for leasing purposes~\cite{2025mannel} or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
 Empirical studies such as~\cite{2025camargo,2019soro} show that the size and ranges of IP addresses occupied by a darknet have a non-trivial impact on the observability, i.e., in terms of traffic composition and source visibility) of small-scale scanning events.
 % Empirical studies such as~\cite{2025camargo,2019soro} established that address space size has a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
 Thus, assessments results may not generalize across datasets sourced from different darknets.
 
-Shown in Figure~\ref{fig:cov_assess}, 
-the combined range of timeframes covered by darknet-traffic datasets span the start of 2012 and extend until late 2023. 
+We visualize the combined range of timeframes covered by darknet-traffic datasets from the start of 2012 until late 2023 in Figure~\ref{fig:cov_assess}. 
 The proportion of time covered over this range by at least a single dataset (at a daily granularity) sits at 68\%. 
 Most datasets are short snapshots: over half of all datasets span fewer than two months, roughly a third cover under three years of darknet traffic, and less than a fifth cover three or more years. 
 Since a majority of works do not provide clear rationale for their timeframe selection, we infer that selection is largely opportunistic and based on availability of darknet traffic data at the time of assessment. 
 
-Some exceptions~\cite{2022kallitsis,2023kartsioukas} use known dates of landmark Internet-wide events, e.g., the Mirai botnet, to guide their selection of timeframes. 
+Some exceptions~\cite{2022kallitsis,2023kartsioukas} use known dates of landmark Internet-wide events, \textit{e.g.}, launch of the Mirai botnet, to guide their selection of timeframes. 
 In addition to Mirai, Figure 2 plots the start date of 17 additional events (further summarized in Table 5) identified as either major remote execution vulnerabilities or scans originated by botnets. 
 While the traffic associated with these events, in theory, should have been observed by darknets, besides~\cite{2022kallitsis,2023kartsioukas} there have been no explicit studies of their detectability in darknet traffic despite 
 the fact that all but one of the events are covered by the timeframes of datasets used in assessments.
@@ -1301,12 +1251,17 @@ Nonetheless, we found a small subset of works whose strategies serve as a standa
 }
 
 \label{sec:assess:rep}
-\subsection{Replicability of detection methodologies.}
-To determine the replicability of each detection methodology, we assess whether prior works provide
-1) public access to their implementation, such as source code or software artifacts; 
-and 2) specifications of the computing environment used to run experiments. 
-These two elements are essential for reproducing published results and for applying existing techniques to new traffic datasets. 
-We consider a methodology replicable only when both conditions are satisfied.
+\subsection{Replicability of assessments}
+We consider the replicability of method assessments based on whether prior works provide public access to:
+1) the datasets used in experiments; and 
+2) implementation of methods (as source code or their software artifacts) along with specifications of the computing environment used to run experiments.
+These two elements are essential for reproducing published results and applying existing methods to new traffic datasets.
+We consider a methodology replicable only when both conditions are satisified.
+% To determine the replicability of each detection methodology, we assess whether prior works provide
+% 1) public access to their implementation, such as source code or software artifacts; 
+% and 2) specifications of the computing environment used to run experiments. 
+% These two elements are essential for reproducing published results and for applying existing techniques to new traffic datasets. 
+% We consider a methodology replicable only when both conditions are satisfied.
 
 Less than a third of surveyed works provide source code of their implementations and roughly half detail specifications of their experimental computing environments.
 Of readily-available source code, we found Python and R as the programming languages of choice. Both are popular among numeric and scientific communities given their ease-of-use for implementing analytics workflows and abundant open-source algorithmic libraries.
