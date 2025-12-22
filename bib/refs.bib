@@ -978,10 +978,9 @@
   abstract = {Data from Internet telescopes that monitor routed but unused IP address space has been the basis for myriad insights on malicious, unwanted, and unexpected behavior. However, service migration to cloud infrastructure and the increasing scarcity of IPv4 address space present serious challenges to traditional Internet telescopes. This paper describes DSCOPE, a cloud-based Internet telescope designed to be scalable and interactive. We describe the design and implementation of DSCOPE, which includes two major components. Collectors are deployed on cloud VMs, interact with incoming connection requests, and capture pcap traces. The data processing pipeline organizes, transforms, and archives the pcaps from deployed collectors for post-facto analysis. In comparing a sampling of DSCOPE's collected traffic with that of a traditional telescope, we see a striking difference in both the quantity and phenomena of behavior targeting cloud systems, with up to 450\texttimes{} as much cloud-targeting as expected under random scanning. We also show that DSCOPE's adaptive approach achieves impressive price performance: optimal yield of scanners on a given IP address is achieved in under 8 minutes of observation. Our results demonstrate that cloud-based telescopes achieve a significantly broader and more comprehensive perspective than traditional techniques.},
   booktitle = {Proceedings of the 32nd USENIX Conference on Security Symposium},
   articleno = {335},
-numpages = {18},
-location = {Anaheim, CA, USA},
-series = {SEC '23}
-}
+  numpages = {18},
+  location = {Anaheim, CA, USA},
+  series = {SEC '23}}
 @inproceedings{2023wagner,
   author = {Wagner, D and Ranadive, S and Griffioen, H and Kallitsis, M and Dainotti, A and Smaragdakis, G and Feldmann, A},
   title = {{How to Operate a Meta-Telescope in your Spare Time}},
@@ -1000,3 +999,9 @@ series = {SEC '23}
   doi = {https://catalog.caida.org/paper/2019_p_richter_icm},
   keywords = {used CAIDA data}
 }
+@INPROCEEDINGS{2020griffioen,
+  author={Griffioen, Harm and Doerr, Christian},
+  booktitle={NOMS 2020 - 2020 IEEE/IFIP Network Operations and Management Symposium}, 
+  title={Discovering Collaboration: Unveiling Slow, Distributed Scanners based on Common Header Field Patterns}, 
+  year={2020},
+  doi={10.1109/NOMS47738.2020.9110444}}

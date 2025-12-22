@@ -321,9 +321,15 @@ In addition, we describe several additional components of each method's design t
         & Per-sIP: <\textit{seq(dport)}>
         & & & \cmark & \\
 
+        2024 Gao et al.~\cite{2024gao}
+        & Target Identification 
+        & & \cmark & & \cmark & & & 
+        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
+        & & & & \cmark \\
+
         2023 Kartsioukas et al.~\cite{2023kartsioukas}
         & Target Identification 
-        & & \cmark & & & \cmark & & 
+        & & \cmark & & \cmark & & & 
         & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
         & & & & \cmark \\
 
@@ -345,6 +351,12 @@ In addition, we describe several additional components of each method's design t
         & 
         & & & & \cmark \\
 
+        2021 Tanaka et al.~\cite{2021tanaka}
+        & Source
+        & \cmark & & & & \cmark & & 
+        & 
+        & & & & \\
+
         2021 Han et al.~\cite{2021han}
         & Source and Target Identif. 
         & & \cmark & & & & & 
@@ -356,6 +368,12 @@ In addition, we describe several additional components of each method's design t
         & \cmark & \cmark & & & & &
         & Per-TCP dport: \textit{saddr}
         & & & \cmark & \\
+
+        2020 Griffioen et al.~\cite{2020griffioen}
+        & Source Categorization 
+        & \cmark & & & & \cmark & &
+        & Per-TCP dport: \textit{saddr}
+        & & & & \\
 
         2020 Cohen et al.~\cite{2020cohen}       
         & Source and Target Identif. 
@@ -538,8 +556,8 @@ Depending on the method's detection task, traffic features are defined per-sourc
 and encoded as one of the four main types of representations: \textit{graphs}, \textit{feature vectors}, \textit{sequences}, \textit{time series}.
 
 \subsection{Graph-mining methods}
-One line of work proposes methdologies that rely on graphical models of darknet scan traffic.
-% which represent darknet traffic using graphical models and apply thresholding/clustering techniques to identify similar groups of activities.
+Graph-based methods operate on models of sender-destination interactions extracted from darknet traffic.
+To identify similar scanning behaviors, \textit{i.e.}, horizontal or vertical scanners, these methods apply clustering and thresholding techniques to predefined graph formulations.
 Lagraa et al.~\cite{2017lagraa,2019lagraa} and Evrard et al.~\cite{2019evrard} model TCP traffic as unipartite graphs (nodes and edges represent respectively ports and consecutive port scans from the same sender) aggregated from per-sender port scans.
 To extract similar probed ports, both apply thresholding graph metrics (shortest-path similarity in ~\cite{2019evrard}, node centrality in ~\cite{2017lagraa}).
 In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph definition to detect horizontal scanners (nodes redefined as darknet destination addresses probed on the same port) and employ an alternative clustering algorithm which uses graph modularity as a metric.
@@ -583,12 +601,17 @@ Results of their comparison against \textit{DarkVec} showed that their method mo
 
 % \vspace{0.25em}
 % \noindent{\textbf{Time Series Dimensionality Reduction Methods}}
-\subsection{Time series dimensionality reduction methods}
-In 2019, Kanehara et al.~\cite{2019kanehara} proposed a method that applied Nonnegative Tucker Decomposition (NTD)~\cite{2015zhou} to time series of packet counts for each unique sender and their contacted destination ports.
+\subsection{Time series-based methods}
+Time series representations offer an aggregated view of darknet traffic that supports analysis by a variety of techniques.
+Their methods typically operate on a large space of inputs with the goal of localizing time periods that correspond 
+to abnormal traffic activity, defined per-method. 
+Several methods achieve this via dimensionality reduction techniques. \maxnote{discuss scalability limitations}
+In 2019, Kanehara et al.~\cite{2019kanehara} applied Nonnegative Tucker Decomposition (NTD)~\cite{2015zhou} to packet count time series between senders and destination ports they contacted.
 Their findings from real-world traffic analysis identified groups of behaviorally-similar senders on several ports of applications containing known vulnerabilities.
 Han et al. proposed \textit{DarkNMF}~\cite{2021han} and \textit{DarkGLASSO}~\cite{2020han}, which respectively apply Nonnegative Matrix Factorization (NMF)~\cite{2000lee} and Graphical LASSO~\cite{2008friedman} to 
 time series of packet counts per source host (for \textit{DarkNMF}, also per destination port).
 Kartsioukas et al.~\cite{2023kartsioukas} apply Incremental Principal Component Analysis (iPCA)~\cite{2012arora} to time series of unique senders per TCP, UDP ports and ICMP.
+
 % In 2023, the same authors 
 
 % Methods that are well-suited for detecting anomalous traffic that targets specific ports or arrives from coordinated groups of senders.
@@ -598,10 +621,20 @@ Kartsioukas et al.~\cite{2023kartsioukas} apply Incremental Principal Component 
 % each of which reduce the space of potential source and destination tuples by filtering for those whose time series possess high reconstruction errors. 
 % Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identifying non-trivial correlations in TCP-SYN packet volumes sent by source /16 subnetworks.
 
+\subsection{Fingerprinting methods}
+
+Fingerprinting methods operate on information embedded in packet headers of darknet traffic. 
+The key intuition behind the use of these methods are that distributed yet coordinated hosts likely employ the same 
+stateless scanning tools, \textit{e.g.}, ZMap~\cite{2013durumeric}, embed identifying information in 
+the same parts of a packet which can be used to infer their fingerprints.
+Griffioen et al.~\cite{2020griffioen} first proposed this technique which enabled correlation of similar hosts suspected 
+to use the same scanning tools.
+Tanaka et al.~\cite{2021tanaka,2023tanaka} extend Griffioen et al.'s method to generate candidate fingerprints from a 
+larger set of header fields using a genetic algorithm.
+
 
 % Nishikaze et al.~\cite{2015nishikaze}
 % Torabi et al.~\cite{2020torabi}
-
 
 % \label{sec:methods:dos}
 % \subsection{Backscatter Detection}
