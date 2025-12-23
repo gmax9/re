@@ -297,232 +297,180 @@ In addition, we describe several additional components of each method's design t
     \caption{Characteristics of event detection methodologies}
     \label{tab:methodologies}
     \renewcommand{\arraystretch}{1.1}
-    \setlength{\tabcolsep}{3pt} 
-    \begin{tabular}{l p{3cm} ccccccc p{3.5cm} cccc}
-        \toprule
-        \textbf{Work} &
-        \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}\textbf{Detection}\\\textbf{Tasks}\end{tabular}} &
-        \multicolumn{7}{c}{\textbf{Techniques}} &
-        \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}\textbf{Traffic}\\\textbf{Features}\end{tabular}} &
-        \multicolumn{4}{c}{\begin{tabular}[c]{@{}c@{}}\textbf{Traffic Repre-}\\\textbf{sentations}\end{tabular}} \\
-        \cmidrule(lr){2-2}\cmidrule(lr){3-9}\cmidrule(lr){10-10}\cmidrule(lr){11-14}
-        % second header row (leave non-grouped columns blank)
-        & &
-        \rot{90}{Clustering} & \rot{90}{Dim. Reduction} & \rot{90}{Forecasting} &
-        \rot{90}{Thresholding} & \rot{90}{Fingerprinting} & \rot{90}{Rep. Learning} &
-        \rot{90}{Pattern Mining} &
-        &
-        \rot{90}{Graph} & \rot{90}{Feature Vector} & \rot{90}{Sequences} & \rot{90}{Time Series} \\
-        \midrule
+    \setlength{\tabcolsep}{3.5pt} 
+    % \setlength{\cmidrulekern}{1em}
+\begin{tabular}{l ccc ccccccc p{3.5cm} cccc}
+    \toprule
+    \textbf{Work} &
+    \multicolumn{3}{@{}c@{}}{\begin{tabular}[c]{@{}c@{}}\textbf{Detection}\\\textbf{Tasks}\end{tabular}} &
+    \multicolumn{7}{@{}c@{}}{\textbf{Techniques}} &
+    \multicolumn{1}{@{}c@{}}{\begin{tabular}[c]{@{}c@{}}\textbf{Traffic}\\\textbf{Features}\end{tabular}} &
+    \multicolumn{4}{@{}c@{}}{\begin{tabular}[c]{@{}c@{}}\textbf{Traffic Repre-}\\\textbf{sentations}\end{tabular}} \\
+    \cmidrule(lr){2-4}\cmidrule(lr){5-11}\cmidrule(lr){12-12}\cmidrule(lr){13-16}
+    % second header row: techniques + representations
+    & \rot{90}{Source Class.} & \rot{90}{Target Id.} & \rot{90}{Event Det.} &
+    \rot{90}{Clustering} & \rot{90}{Dim.\ Reduction} & \rot{90}{Forecasting} &
+    \rot{90}{Thresholding} & \rot{90}{Fingerprinting} & \rot{90}{Rep.\ Learning} &
+    \rot{90}{Pattern Mining} &
+    &
+    \rot{90}{Graph} & \rot{90}{Feature Vector} & \rot{90}{Sequences} & \rot{90}{Time Series} \\
+    \midrule
 
         2025 Abduaziz et al.~\cite{2025abduaziz} 
-        & Source Categorization 
+        & \cmark & & 
         & \cmark & \cmark & & & & \cmark & 
         & Per-sIP: <\textit{seq(dport)}>
         & & & \cmark & \\
 
+        2024 Huang et al.~\cite{2024huang}
+        & & \cmark & \cmark
+        & & \cmark & & \cmark & & & 
+        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
+        & & & & \cmark \\
+
         2024 Gao et al.~\cite{2024gao}
-        & Target Identification 
+        & & \cmark & \cmark
         & & \cmark & & \cmark & & & 
         & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
         & & & & \cmark \\
 
         2023 Kartsioukas et al.~\cite{2023kartsioukas}
-        & Target Identification 
+        & & \cmark & \cmark
         & & \cmark & & \cmark & & & 
         & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
         & & & & \cmark \\
 
         2023 Zakroum et al.~\cite{2023zakroum}
-        & Source Categorization  
+        & \cmark & & \cmark
         & \cmark & & \cmark & & & & 
         & 
         & & & & \cmark \\
 
+        2023 d’Andréa et al.~\cite{2023dandrea}
+        & & \cmark & \cmark
+        & & \cmark & & \cmark & & & 
+        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
+        & & & & \cmark \\
+
         2022 Kallitsis et al.~\cite{2022kallitsis}
-        & Source Categorization 
+        & \cmark & & \cmark
         & \cmark & \cmark & & \cmark & & &
         & 
         & & \cmark & & \\
 
         2022 Zakroum et al.~\cite{2022zakroum} 
-        & Target Identification 
+        & & \cmark & \cmark
         & \cmark & & \cmark & & & & 
         & 
         & & & & \cmark \\
 
         2021 Tanaka et al.~\cite{2021tanaka}
-        & Source
+        & \cmark & & 
         & \cmark & & & & \cmark & & 
         & 
         & & & & \\
 
         2021 Han et al.~\cite{2021han}
-        & Source and Target Identif. 
+        & \cmark & \cmark & \cmark
         & & \cmark & & & & & 
         & Per-sIP: 
         & & & & \cmark \\
 
         2021 Gioacchini et al.~\cite{2021gioacchini}  
-        & Source Categorization 
+        & \cmark & & 
         & \cmark & \cmark & & & & &
         & Per-TCP dport: \textit{saddr}
         & & & \cmark & \\
 
         2020 Griffioen et al.~\cite{2020griffioen}
-        & Source Categorization 
+        & \cmark & & 
         & \cmark & & & & \cmark & &
         & Per-TCP dport: \textit{saddr}
         & & & & \\
 
         2020 Cohen et al.~\cite{2020cohen}       
-        & Source and Target Identif. 
+        & \cmark & \cmark & \cmark
         & & \cmark & & & & & 
         & Per-sIP: \textit{TCP dport}
         & & & & \cmark \\
 
         2020 Han et al.~\cite{2020han}       
-        & Source and Target Identif. 
+        & \cmark & \cmark & \cmark
         & & \cmark & & & & & 
         & s16->nt: <\textit{pktcnt}>
         & & & & \cmark \\
         
         2020 Torabi et al.~\cite{2020torabi}      
-        &  
+        & & & \cmark
         & & & & & & & \cmark 
         & Per-Flow: \textit{dports, protocol, TTL, TCP flags, IP length, packet count}
         & \cmark & \cmark & & \\
-
+        
         2020 Soro et al.~\cite{2020soro}   
-        & Source Categorization 
+        & \cmark & & 
         & \cmark & & & & & &
         & Per-sAS,dport: \textit{packet count}
         & & \cmark & & \\
         
         2019 Evrard et al.~\cite{2019evrard}
-        & Source Categorization 
+        & \cmark & & 
         & \cmark & & & & & & 
         & Per-saddr: \textit{TCP dports}
         & \cmark & & & \\
         
         2019 Iglesias et al.~\cite{2019iglesias}    
-        & Source Categorization 
+        & \cmark & & \cmark
         & \cmark & & & & \cmark & & 
         & Per-saddr: \textit{22 total features}
         & & \cmark & & \\
 
         2019 Niranjana et al.~\cite{2019niranjana} 
-        & Sender Classification 
+        & \cmark & & 
         & \cmark & & & & & & 
         & Per-
         & & \cmark & & \\
 
         2019 Kanehara et al.~\cite{2019kanehara}    
-        & Source and Target Identif. 
+        & \cmark & \cmark & \cmark
         & & \cmark & & & \cmark & & 
         & Per-sIP,dPort: \textit{ts, pktcnt}
         & & & & \cmark \\
         
         2017 Lagraa et al.~\cite{2017lagraa}
-        & Source Identification 
+        & \cmark & & 
         & \cmark & & & & & &
         & \textit{}
         & \cmark & & & \\
         
         2016 Ban et al.~\cite{2016ban}
-        & Source Identification 
+        & \cmark & \cmark & \cmark
         & & \cmark & & & & & 
-        & \textit{saddr, dport,}
-        & 
-        & & \cmark & \cmark \\
+        & \textit{saddr, dport}
+        & & & \cmark & \cmark \\
 
         2015 Nishikaze et al.~\cite{2015nishikaze}
-        & Source Categorization 
+        & \cmark & & 
         & \cmark & & & & & & 
         & saddr16: \textit{pktcnt, sport, dport, daddr, scantype}
         & & \cmark & & \\
+
+        2012 Fachka et al.~\cite{2012fachka}
+        & \cmark & & 
+        & & & & & & & \cmark
+        & saddr16: \textit{pktcnt, sport, dport, daddr, scantype}
+        & & & & \\
 
         \bottomrule
     \end{tabular}
 \end{table}
 
 
-% \begin{table}[t]
-%     \scriptsize
-%     \caption{Characteristics of event detection methodologies}
-%     \label{tab:methodologies}
-%     \setlength{\tabcolsep}{2pt} 
-%     \begin{tabular}{l cccc p{1.8cm} cccccc cccc p{1.8cm}}
-%         \toprule
-%         \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Work}}} & 
-%         \multicolumn{4}{c}{\textbf{Activities}} & 
-%         \multicolumn{1}{c}{\textbf{Detection Tasks}} &
-%         \multicolumn{6}{c}{\textbf{Techniques}} & 
-%         \multicolumn{4}{c}{\textbf{Traffic Representations}} & 
-%         \multicolumn{1}{c}{\textbf{Traffic Features}} \\
-%         \cline{2-5}  \cline{7-12} \cline{13-16} 
-        
-%         & \rot{90}{Scanning} & \rot{90}{DDoS} & \rot{90}{Outage} & \rot{90}{Misconfig.} 
-%         & & \rot{90}{Clustering} & \rot{90}{Dim. Reduction} & \rot{90}{Forecasting} 
-%         & \rot{90}{Threshold/Fingerprint} 
-%         & \rot{90}{Rep. Learning} 
-%         & \rot{90}{Pattern Mining} 
-%         & \rot{90}{Graph} & \rot{90}{Feature Vector} & \rot{90}{Sequences} & \rot{90}{Time Series} & \\ 
-%         \midrule
-
-%         2025 Abduaziz et al.~\cite{2025} & $\checkmark$ & & & & & $\checkmark$ & $\checkmark$ & & & & & & & $\checkmark$ & & \\
-
-%         2024 Enyanet et al.~\cite{2024enyanet} & & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
-
-%         2023 Kartsioukas et al.~\cite{2023kartsioukas} & $\checkmark$ & $\checkmark$ & & & & & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ & \\
-
-%         2023 Tanaka et al.~\cite{2023tanaka,2021tanaka} & $\checkmark$ & & & & & & & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & \\
-
-%         2023 Zakroum et al. (B)~\cite{2023zakroum} & $\checkmark$ & & & & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
-
-%         2022 Kallitsis et al.~\cite{2022kallitsis} & $\checkmark$ & $\checkmark$ & & & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & & & $\checkmark$ & & & \\
-
-%         2022 Zakroum et al. (A)~\cite{2022zakroum,2018zakroum} & $\checkmark$ & & & & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
-
-%         2021 Han et al.~\cite{2021han,2022han} & $\checkmark$ & & & & & & $\checkmark$ & & & & & & & & $\checkmark$ & \\
-
-%         2021 Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} & $\checkmark$ & & & & & $\checkmark$ & $\checkmark$ & & & & & & & $\checkmark$ & & \\
-
-%         2020 Han et al.~\cite{2020han,2022han} & $\checkmark$ & & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & & & & & & & & $\checkmark$ & \\
-
-%         2020 Torabi et al.~\cite{2020torabi,2018torabi} & $\checkmark$ & & & & & & & & & & & $\checkmark$ & $\checkmark$ & & & \\
-
-%         2020 Soro et al.~\cite{2020soro} & $\checkmark$ & & & & & $\checkmark$ & & & & & & & & $\checkmark$ & & \\
-
-%         2019 Evrard et al.~\cite{2019evrard} & $\checkmark$ & & & & & $\checkmark$ & & & & & & $\checkmark$ & & & & \\
-
-%         2019 Iglesias et al.~\cite{2019iglesias} & $\checkmark$ & $\checkmark$ & & & & $\checkmark$ & & & $\checkmark$ & & & & $\checkmark$ & & & \\
-
-%         2019 Niranjana et al.~\cite{2019niranjana} & $\checkmark$ & & & & & $\checkmark$ & $\checkmark$ & & & & & $\checkmark$ & $\checkmark$ & $\checkmark$ & & \\
-
-%         2019 Cabana et al.~\cite{2019cabana} & $\checkmark$ & & & & & $\checkmark$ & & & $\checkmark$ & & & $\checkmark$ & $\checkmark$ & & & \\
-
-%         2019 Kanehara et al.~\cite{2019kanehara,2022han} & $\checkmark$ & & & & & & $\checkmark$ & & $\checkmark$ & & & & & & $\checkmark$ & \\
-
-%         2019 Guillot et al.~\cite{2019guillot} & & & $\checkmark$ & $\checkmark$ & & $\checkmark$ & & $\checkmark$ & & & & & & & $\checkmark$ & \\
-
-%         2018 Shaikh et al.~\cite{2018shaikh} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & & & & & & & & & $\checkmark$ & & & \\
-
-%         2017 Lagraa et al.~\cite{2017lagraa,2019lagraa} & $\checkmark$ & & & & & $\checkmark$ & & & & & & $\checkmark$ & & & & \\
-
-%         2016 Ban et al.~\cite{2016ban} & $\checkmark$ & & & & & & $\checkmark$ & & & & & & & $\checkmark$ & $\checkmark$ & \\ 
-
-%         2015 Nishikaze et al.~\cite{2015nishikaze} & $\checkmark$ & & & & & $\checkmark$ & & & & & & & $\checkmark$ & & & \\
-
-%         \bottomrule
-%     \end{tabular}
-% \end{table}
-
 \vspace{0.25em}
-\noindent{\textbf{Detection tasks}} refer to three types of objectives generalized from specifically-defined tasks in our surveyed works. 
-We define these types based on the \dots.
-% involve the identification of either senders of darknet traffic or targets that receive darknet traffic.
-\maxnote{Circle back to this, explanation unclear}
+\noindent{\textbf{Detection tasks.}}
+Since each work uses different terminology to describe detection tasks of their method, we redefine 3 types of tasks in order to generalize their definitions.
+\textit{Source characterization} refers to method-specific tasks that range from clustering/classification of darknet traffic sources and detection of potentially coordinated sources.
+\textit{Target identification} involves identifying specific application-layer ports that anomalous traffic targets which may correspond to reconaissance activity and scans originated from malware-infected hosts.
+\textit{Event detection} determines specific points in time during which dynamics of darknet traffic exhibit significant change. For example, ~\cite{2024huang,2022kallitsis} detect changes in sender behavior by tracking cluster changes over time.
 
 % \vspace{0.25em}
 % \noindent{\textbf{Class(es) of activity}} correspond to the canonical activities observed in darknet traffic as described in Section~\ref{sec:bg}. 
@@ -580,10 +528,11 @@ Representation learning techniques play a key role in modern machine-learning.
 Given a dataset, their algorithms have the capability to automatically learn a lower-dimensional representation of raw data for downstream modeling tasks.
 
 Beginning in 2020 with the Word2Vec~\cite{2013mikolov} algorithm, researchers began devising methodologies that incorporated these techniques into darknet traffic analysis.
-Cohen et al.~\cite{2020cohen} proposed \textit{Dante} which leveraged this algorithm to map \textit{sequences of ports} targeted by individual senders of darknet traffic into lower-dimensional vector spaces for subsequent application of unsupervised clustering techniques.
-Gioacchini et al.~\cite{2021gioacchini} later proposed \textit{DarkVec} which in contrast to \textit{Dante}, uses Word2Vec to map \textit{sequences of senders} that arrive at grouped destination ports. 
-In their follow-up work~\cite{2023gioacchini}, \textit{i-DarkVec}, Gioacchini et al. improve their previous methodology by scaling to larger volumes of traffic. 
-Abduaziz et al.~\cite{2025abduaziz} replicate \textit{Dante}'s embedding generation step and instead apply semi-supervised clustering techniques.
+Cohen et al.~\cite{2020cohen} proposed \textit{Dante} which leveraged this algorithm to map \textit{sequences of ports} targeted by individual senders of 
+darknet traffic into lower-dimensional vector spaces for subsequent application of unsupervised clustering techniques.
+Gioacchini et al.~\cite{2021gioacchini} later proposed \textit{DarkVec} which instead uses Word2Vec to map \textit{sequences of senders} that arrive on destination ports.
+Follow-up works~\cite{2023gioacchini} enhance \textit{DarkVec} to scale to larger volumes of traffic and track changes in clusters across time.
+Abduaziz et al.~\cite{2025abduaziz} modify \textit{Dante}'s and instead apply semi-supervised clustering techniques to demonstrate...
 
 From 2022 onward, more sophisticated representation learning methods emerged.
 Compared to Word2Vec-based methods, these ingest larger numbers of darknet traffic features, relying on more complex algorithms and neural-network architectures to achieve their detection tasks.
@@ -652,179 +601,6 @@ larger set of header fields using a genetic algorithm.
 % sender counts beyond specified 5-minute prediction thresholds are flagged as potential outages.
 % Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian approach for inferring outages down to a coarser spatial grain of a /24 subnetwork in comparison to Chocolatine. Furthermore, Durbin optimizes parameters per-subnet and and claims to more flexibly exploit space-time precision trade-offs by doing so. 
 
-% \begin{table}[t]
-%     \small
-%     \caption{Taxonomy of Detection Methodologies }
-%     \label{tab:frameworks-noalgos}
-%     \begin{tabular}{llllc}
-%         \toprule
-%         \multicolumn{1}{c}{Work} & \multicolumn{4}{c}{Framework} \\
-%         \midrule
-%         & \rot{45}{i. Activity} & \rot{45}{ii. Technique(s)} & \rot{45}{\begin{tabular}[c]{@{}l@{}}iv. Traffic\\ Rep.\end{tabular}} & \rot{45}{\begin{tabular}[c]{@{}l@{}}v. Output\\ Attributes\end{tabular}} \\
-%         \midrule
-
-%         Evrard et al.~\cite{2019evrard} &
-%         \markX &
-%         \markB &
-%         \markD &
-%         Dst. Port \\
-
-%         Lagraa et al.~\cite{2017lagraa,2019lagraa} &
-%         \markX &
-%         \markB &
-%         \markD &
-%         Dst. Port \\
-
-%         Kallitsis et al.~\cite{2022kallitsis} &
-%         \markX\markY &
-%         \markI\markA\markB &
-%         \markE &
-%         Src. IP \\
-
-%         Iglesias et al.~\cite{2019iglesias} &
-%         \markX\markY &
-%         \markB\markH &
-%         \markE &
-%         Src. IP \\
-
-%         Nishikaze et al.~\cite{2015nishikaze} &
-%         \markX &
-%         \markB &
-%         \markE &
-%         Src. /16 \\
-
-%         Soro et al.~\cite{2020soro} &
-%         \markX &
-%         \markB &
-%         \markF &
-%         Src. AS \\
-
-%         Gioacchini et al.~\cite{2021gioacchini,2023gioacchini} &
-%         \markX &
-%         \markA\markB &
-%         \markF &
-%         Src. IP \\
-
-%         Abduaziz et al.~\cite{2025} &
-%         \markX &
-%         \markA\markB &
-%         \markF &
-%         Src. IP \\
-
-%         Han et al.~\cite{2021han,2022han} &
-%         \markX &
-%         \markA &
-%         \markG &
-%         Src. /16, Dst. Port \\
-
-%         Han et al.~\cite{2020han,2022han} &
-%         \markX\markEtc &
-%         \markA &
-%         \markG &
-%         Src. /16 \\
-
-%         Kanehara et al.~\cite{2019kanehara,2022han} &
-%         \markX &
-%         \markA\markH &
-%         \markG &
-%         Src. /16, Dst. Port \\
-
-
-%         Kartsioukas et al.~\cite{2023kartsioukas} & 
-%         \markX\markY & 
-%         \markA\markH & 
-%         \markG & 
-%         \textit{TODO} \\
-
-%         Ban et al.~\cite{2016ban} & 
-%         \markX & 
-%         \markA & 
-%         \markF\markG & 
-%         Dst. Port \\ 
-
-%         Torabi et al.~\cite{2020torabi,2018torabi} &
-%         \markX &
-%         \markJ &
-%         \markD,\markE &
-%         \textit{TODO} \\
-
-%         Tanaka et al.~\cite{2023tanaka,2021tanaka} &
-%         \markX &
-%         \textit{TODO} &
-%         Source &
-%         \textit{TODO} \\
-
-%         Niranjana et al.~\cite{2019niranjana} &
-%         \markX &
-%         \markA\markB &
-%         Source &
-%         \textit{TODO} \\
-
-%         Cabana et al.~\cite{2019cabana} &
-%         \markX &
-%         \markB\markH &
-%         \markD\markE &
-%         \textit{TODO} \\
-
-%         Shaikh et al.~\cite{2018shaikh} &
-%         \markX\markY\markZ\markEtc &
-%         \textit{TODO} &
-%         \markE &
-%         \textit{TODO} \\
-  
-%         Zakroum et al.~\cite{2022zakroum,2018zakroum} &
-%         \markX &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Zakroum et al.~\cite{2023zakroum} &
-%         \markX &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Guillot et al.~\cite{2019guillot} &
-%         \markZ&
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Enyanet et al.~\cite{2024enyanet} &
-%         \markZ &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Zakroum et al.~\cite{2023zakroum} &
-%         \markX &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Guillot et al.~\cite{2019guillot} &
-%         \markZ&
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         Enyanet et al.~\cite{2024enyanet} &
-%         \markZ &
-%         \markC\markB &
-%         \markG &
-%         Dst. Port \\
-
-%         \bottomrule
-%     \end{tabular}
-
-%     \vspace{2pt}
-%     \parbox{\linewidth}{\raggedright
-%         \textit{Activities:} \markX~Scanning, \markY~DDoS, \markZ~Outage, \markEtc~Misconfiguration.\\
-%         \textit{Techniques:} \markA~Dimensionality Reduction, \markB~Clustering, \markC~Forecasting, \markH~Thresholding, \markI~Representation Learning, \markJ~Frequent Pattern Mining, \markH~Fingerprinting.\\
-%         \textit{Traffic representation:} \markD~Graph, \markE~Feature Vector, \markF~Sequences, \markG~Time Series.
-%     }
-% \end{table}
-
 \label{sec:assessments}
 \section{Empirical Assessments of Detection Methodologies}
 
@@ -852,76 +628,124 @@ larger set of header fields using a genetic algorithm.
         \midrule
 
         Abduaziz et al.~\cite{2025abduaziz}
-        &  & \cmark & ---
+        &  & \cmark & 
         & NT-1,3
         & 7D,10D & 2022,2023
         & --- & 1.18, 7.61GB
         & \cite{2020cohen}
-        & A3,A3 \\
+        & \cmark \\
+
+        Huang et al.~\cite{2024huang}
+        & & & 
+        & NT-4
+        & 50D & 2021
+        & --- & ---
+        & 
+        & \cmark \\
+
+        Gao et al.~\cite{2024gao}
+        & & & 
+        & NT-1
+        & 18M & 2022
+        & --- & ---
+        & \cite{2020han}
+        & \\
 
         Kartsioukas et al.~\cite{2023kartsioukas}
-        &  &  & ---
+        &  &  & 
         & NT-2
         & 1M & 2016
         & --- & ---
         & \cite{2004lakhina}
-        & \cmark \\
+        & \\
 
         Zakroum et al.~\cite{2023zakroum}
-        &  &  & ---
+        &  &  & 
         & NT-3,6
         & 4.5Y & 2018
         & --- & ---
         & \cite{2023zakroum}
-        & A3 \\
+        & \cmark \\
 
-        Kallitsis et al.~\cite{2022kallitsis}
-        & \cmark & \cmark & ---
-        & NT-2
-        & 28D, 1D & 2016,2022
-        & 49B, 3.1B & ---
-        & \cite{2021gioacchini}
-        & A3 \\
+        d’Andréa et al.~\cite{2023dandrea}
+        & & \cmark & 
+        & Private /20
+        & & 2021
+        & --- & ---
+        & 
+        & \cmark \\
 
-        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
-        &  & \cmark & ---
-        & NT-3,6
-        & 3.5Y & 2017
-        & --- & $1.5+\mathrm{TB}$
-        & \cite{2018zakroum}
-        & A2 \\
-
-        Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
-        & \cmark &  & ---
+        Han et al.~\cite{2022han}
+        & \cmark & \cmark & \cmark
         & NT-3
         & 1M & 2018
         & --- & ---
         & \cite{2020han,2006takeuchi,2019kanehara}
-        & A3 \\
+        & \cmark \\
+
+        Kallitsis et al.~\cite{2022kallitsis}
+        & \cmark & \cmark & 
+        & NT-2
+        & 28D, 1D & 2016,2022
+        & 49B, 3.1B & ---
+        & \cite{2021gioacchini}
+        & \cmark \\
+
+        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
+        &  & \cmark & 
+        & NT-3,6
+        & 3.5Y & 2017
+        & --- & $1.5+\mathrm{TB}$
+        & \cite{2018zakroum}
+        & \\
+
+        Tanaka et al.~\cite{2021tanaka}
+        & & \cmark & \cmark
+        & NT-3
+        & 1M & 2018
+        & 117M & ---
+        & \cite{2020han,2006takeuchi,2019kanehara}
+        & \cmark \\
+
+        Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
+        & \cmark & \cmark & \cmark
+        & NT-3
+        & 1M & 2018
+        & --- & ---
+        & \cite{2020han,2006takeuchi,2019kanehara}
+        & \cmark \\
 
         Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
-        & \cmark & \cmark & ---
+        & \cmark & \cmark & \cmark
         & NT-4
         & 30D & 2021
         & 63M & ---
         & \cite{2020cohen,2017ring}
-        & A3, A3 \\
+        & \cmark \\
+
+        Griffioen et al.\textbf{~\cite{2020griffioen}}
+        & & \cmark &
+        & Private
+        & 2M & 
+        & 6.5B & 864G
+        & \cite{2016ban}
+        & \\
 
         Cohen et al.\textbf{~\cite{2020cohen}}
-        & & & ---
+        & & \cmark &
         & NT-4
-        & 30D & 2021
-        & 63M & ---
-        & \cite{2020cohen,2017ring}
-        & A3, A3 \\
+        & 1Y & 
+        & 7.9B & 
+        & \cite{2016ban}
+        & \\
 
         Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
-        & \cmark & \cmark & ---
+        & \cmark & \cmark & \cmark
         & NT-3
         & 1M & 2018
         & --- & ---
         & \cite{2006takeuchi}
-        & A1 \\
+        & \cmark \\
 
         Torabi et al.~\cite{2020torabi}
         & \cmark & \cmark & ---
@@ -932,12 +756,12 @@ larger set of header fields using a genetic algorithm.
         & \\
 
         Soro et al.~\cite{2020soro}
-        &  &  & ---
+        &  &  & 
         & NT-4,5
         & 3W,1D & 2020
         & --- & ---
         & 
-        & A2 \\
+        & \\
 
         Evrard et al.~\cite{2019evrard}
         &  &  & ---
@@ -945,39 +769,39 @@ larger set of header fields using a genetic algorithm.
         & 9M & 2015
         & 8M & ---
         & 
-        & A1 \\
+        & \\
 
         Iglesias et al.~\cite{2019iglesias}
-        &  & \cmark & ---
+        &  & \cmark & 
         & NT-1
         & 6M & 2012
         & --- & 2.1 TB
         & 
-        & A1 \\
+        & \\
 
         Niranjana et al.~\cite{2019niranjana}
-        &  &  & ---
-        & 
-        & & 
+        &  &  & 
+        & Private /24
+        & 20D & 2017
         & & ---
         & 
         & \\
 
         Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
-        & \cmark & \cmark & ---
+        & & \cmark & 
         & NT-3
         & 10M & 2017
         & --- & ---
-        & \cite{2021han,2020han,2006takeuchi}
-        & A1 \\
+        & 
+        & \\
 
         Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
-        &  & \cmark & ---
+        &  & \cmark &
         & NT-6
         & 2Y & 2014
         & 2B & 500 GB
         & 
-        & A1 \\
+        & \\
 
         Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
         &  & \cmark & ---
@@ -985,7 +809,7 @@ larger set of header fields using a genetic algorithm.
         & 1M,1M & 2016,2014
         & --- & 670, 240GB
         & \cite{2018bouharb}
-        & A3 \\
+        & \\
 
         Ban et al.~\cite{2017ban}
         &  &  & ---
@@ -993,7 +817,7 @@ larger set of header fields using a genetic algorithm.
         & --- & ---
         & --- & ---
         & \cite{2012ban}
-        & A2 \\
+        & \\
 
         Ban et al.~\cite{2016ban}
         &  &  & ---
@@ -1001,7 +825,15 @@ larger set of header fields using a genetic algorithm.
         & 1y & 2015
         & $3\times10^{7}$ & ---
         & 
-        & A1 \\
+        & \\
+
+        Nishikaze et al.~\cite{2015nishikaze}
+        &  &  & 
+        & NT-3
+        & 28D & 2014
+        & 303M & ---
+        & 
+        & \\
 
         Bou-Harb et al.~\cite{2014bouharb}
         &  &  & ---
@@ -1009,15 +841,15 @@ larger set of header fields using a genetic algorithm.
         & 2D & 2013
         & $10^6$ & 30GB
         & 
-        & A2 \\
+        & \\
 
-        Nishikaze et al.~\cite{2015nishikaze}
-        &  &  & ---
-        & NT-3
-        & 28D & 2014
-        & 303M & ---
+        Fachka et al.~\cite{2012fachka}
+        &  &  & 
+        & NT-7
+        & 2D & 2011
+        & --- & ---
         & 
-        & A1 \\
+        & \\
 
         % Guillot et al.~\cite{2019guillot} 
         % & \cmark &
@@ -1167,10 +999,13 @@ The defining practices of these strategies include whether they validate method 
 (as used in their label definitions or more generally to cross-validate results), and whether outputs from baseline methods are used as a reference point for comparison.
 We review these components, indicated in Table~\ref{tab:eval} for each work's validation strategy and consider the soundness and robustness of the overall approach.
 
-Among our surveyed works, 7~\cite{2019evrard,2015nishikaze,2019iglesias,2016ban,2020han,2019kanehara,2023kartsioukas} employ strategies whose primary goals are 
-to confirm results as part of exploratory analyses and often lack the use of labeled data, external datasets, and comparisons with baseline methods. 
-The scope of these strategies are limited in-practice by the volume of method outputs and the amount of manual investigation efforts 
-(\textit{e.g.}, application of domain knowledge to interpret traffic behavior and correlation of outputs with third-party reports) required for validation.
+Among our surveyed works, 7~\cite{2019evrard,2015nishikaze,2019iglesias,2016ban,2020han,2019kanehara,2023kartsioukas} 
+employ strategies designed to either confirm the results of exploratory analyses or verify 
+that lack practices such as use of labeled data, cross-validation with external datasets, and comparisons against baseline methods.
+designed to confirm the results of exploratory analyses.
+A majority of these strategies lack the use of labeled data, cross-validation with external datasets, and comparisons against baseline methods.
+Furthermore, their scope is limited in-practice by the volume of method outputs and the amount of manual investigation efforts 
+(\textit{e.g.,} application of domain knowledge to interpret network traffic behavior, correlating outputs with third-party reports) required for validation.
 Most works~\cite{2019evrard,2015nishikaze,2019iglesias,2016ban,2020han,2019kanehara,2023kartsioukas} investigate a limited number of outputs, 
 linked to targeted ports of botnet scans~\cite{linuxmoose} and remotely exploitable vulnerabilities~\cite{redis,adbminer,memcached}.
 More extensive validation is conducted by~\cite{2020han,2019iglesias}, respectively classifying 1,634 alerts and inspecting 20 traffic clusters. 
@@ -1190,86 +1025,6 @@ through cross-validation with external datasets, (\textit{e.g.}, national vulner
 and comparisons against baseline methodologies.
 Of these, we highlight several works~\cite{2022kallitsis,2023zakroum,2019bouharb,2022han,2025abduaziz} specifically for the rigor of their strategies that combine all three practices.
 Label definitions for traffic are explicit and well-defined (\textit{e.g.,} malware fingerprints~\cite{2019ceron} and publicly known addresses of research projects and search engines).
-
-% For example, Zakroum et al.~\cite{@@} correlate public vulnerability reports with anomalous traffic activity on specific TCP ports. Bou-Harb et al.~\cite{@@} resolve IP addresses of their highest-volume senders against passively-collected DNS data to infer whether scans originated from blacklisted domains. 
-
-% Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, 
-% prior works rely on improvised strategies for validating their method outputs.
-% The defining components of these strategies include their use of well-defined labeled data,
-% whether they incorporate external datasets, and whether they use outputs of baseline methods
-% as a reference point for comparison.
-% We review these components, indicated in Table~\ref{tab:eval}, for each validation strategy to
-% determine their soundness and robustness.
-
-% Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, 
-% prior works rely on improvised approaches to validate their method outputs.
-% The defining components of these approaches include their use of labels (and more specifically the reliability of their definitions) 
-% and whether outputs are cross-validated against external datasets and/or baseline methods. 
-% % These components dictate the scale and rigor of each individual validation approach, which we define and group into three categories:
-% These components, indicated in Table~\ref{tab:eval}, determine the soudness and robustness of each individual validation approach. 
-
-% 8~\cite{2019evrard,2019lagraa,2015nishikaze,2019iglesias,2016ban,2020han,2019kanehara,2023kartsioukas} of our surveyed works apply 
-% validation strategies suited for exploratory analyses.
-% While the scope of validation varies across these works, it is limited in-practice by the volume of method outputs and the amount of 
-% manual investigation efforts (\textit{e.g.}, application of domain knowledge to interpret traffic behavior, correlating findings to third-party reports)
-% required to validate them.
-% A majority works~\cite{2015nishikaze,2019kanehara,2023kartsioukas,2016ban,2019lagraa} investigate a limited number of their respective method outputs.
-% Notable validated outputs range from botnet scans~\cite{@@}, targeted vulnerabilities~\cite{@@}.
-% Others works~\cite{2019han,2019iglesias} examine a larger proportion of their method outputs though report 
-
-% Of our surveyed works, we found 8~\cite{2019evrard,2019lagraa,2015nishikaze,2019iglesias,2016ban,2020han,2019kanehara,2023kartsioukas}
-% that rely on purely internal validation approaches, which are often limited in scope and suited for the purpose of confirming exploratory analyses results. 
-% While some approaches validate outputs against labels for metric computaiton, these labels are self-defined and thus may not have been subject to outside review.
-% For example, \dots.
-
-% that rely on purely internal validation approaches which typically reflect and are justified by the objective and scope of these works' assessments, 
-% \textit{i.e.}, confirmation of exploratory analyses.
-% Labels used to compute validation metrics are self-defined, i.e., based on human domain-expertise, and thus may not have been subject to outside review.
-% Of our surveyed works, we found 8 
-
-% The remaining 10 works offer
-
-\begin{comment}
-Since limited definitive "ground truth" exists for attributing darknet traffic to their root causes, prior works rely on improvised approaches to validate the meaningfulness of their method outputs.
-These approaches differ in rigor depending on two characteristics: 
-1) the use of labels (with varying degrees of confidence in their definitions); 
-and 2) whether methods are cross-validated against other traffic datasets and/or compared against baseline methods. 
-Using these characteristics, we define and group (Table~\ref{tab:eval}) validation approaches into three categories: A1, strictly internal or manual validation; A2; weak external validation; and A3, strong external validation. 
-\end{comment}
-
-\begin{comment}
-% This yields two broad categories of validation: manual inspection with limited coverage, and systematic validation using external or curated data sources.
-% We consider the soundness of method assessments by examining how prior works validate their method's detection outputs in the absence of well-defined ground truth; we identify 3 common approaches.
-% In the first approach, authors~\cite{@@} manually inspect detection outputs and interpret their meaning. This non-exhaustive approach to validation serves to illustrate method capabilities in an exploratory manner.
-% The second approach extends this process by cross-referencing detection outputs with external datasources, e.g., crowdsourced reports of scanners such as AbuseIPDB~\cite{@@}, \maxnote{enumerate}. Compared to the previous approach, confirmation provided by an additional source can improve confidence in result interpretations.
-% The third and most formal approach involves constructing labeled datasets prior to assessment and computing accuracy metrics, e.g., conventional information retrieval metrics such as precision, recall, or F1-score, from subsequently obtained outputs combined with labeled samples. While this approach is the most reproducible, sound comparison of validation results depends on objective definitions for labels.
-\end{comment}
-
-% \begin{itemize}[leftmargin=*]
-%     \item \textbf{A1 - Limited Internal Validation} 
-%     Approaches which rely on solely internal validation metrics or limited-in-scope manual inspection of method outputs. 
-%     \item \textbf{A2 - Weak External Validation}
-%     Although these approaches use external validation metrics, label definitions vary in 
-%     \item \textbf{A3 - Strong External Validation}
-%     These approaches assess methods using validation metrics computed from 
-% \end{itemize}
-
-% Table~\ref{tab:eval} enumerates categories we assigned to each work. 
-
-% A1 validation approaches include \cite{2019evrard,2019lagraa}.
-% Some exceptions such as~\cite{2019evrard}, validates their model parameterization on an external dataset. but this dataset is collected from backbone traffic instead of a darknet.
-
-% \noindent{\textbf{A1 - Strictly Internal/Manual Validation.}}
-% Approaches that do not utilize ground-truth labels, relying solely on internal clustering metrics or manual inspection of the output.
-
-% \noindent{\textbf{A2 - Weak External Validation.}}
-% Approaches that incorporate external validation but rely on labels with uncertain confidence or lack sufficient cross-comparison 
-% with other methods.
-
-% \noindent{\textbf{A3 - Strong External Validation.}}
-% The most rigorous approach, employing high-confidence ground-truth labels and validating results 
-% through extensive cross-comparison with independent datasets or established techniques.
-
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 \textbf{Takeaways:}
@@ -1313,11 +1068,12 @@ Across our surveyed works, release dates of the CPUs and GPUs trail publication 
 }
 
 % \section{A Need for A Systemized Evaluation of Darknet Event Detection Methodologies}
-\section{Challenges to a comprehensive systematic assessment of methods}
+\section{Challenges to a comprehensive assessment of methods}
 
-Our survey of current existing method assessments revealed inconsistencies in their datasets, implementations, and the strategies 
-used for validating their results.
-In this section, we elaborate on these challenges and how they hinder a comprehensive assessment for rigorous comparisons.
+Our survey of the current assessments of existing methods revealed inconsistencies  
+across their datasets, implementations, and strategies used to validate their results.
+In this section, we elaborate on these limitations and discuss how they hinder 
+comprehensive assessment. 
 
 \vspace{0.25em}
 \noindent{\textbf{Limited replicability of detection methodologies.}} 
@@ -1359,188 +1115,6 @@ There is very little overlap in the traffic traces employed to evaluate framewor
 These non-overlapping datasets obscure whether observed performance reflects properties of the methodology or idiosyncrasies of the underlying traffic. 
 Even when studies aim to detect similar classes of events, variation in temporal scope, probe density, and background traffic composition complicates any meaningful cross-paper interpretation. 
 Collectively, this fragmentation of datasets reinforces the difficulty of establishing a unified baseline for evaluating darknet-based detection methods and highlights the need for shared, consistently curated datasets to support future methodological comparison.
-
-% \begin{enumerate}
-%     \item little overlap in the datasets used to evaluate frameworks
-%     % \item evaluation of detection methodologies use darknet traffic sourced from a variety of telescopes over different timeframes
-%     \item traffic volumes differ by multiple orders of magnitude.
-%     \item different sources of traffic
-%     \item mostly non-overlapping timeframes
-% \end{enumerate}
-
-\begin{comment}
-\begin{table*}[h!]
-    \small
-    % \centering
-    \setlength{\tabcolsep}{4pt}
-    \caption{Details of empirical evaluation and traffic datasets found in our surveyed work. Appx. Table~\ref{tab:telescopes} summarizes referenced telescopes.}\label{tab:eval}
-    \begin{tabular}{@{}lccccccccc@{}}
-        \toprule
-        & \multicolumn{1}{c}{\textbf{Compari-}} 
-        & \multicolumn{2}{c}{\bf Replicability} 
-        & \multicolumn{1}{c}{\textbf{Telescope(s)}} 
-        & \multicolumn{4}{c}{\bf Dataset Attributes} 
-        & \multicolumn{1}{c}{\textbf{Valid-}} \\
-        \cmidrule(lr){3-4} \cmidrule(lr){6-9}
-        \textbf{Work} & \textbf{son} & \textbf{Code} & \textbf{Specs} &  & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} & \textbf{ations} \\
-        \midrule
-
-        Evrard et al.~\cite{2019evrard}
-        & 
-        &  & 
-        & NT-3,6
-        & 9M & 2015
-        & 8M & ---
-        & A1 \\
-
-        Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
-        &  
-        &  & \cmark
-        & NT-6
-        & 2Y & 2014
-        & 2B & 500 GB
-        & A2 \\
-
-        Soro et al.\textbf{~\cite{2020soro}}
-        &  
-        &  & 
-        & NT-4,5
-        & 3W,1D & 2020
-        & --- & ---
-        & A1 \\
-
-        Nishikaze et al.~\cite{2015nishikaze}
-        &  
-        &  & 
-        & NT-3
-        & 28D & 2014
-        & 303M & ---
-        & A2 \\
-
-        Kallitsis et al.~\cite{2022kallitsis}
-        & \cite{2021gioacchini}
-        & \cmark & \cmark
-        & NT-2
-        & 28D, 1D & 2016,2022
-        & 49B, 3.1B & ---
-        & A2, A3 \\
-
-        Iglesias et al.~\cite{2019iglesias}
-        &  
-        &  & \cmark
-        & NT-1
-        & 6M & 2012
-        & --- & 2.1 TB
-        & A2 \\
-
-        Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
-        & \cite{2020cohen,2017ring}
-        & \cmark & \cmark
-        & NT-4
-        & 30d & 2021
-        & 63M & ---
-        & A1, A3 \\
-
-        % Cohen et al.~\cite{2020cohen}
-        % & \cite{2016ban}
-        % &  & \cmark
-        % & Ad hoc ($\approx$/22)
-        % & 1y & 2019
-        % & --- & $3+\,\mathrm{TB}$
-        % & \wc{manual} \\
-
-        Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
-        & \cite{2006takeuchi}
-        & \cmark & \cmark
-        & NT-3
-        & 1M & 2018
-        & --- & ---
-        & A2 \\
-
-        Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
-        & \cite{2020han,2006takeuchi,2019kanehara}
-        & \cmark & 
-        & NT-3
-        & 1M & 2018
-        & --- & ---
-        & A2 \\
-
-        Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
-        & \cite{2021han,2020han,2006takeuchi}
-        & \cmark & \cmark
-        & NT-3
-        & 10M & 2017
-        & --- & ---
-        & A2 \\
-
-        Kartsioukas et al.~\cite{2023kartsioukas}
-        & \cite{2004lakhina}
-        & \cmark & \cmark
-        & NT-2
-        & 1M & 2016
-        & --- & ---
-        & A1 \\
-
-        Ban et al.~\cite{2017ban}
-        & \cite{2012ban}
-        &  & 
-        & NT-3
-        & --- & ---
-        & --- & ---
-        & A1 \\
-
-        Ban et al.~\cite{2016ban}
-        & 
-        &  & 
-        & NT-3
-        & 1y & 2015
-        & $3\times10^{7}$ & ---
-        & A2 \\
-
-        Bou-Harb et al.~\cite{2014bouharb}
-        &  
-        &  & 
-        & NT-7
-        & 2D & 2013
-        & $10^6$ & 30GB
-        & A2 \\
-
-        Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
-        & ~\cite{2018bouharb}
-        &  & \cmark
-        & NT-1,7
-        & 1M,1M & 2016,2014
-        & --- & 670GB, 240GB
-        & A2 \\
-
-        Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
-        & ~\cite{2018zakroum}
-        & & \cmark
-        & NT-3,6
-        & 3.5Y & 2017
-        & --- & $1.5+\mathrm{TB}$
-        & A2 \\
-
-        Zakroum et al.~\cite{2023zakroum}
-        & ~\cite{2023zakroum}
-        & &
-        & NT-3,6
-        & 4.5Y & 2018
-        & --- & ---
-        & A3 \\
-
-        \midrule
-        \textbf{Aggregate}
-        & 7/16
-        & 4/16 & 7/16
-        & 8-24
-        & 1w--3.5y & 2012--2021
-        & --- & ---
-        & --- \\
-        \bottomrule
-    \end{tabular}
-\end{table*}
-\end{comment}
 
 \label{sec:fw}
 \section{Future Work}
