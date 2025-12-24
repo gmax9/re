@@ -254,12 +254,23 @@ Our survey reviews the design, implementation, and assessments of these methods 
 % others used darknets as passive vantage points for identifying internet outages and routing instabilities~\cite{2011dainotti,2013benson,2015benson,2012dainotti,2021padmanabhan}.
 
 \label{sec:methods}
-\section{Methodologies for detecting darknet scanning events}
+% \section{Methodologies for detecting darknet scanning events}
+\section{Detection methods for darknet scanning activities}
 
 In this section, we provide a broad survey of the methods that have been proposed to detect scanning activity in darknet traffic. 
-To construct the body of works for this survey, we selected only those that assessed their method on real-world traffic.
-We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodologies}), organized based on the key technique(s) their detection methods employ.
-In addition, we describe several additional components of each method's design that we briefly discuss before elaborating on individual works.
+We construct a body of 35 works published over the past 14 years (summarized in Table~\ref{tab:methodologies} 
+which consists of a majority that appear after the official release of ZMap in 2013~\cite{2013durumeric}.
+Our single selection criterion includes only works that provided an assessment of their 
+proposed method using real-world darknet traffic data\footnote{We made an exception for ~\cite{2020cohen} 
+which used greynet traffic in their assessment.}
+We organize these works by the key technique(s) their detection methods employ, describe major 
+components of their designs, and discuss their strengths and weaknesses based on empirical findings where possible.
+We briefly define these components before elaborating on individual works.
+
+% In this section, we provide a broad survey of the methods that have been proposed to detect scanning activity in darknet traffic. 
+% To construct the body of works for this survey, we selected only those that assessed their method on real-world traffic.
+% We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodologies}), organized based on the key technique(s) their detection methods employ.
+% In addition, we describe several additional components of each method's design that we briefly discuss before elaborating on individual works.
 
 \begin{comment}
 % A portion of darknet traffic mixtures results from scans that probe the space of Internet addresses, oftentimes targeting application-layer ports.
@@ -323,20 +334,20 @@ In addition, we describe several additional components of each method's design t
         & & & \cmark & \\
 
         2024 Huang et al.~\cite{2024huang}
-        & & \cmark & \cmark
-        & & \cmark & & \cmark & & & 
+        & \cmark & & \cmark
+        & \cmark & \cmark & & & & \cmark & 
         & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
         & & & & \cmark \\
 
         2024 Gao et al.~\cite{2024gao}
-        & & \cmark & \cmark
-        & & \cmark & & \cmark & & & 
+        & \cmark & \cmark & \cmark
+        & & & & \cmark & & & \cmark 
         & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
         & & & & \cmark \\
 
         2023 Kartsioukas et al.~\cite{2023kartsioukas}
-        & & \cmark & \cmark
-        & & \cmark & & \cmark & & & 
+        & & & 
+        & & & & & & & 
         & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
         & & & & \cmark \\
 
@@ -389,7 +400,7 @@ In addition, we describe several additional components of each method's design t
         & & & & \\
 
         2020 Cohen et al.~\cite{2020cohen}       
-        & \cmark & \cmark & \cmark
+        & & \cmark & \cmark
         & & \cmark & & & & & 
         & Per-sIP: \textit{TCP dport}
         & & & & \cmark \\
@@ -464,8 +475,7 @@ In addition, we describe several additional components of each method's design t
     \end{tabular}
 \end{table}
 
-
-\vspace{0.25em}
+\vspace{0.5em}
 \noindent{\textbf{Detection tasks.}}
 Since each work uses different terminology to describe detection tasks of their method, we redefine 3 types of tasks in order to generalize their definitions.
 \textit{Source characterization} refers to method-specific tasks that range from clustering/classification of darknet traffic sources and detection of potentially coordinated sources.
@@ -503,42 +513,48 @@ Methods consist of a preprocessing step that parses properties of raw darknet tr
 Depending on the method's detection task, traffic features are defined per-source, per-target, or per-flow at different levels of aggregation
 and encoded as one of the four main types of representations: \textit{graphs}, \textit{feature vectors}, \textit{sequences}, \textit{time series}.
 
-\subsection{Graph-mining methods}
-Graph-based methods operate on models of sender-destination interactions extracted from darknet traffic.
-To identify similar scanning behaviors, \textit{i.e.}, horizontal or vertical scanners, these methods apply clustering and thresholding techniques to predefined graph formulations.
-Lagraa et al.~\cite{2017lagraa,2019lagraa} and Evrard et al.~\cite{2019evrard} model TCP traffic as unipartite graphs (nodes and edges represent respectively ports and consecutive port scans from the same sender) aggregated from per-sender port scans.
-To extract similar probed ports, both apply thresholding graph metrics (shortest-path similarity in ~\cite{2019evrard}, node centrality in ~\cite{2017lagraa}).
-In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph definition to detect horizontal scanners (nodes redefined as darknet destination addresses probed on the same port) and employ an alternative clustering algorithm which uses graph modularity as a metric.
-Soro et al.~\cite{2020soro} construct weighted bipartite graphs that represent TCP scan traffic sent between source Autonomous Systems (ASes) and destination ports. 
-Using the Greedy Modularity Algorithm, they extract groups of ASes that target similar sets of ports associated with vulnerable applications.
-
-% Despite their straightforward design, 
-% - typically used for exploratory analyses
-% - no direct comparisons 
-
-% source Autonomous Systems (ASes) to destination ports based on the number of packets in TCP scan traffic that ASes send and extract ASes that target similar sets of ports using the Greedy Modularity Algorithm.
-% Evrard et al.~\cite{2019evrard} and Lagraa et al.~\cite{2017lagraa,2019lagraa} represent TCP scan traffic as unipartite graphs, where nodes represent ports and edges represent consecutive port scans, respectively on a global- and individual sender IP-basis. 
-% To extract similarly probed ports, Evrard et al.~\cite{2019evrard} threshold a shortest-path similarity metric while Lagraa et al.~\cite{2017lagraa} instead threshold node centrality measures, such as degree centrality and betweenness measure, applied to a unified scan-graph.
-% To extract similarly probed ports, Evrard et al.~\cite{2019evrard} threshold a shortest-path similarity metric while Lagraa et al.~\cite{2017lagraa} instead threshold node centrality measures, such as degree centrality and betweenness measure, applied to a unified scan-graph.
-% In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph definition aimed to detect horizontal scanners by redefining nodes as darknet destination addresses probed on the same port and employ an alternative clustering metric that measures graph modularity.
-
-% \noindent{\textbf{Sender Classification}}
 \subsection{Representation learning methods}
-Representation learning techniques play a key role in modern machine-learning.
-Given a dataset, their algorithms have the capability to automatically learn a lower-dimensional representation of raw data for downstream modeling tasks.
+Representation learning techniques play a key role in modern machine-learning for their capability 
+to automatically learn lower-dimensional representations of raw data for downstream modeling tasks.
+While their functionality overlaps with classic dimensionality reduction techniques, 
+for our survey we distinguish these methods by their application of artificial neural network architectures that learn 
+non-linear relationships between features of darknet traffic.
 
-Beginning in 2020 with the Word2Vec~\cite{2013mikolov} algorithm, researchers began devising methodologies that incorporated these techniques into darknet traffic analysis.
-Cohen et al.~\cite{2020cohen} proposed \textit{Dante} which leveraged this algorithm to map \textit{sequences of ports} targeted by individual senders of 
-darknet traffic into lower-dimensional vector spaces for subsequent application of unsupervised clustering techniques.
-Gioacchini et al.~\cite{2021gioacchini} later proposed \textit{DarkVec} which instead uses Word2Vec to map \textit{sequences of senders} that arrive on destination ports.
-Follow-up works~\cite{2023gioacchini} enhance \textit{DarkVec} to scale to larger volumes of traffic and track changes in clusters across time.
-Abduaziz et al.~\cite{2025abduaziz} modify \textit{Dante}'s and instead apply semi-supervised clustering techniques to demonstrate...
+Researchers first devised methodologies that incorporated these techniques into darknet traffic analysis starting in 2020 
+with the Word2Vec~\cite{2013mikolov} algorithm.
+Cohen et al.~\cite{2020cohen} proposed \textit{Dante} to detect scanning trends in TCP ports from clustered 
+Word2Vec embeddings trained from \textit{port sequences} per sender.
+Gioacchini et al.~\cite{2021gioacchini} demonstrated that using a modified embedding definition, 
+\textit{i.e.,} \textit{sender sequences} per port, \textit{DarkVec} results in better scalability 
+and more accurate identification of labeled scanner organizations compared to \textit{Dante}.
+Follow-up works~\cite{2023gioacchini,2024huang} extend \textit{DarkVec} to handle larger volumes of traffic and track changes in clusters across time.
+Abduaziz et al.~\cite{2025abduaziz} replicate \textit{Dante} though with a modified semi-supervised clustering technique to highlight 
+In 2022, Kallitsis et al.~\cite{2022kallitsis} demonstrated that their method which employed deep-learning,
+\textit{i.e.,} by applying autoencoders to embed 12 features selected to represent senders,
+could more accurately cluster the same labeled senders as \textit{DarkVec} though at a cost of greater implementation complexity 
+and computational requirements.
 
-From 2022 onward, more sophisticated representation learning methods emerged.
-Compared to Word2Vec-based methods, these ingest larger numbers of darknet traffic features, relying on more complex algorithms and neural-network architectures to achieve their detection tasks.
-Using a set of 12 features to profile darknet traffic sources, 
-Kallitsis et al.~\cite{2022kallitsis}'s method employs an autoencoder neural network architecture to map senders into lower-dimensional vector spaces.
-Results of their comparison against \textit{DarkVec} showed that their method more accurately clustered labeled senders of classes.
+\subsection{Graph-based methods}
+These methods represent the behaviors of darknet traffic sources and the 
+sequence of their probed targets using different graph formulations.
+While they leverage the same fundamental features as early Word2Vec methods, 
+graph-mining methods in principle have lower computational requirements depending on the formulation used in analysis.
+
+Methods proposed by Lagraa et al.~\cite{2017lagraa} and Evrard et al.~\cite{2019evrard}
+represent sequences of scanned TCP ports as unipartite graphs (ports as nodes and consecutive scans as edges).
+To identify groups of similarly probed ports, both methods threshold graph metrics 
+(shortest-path similarity in ~\cite{2019evrard}, node centrality in ~\cite{2017lagraa}).
+In follow-up work, Lagraa et al.~\cite{2019lagraa} provide an additional graph definition to detect horizontal darknet scanners.
+Soro et al.~\cite{2020soro} propose modeling interactions as weighted bipartite graphs which 
+enables a wider scope of analysis but at the cost scaling limitations which led to mapping sender IPs to 
+a lower spatial grain, Autonomous Systems (ASes).
+Application of the Greedy Modularity Algorithm resulted in different clusters of ASes that separately contained
+distributed scanners targeting specific ports, horizontal scanners, and potential misconfiguration-related traffic.
+
+More recent work incorporates representation learning techniques to graph representations of darknet traffic.
+Using the same graph formulation as ~\cite{2019evrard},
+d’Andréa et al.~\cite{2023dandrea} apply a Graph Convolutional Network (GCN) to classify senders labeled using AbuseIPDB reports.
+Zakroum et al.~\cite{2023zakroum} learn graph-embeddings that model packet-level changes in flows.
 
 % Zakroum et al.~\cite{2023zakroum} 
 % ~\cite{2022zakroum}
@@ -551,9 +567,9 @@ Results of their comparison against \textit{DarkVec} showed that their method mo
 % \vspace{0.25em}
 % \noindent{\textbf{Time Series Dimensionality Reduction Methods}}
 \subsection{Time series-based methods}
-Time series representations offer an aggregated view of darknet traffic that supports analysis by a variety of techniques.
-Their methods typically operate on a large space of inputs with the goal of localizing time periods that correspond 
-to abnormal traffic activity, defined per-method. 
+Time series are widely used to monitor network traffic through a variety of metrics. 
+Methods based on these representations analyze large collections of time series to 
+identify specific time intervals that correspond to anomalous activity.
 Several methods achieve this via dimensionality reduction techniques. \maxnote{discuss scalability limitations}
 In 2019, Kanehara et al.~\cite{2019kanehara} applied Nonnegative Tucker Decomposition (NTD)~\cite{2015zhou} to packet count time series between senders and destination ports they contacted.
 Their findings from real-world traffic analysis identified groups of behaviorally-similar senders on several ports of applications containing known vulnerabilities.
@@ -561,17 +577,7 @@ Han et al. proposed \textit{DarkNMF}~\cite{2021han} and \textit{DarkGLASSO}~\cit
 time series of packet counts per source host (for \textit{DarkNMF}, also per destination port).
 Kartsioukas et al.~\cite{2023kartsioukas} apply Incremental Principal Component Analysis (iPCA)~\cite{2012arora} to time series of unique senders per TCP, UDP ports and ICMP.
 
-% In 2023, the same authors 
-
-% Methods that are well-suited for detecting anomalous traffic that targets specific ports or arrives from coordinated groups of senders.
-% Han et al.~\cite{2020han,2021han}, Kanehara et al.~\cite{2019kanehara}, and Kartsioukas et al.~\cite{2023kartsioukas} employ classic dimensionality reduction techniques, specifically on time-series representations of darknet traffic, 
-% alongside ad-hoc thresholding techniques to identify timeframes containing sources of coordinated scanning or targeted services by their ports.
-% These techniques include algorithms such as Non-negative matrix factorization (NMF)~\cite{2000lee}, Non-negative tucker-decomposition (NTD)~\cite{2015zhou}, and  Incremental Principal Component Analysis (i-PCA)~\cite{2012arora}, 
-% each of which reduce the space of potential source and destination tuples by filtering for those whose time series possess high reconstruction errors. 
-% Graphical LASSO~\cite{2008friedman} instead focuses solely on sources by identifying non-trivial correlations in TCP-SYN packet volumes sent by source /16 subnetworks.
-
 \subsection{Fingerprinting methods}
-
 Fingerprinting methods operate on information embedded in packet headers of darknet traffic. 
 The key intuition behind the use of these methods are that distributed yet coordinated hosts likely employ the same 
 stateless scanning tools, \textit{e.g.}, ZMap~\cite{2013durumeric}, embed identifying information in 
@@ -581,6 +587,7 @@ to use the same scanning tools.
 Tanaka et al.~\cite{2021tanaka,2023tanaka} extend Griffioen et al.'s method to generate candidate fingerprints from a 
 larger set of header fields using a genetic algorithm.
 
+% \subsection{Pattern-mining methods}
 
 % Nishikaze et al.~\cite{2015nishikaze}
 % Torabi et al.~\cite{2020torabi}
@@ -602,7 +609,8 @@ larger set of header fields using a genetic algorithm.
 % Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian approach for inferring outages down to a coarser spatial grain of a /24 subnetwork in comparison to Chocolatine. Furthermore, Durbin optimizes parameters per-subnet and and claims to more flexibly exploit space-time precision trade-offs by doing so. 
 
 \label{sec:assessments}
-\section{Empirical Assessments of Detection Methodologies}
+% \section{Empirical Assessments of Detection Methodologies}
+\section{Assessments of detection methodologies}
 
 \begin{table*}[t!]
     \small
@@ -1018,7 +1026,7 @@ More extensive validation is conducted by~\cite{2020han,2019iglesias}, respectiv
 % While they lack the use of external datasets, another set of works~\cite{2017ban,2021han} instead center their validation strategy on comparisons against baseline methods.
 % A final group of works~\cite{2022kallitsis,2023zakroum,2019bouharb,2023han,2025abduaziz} rely on validation strategies that we consider the most robust.
 
-Validation strategies employed by the remainder of works~\cite{2019lagraa,2022zakroum,2020soro,2014bouharb,2017ban,2021han,2022kallitsis,2023zakroum,2019bouharb,2023han,2025abduaziz} 
+Validation strategies employed by the remainder of works~\cite{2019lagraa,2022zakroum,2020soro,2014bouharb,2017ban,2021han,2022kallitsis,2023zakroum,2019bouharb,2022han,2025abduaziz} 
 adopt practices that are more sound compared to those previously discussed.
 These practices enlarge the scope of validation efforts and strengthen the credibility of results 
 through cross-validation with external datasets, (\textit{e.g.}, national vulnerability disclosures~\cite{nistnvd}, passively-collected domain names~\cite{farsight}), 
