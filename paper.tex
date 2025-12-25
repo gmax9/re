@@ -25,6 +25,7 @@
 \usepackage{comment}
 \usepackage{arydshln}
 \usepackage{enumitem}
+\usepackage{makecell}
 
 \newcommand{\mybox}[4]{
     \begin{figure}[h]
@@ -332,48 +333,59 @@ We briefly define these components before elaborating on individual works.
         & \cmark & \cmark & & & & \cmark & 
         & Per-sIP: <\textit{seq(dport)}>
         & & & \cmark & \\
+        \hline
 
         2024 Huang et al.~\cite{2024huang}
         & \cmark & & \cmark
         & \cmark & \cmark & & & & \cmark & 
-        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
+        & Per-dPort: \textit{seq(saddr)}
         & & & & \cmark \\
+        \hline
 
         2024 Gao et al.~\cite{2024gao}
         & \cmark & \cmark & \cmark
         & & & & \cmark & & & \cmark 
-        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
+        & \makecell[l]{
+            Per-dPort: \textit{uniq(saddr)} \\ 
+            Per-country: \textit{cnt(pkt)}
+        }
         & & & & \cmark \\
+        \hline
 
         2023 Kartsioukas et al.~\cite{2023kartsioukas}
-        & & & 
-        & & & & & & & 
-        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
+        & & \cmark & \cmark
+        & & \cmark & & \cmark & & & 
+        & Per-dPort: \textit{uniq(saddr)} 
         & & & & \cmark \\
+        \hline
 
         2023 Zakroum et al.~\cite{2023zakroum}
         & \cmark & & \cmark
         & \cmark & & \cmark & & & & 
         & 
         & & & & \cmark \\
+        \hline
 
         2023 d’Andréa et al.~\cite{2023dandrea}
         & & \cmark & \cmark
         & & \cmark & & \cmark & & & 
         & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
-        & & & & \cmark \\
+        & \cmark & & & \\
+        \hline
 
         2022 Kallitsis et al.~\cite{2022kallitsis}
         & \cmark & & \cmark
-        & \cmark & \cmark & & \cmark & & &
-        & 
+        & \cmark & & & & & \cmark &
+        & Per-saddr: \textit{12 features}
         & & \cmark & & \\
+        \hline
 
         2022 Zakroum et al.~\cite{2022zakroum} 
         & & \cmark & \cmark
         & \cmark & & \cmark & & & & 
         & 
         & & & & \cmark \\
+        \hline
 
         2021 Tanaka et al.~\cite{2021tanaka}
         & \cmark & & 
@@ -567,15 +579,32 @@ Zakroum et al.~\cite{2023zakroum} learn graph-embeddings that model packet-level
 % \vspace{0.25em}
 % \noindent{\textbf{Time Series Dimensionality Reduction Methods}}
 \subsection{Time series-based methods}
-Time series are widely used to monitor network traffic through a variety of metrics. 
-Methods based on these representations analyze large collections of time series to 
-identify specific time intervals that correspond to anomalous activity.
-Several methods achieve this via dimensionality reduction techniques. \maxnote{discuss scalability limitations}
-In 2019, Kanehara et al.~\cite{2019kanehara} applied Nonnegative Tucker Decomposition (NTD)~\cite{2015zhou} to packet count time series between senders and destination ports they contacted.
-Their findings from real-world traffic analysis identified groups of behaviorally-similar senders on several ports of applications containing known vulnerabilities.
-Han et al. proposed \textit{DarkNMF}~\cite{2021han} and \textit{DarkGLASSO}~\cite{2020han}, which respectively apply Nonnegative Matrix Factorization (NMF)~\cite{2000lee} and Graphical LASSO~\cite{2008friedman} to 
-time series of packet counts per source host (for \textit{DarkNMF}, also per destination port).
-Kartsioukas et al.~\cite{2023kartsioukas} apply Incremental Principal Component Analysis (iPCA)~\cite{2012arora} to time series of unique senders per TCP, UDP ports and ICMP.
+Time series offer the flexibilty to represent a variety of traffic metrics that together offer an aggregate view of darknet activity.
+Methods based on these representations typically analyze a large number of time series as their inputs with the goal of 
+identifying sources or targeted ports of anomalous traffic activity.
+
+Several methods apply dimensionality reduction techniques, using linear decomposition algorithms which are able to 
+practically separate anomalies from components of noisy darknet traffic.
+Kanehara et al.~\cite{2019kanehara} applied Nonnegative Tucker Decomposition (NTD)~\cite{2015zhou} 
+to packet count time series for pairs of senders and destination ports.
+Han et al.~\cite{2020han} proposed \textit{DarkNMF} and \textit{DarkGLASSO}, which respectively applied Nonnegative Matrix Factorization (NMF)~\cite{2000lee} and 
+Graphical LASSO~\cite{2008friedman} to packet count time series per source /24 network (for \textit{DarkNMF}, also per destination port).
+Later comparisons of the three methods in ~\cite{2022han} found that of the two matrix factorization methods, 
+NMF required less computation but produced greater number of false positives; of all three, 
+GLASSO was the most expensive to compute and offered similar detection performance to NTD.
+Separate from those works, Kartsioukas et al.~\cite{2023kartsioukas} apply 
+Incremental Principal Component Analysis (iPCA)~\cite{2012arora} 
+to time series of unique senders counts arriving on TCP, UDP ports and ICMP traffic.
+
+In contrast to the previous works, the remaining methods draw on a range of techniques with less overlap.
+Zakroum et al.~\cite{2022zakroum} detect abnormal traffic volumes on ports that deviate from their forecasted rates and correlate 
+them against public vulnerability disclosures.
+Our recent proposed method~\cite{2024gao} uses time series similarity metrics to enable pattern template-matching and anomalous event detection.
+Ban et al.~\cite{2016ban} cluster time series of unique sender counts arriving on ports grouped by an upstream frequent itemset algorithm.
+To identify coordinated sources, 
+Ban et al.~\cite{2017ban} propose a two-part method that
+first detects bursts of senders per port using 
+adaptive thresholds and then classifies associated senders.
 
 \subsection{Fingerprinting methods}
 Fingerprinting methods operate on information embedded in packet headers of darknet traffic. 
