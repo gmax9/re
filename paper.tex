@@ -306,12 +306,12 @@ We briefly define these components before elaborating on individual works.
 \begin{table}[t]
     \small
     \centering
-    \caption{Characteristics of event detection methodologies}
+    \caption{Summary of our surveyed detection methods and their components.}
     \label{tab:methodologies}
     \renewcommand{\arraystretch}{1.1}
     \setlength{\tabcolsep}{3.5pt} 
     % \setlength{\cmidrulekern}{1em}
-\begin{tabular}{l ccc ccccccc p{3.5cm} cccc}
+\begin{tabular}{l ccc ccccccc p{3cm} cccc}
     \toprule
     \textbf{Work} &
     \multicolumn{3}{@{}c@{}}{\begin{tabular}[c]{@{}c@{}}\textbf{Detection}\\\textbf{Tasks}\end{tabular}} &
@@ -331,23 +331,79 @@ We briefly define these components before elaborating on individual works.
         2025 Abduaziz et al.~\cite{2025abduaziz} 
         & \cmark & & 
         & \cmark & \cmark & & & & \cmark & 
-        & Per-sIP: <\textit{seq(dport)}>
+        & Per-\textit{saddr}: \textit{seq(dport)}
         & & & \cmark & \\
         \hline
 
         2024 Huang et al.~\cite{2024huang}
         & \cmark & & \cmark
         & \cmark & \cmark & & & & \cmark & 
-        & Per-dPort: \textit{seq(saddr)}
+        & Per-\textit{dport}: \textit{seq(saddr)}
         & & & & \cmark \\
+        \hline
+
+        2022 Kallitsis et al.~\cite{2022kallitsis}
+        & \cmark & & \cmark
+        & \cmark & & & & & \cmark &
+        & Per-\textit{saddr}: \textit{12 features}
+        & & \cmark & & \\
+        \hline
+
+        2021 Gioacchini et al.~\cite{2021gioacchini}  
+        & \cmark & &
+        & \cmark & & & & & \cmark &
+        & Per-\textit{dport}: \textit{seq(saddr)}
+        & & & \cmark & \\
+        \hline
+
+        2020 Cohen et al.~\cite{2020cohen}       
+        & & \cmark & \cmark
+        & \cmark & & & & & \cmark & 
+        & Per-\textit{saddr}: \textit{dport}
+        & & & & \cmark \\
+        \hline
+
+        2023 Zakroum et al.~\cite{2023zakroum}
+        & \cmark & & 
+        & \cmark & & & & & \cmark & 
+        & Per-\textit{saddr}: \textit{28+ features}
+        & \cmark & & & \\
+        \hline
+
+        2023 d’Andréa et al.~\cite{2023dandrea}
+        & & \cmark & \cmark
+        & & & & & & \cmark & 
+        & Per-\textit{saddr}: \textit{seq(dport)}
+        & \cmark & & & \\
+        \hline
+
+        2020 Soro et al.~\cite{2020soro}   
+        & \cmark & & 
+        & \cmark & & & & & &
+        & Per-(\textit{AS,dport}): \textit{cnt(pkt)}
+        & & \cmark & & \\
+        \hline
+        
+        2019 Evrard et al.~\cite{2019evrard}
+        & \cmark & & 
+        & \cmark & & & & & & 
+        & Per-\textit{saddr}: \textit{seq(dport)}
+        & \cmark & & & \\
+        \hline
+
+        2017 Lagraa et al.~\cite{2017lagraa}
+        & \cmark & & 
+        & \cmark & & & & & &
+        & Per-\textit{saddr}: \textit{seq(dport)}
+        & \cmark & & & \\
         \hline
 
         2024 Gao et al.~\cite{2024gao}
         & \cmark & \cmark & \cmark
         & & & & \cmark & & & \cmark 
         & \makecell[l]{
-            Per-dPort: \textit{uniq(saddr)} \\ 
-            Per-country: \textit{cnt(pkt)}
+            Per-\textit{dport}: \textit{uniq(saddr)} \\ 
+            Per-\textit{country}: \textit{cnt(pkt)}
         }
         & & & & \cmark \\
         \hline
@@ -355,133 +411,107 @@ We briefly define these components before elaborating on individual works.
         2023 Kartsioukas et al.~\cite{2023kartsioukas}
         & & \cmark & \cmark
         & & \cmark & & \cmark & & & 
-        & Per-dPort: \textit{uniq(saddr)} 
+        & Per-\textit{dport}: \textit{uniq(saddr)} 
         & & & & \cmark \\
-        \hline
-
-        2023 Zakroum et al.~\cite{2023zakroum}
-        & \cmark & & \cmark
-        & \cmark & & \cmark & & & & 
-        & 
-        & & & & \cmark \\
-        \hline
-
-        2023 d’Andréa et al.~\cite{2023dandrea}
-        & & \cmark & \cmark
-        & & \cmark & & \cmark & & & 
-        & Per-dPort: \textit{cnt(pkt), uniq(saddr)}
-        & \cmark & & & \\
-        \hline
-
-        2022 Kallitsis et al.~\cite{2022kallitsis}
-        & \cmark & & \cmark
-        & \cmark & & & & & \cmark &
-        & Per-saddr: \textit{12 features}
-        & & \cmark & & \\
         \hline
 
         2022 Zakroum et al.~\cite{2022zakroum} 
         & & \cmark & \cmark
         & \cmark & & \cmark & & & & 
-        & 
+        & Per-\textit{dport}: \textit{cnt(pkt)}
+        & & & & \cmark \\
+        \hline
+
+        2021 Han et al.~\cite{2021han}
+        & \cmark & \cmark & \cmark
+        & & \cmark & & \cmark & & & 
+        & \makecell[l]{
+            Per-\textit{saddr}: \textit{cnt(pkt)} \\ 
+            Per-\textit{saddr16}: \textit{cnt(pkt)}
+        }
+        & & & & \cmark \\
+        \hline
+
+        2020 Han et al.~\cite{2020han}       
+        & \cmark & \cmark & \cmark
+        & & \cmark & & & & & 
+        & Per-\textit{saddr}: \textit{cnt(pkt)}
+        & & & & \cmark \\
+        \hline
+
+        2019 Kanehara et al.~\cite{2019kanehara}    
+        & \cmark & \cmark & \cmark
+        & & \cmark & & \cmark & & & 
+        & Per-(\textit{saddr,dport}): \textit{cnt(pkt)}
+        & & & & \cmark \\
+        \hline
+
+        2017 Ban et al.~\cite{2017ban}
+        & \cmark & \cmark & \cmark
+        & & & & \cmark & & & 
+        & \makecell[l]{
+            Per-\textit{dport}: \textit{uniq(saddr)} \\ 
+            Per-\textit{saddr}: \textit{2 features}
+        }
+        & & & & \cmark \\
+        \hline
+
+        2016 Ban et al.~\cite{2016ban}
+        & \cmark & \cmark & \cmark
+        & \cmark & & & & & &  \cmark
+        & \makecell[l]{
+            Per-\textit{dport}: \textit{uniq(saddr)} \\ 
+            Per-\textit{saddr}: \textit{2 features}
+        }
         & & & & \cmark \\
         \hline
 
         2021 Tanaka et al.~\cite{2021tanaka}
         & \cmark & & 
-        & \cmark & & & & \cmark & & 
-        & 
+        & & & & & \cmark & & 
+        & Per-\textit{saddr}: \textit{5 features}
         & & & & \\
-
-        2021 Han et al.~\cite{2021han}
-        & \cmark & \cmark & \cmark
-        & & \cmark & & & & & 
-        & Per-sIP: 
-        & & & & \cmark \\
-
-        2021 Gioacchini et al.~\cite{2021gioacchini}  
-        & \cmark & & 
-        & \cmark & \cmark & & & & &
-        & Per-TCP dport: \textit{saddr}
-        & & & \cmark & \\
+        \hline
 
         2020 Griffioen et al.~\cite{2020griffioen}
         & \cmark & & 
-        & \cmark & & & & \cmark & &
-        & Per-TCP dport: \textit{saddr}
+        & & & & & \cmark & &
+        & Per-\textit{saddr}: \textit{7 features}
         & & & & \\
+        \hline
 
-        2020 Cohen et al.~\cite{2020cohen}       
-        & & \cmark & \cmark
-        & & \cmark & & & & & 
-        & Per-sIP: \textit{TCP dport}
-        & & & & \cmark \\
-
-        2020 Han et al.~\cite{2020han}       
-        & \cmark & \cmark & \cmark
-        & & \cmark & & & & & 
-        & s16->nt: <\textit{pktcnt}>
-        & & & & \cmark \\
-        
         2020 Torabi et al.~\cite{2020torabi}      
         & & & \cmark
         & & & & & & & \cmark 
-        & Per-Flow: \textit{dports, protocol, TTL, TCP flags, IP length, packet count}
+        & Per-\textit{flow}: \textit{6 features}
         & \cmark & \cmark & & \\
-        
-        2020 Soro et al.~\cite{2020soro}   
-        & \cmark & & 
-        & \cmark & & & & & &
-        & Per-sAS,dport: \textit{packet count}
-        & & \cmark & & \\
-        
-        2019 Evrard et al.~\cite{2019evrard}
-        & \cmark & & 
-        & \cmark & & & & & & 
-        & Per-saddr: \textit{TCP dports}
-        & \cmark & & & \\
+        \hline
         
         2019 Iglesias et al.~\cite{2019iglesias}    
         & \cmark & & \cmark
-        & \cmark & & & & \cmark & & 
-        & Per-saddr: \textit{22 total features}
+        & \cmark & & & & & & 
+        & Per-\textit{saddr}: \textit{22 features}
         & & \cmark & & \\
+        \hline
 
         2019 Niranjana et al.~\cite{2019niranjana} 
         & \cmark & & 
         & \cmark & & & & & & 
-        & Per-
+        & Per-\textit{saddr}: \textit{22 features}
         & & \cmark & & \\
-
-        2019 Kanehara et al.~\cite{2019kanehara}    
-        & \cmark & \cmark & \cmark
-        & & \cmark & & & \cmark & & 
-        & Per-sIP,dPort: \textit{ts, pktcnt}
-        & & & & \cmark \\
-        
-        2017 Lagraa et al.~\cite{2017lagraa}
-        & \cmark & & 
-        & \cmark & & & & & &
-        & \textit{}
-        & \cmark & & & \\
-        
-        2016 Ban et al.~\cite{2016ban}
-        & \cmark & \cmark & \cmark
-        & & \cmark & & & & & 
-        & \textit{saddr, dport}
-        & & & \cmark & \cmark \\
+        \hline
 
         2015 Nishikaze et al.~\cite{2015nishikaze}
         & \cmark & & 
         & \cmark & & & & & & 
-        & saddr16: \textit{pktcnt, sport, dport, daddr, scantype}
+        & Per-\textit{saddr16}: \textit{5 features}
         & & \cmark & & \\
 
-        2012 Fachka et al.~\cite{2012fachka}
-        & \cmark & & 
-        & & & & & & & \cmark
-        & saddr16: \textit{pktcnt, sport, dport, daddr, scantype}
-        & & & & \\
+        % 2012 Fachka et al.~\cite{2012fachka}
+        % & \cmark & & 
+        % & & & & & & & \cmark
+        % & saddr16: \textit{pktcnt, sport, dport, daddr, scantype}
+        % & & & & \\
 
         \bottomrule
     \end{tabular}
