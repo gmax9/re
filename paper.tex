@@ -59,6 +59,7 @@
             \node (X) [shape=circle,scale=0.5,fill=black,text=white,font=\bfseries, text centered, draw,inner sep=0pt] {\strut #1};}}
 \newcommand{\notcheckmark}{{$\surd$}\textsuperscript{\textcolor{black}{\kern-0.35em{\bf--}}}}
             
+\newcommand{\revise}[1]{\textit{\textcolor{red}{#1}}}
 \newcommand{\wc}[1]{\textit{\textcolor{magenta}{#1}}} % Word-Choice macro
 \newcommand{\maxnote}[1]{\textit{\textcolor{violet}{#1 --Max}}}
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
@@ -707,7 +708,7 @@ larger set of header fields using a genetic algorithm.
         & \textbf{Code} & \textbf{Specs} & \textbf{Data}
         & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} 
         & \textbf{ison} 
-        & \textbf{Labels} \\
+        & \\
         \midrule
 
         % =====================
@@ -1031,8 +1032,16 @@ Furthermore, we consider implementation details of detection methodologies since
 % \vspace{0.25em}
 \subsection{Characteristics of darknet traffic datasets.}
 
-We consider three characteristics of each dataset used in prior work to assess detection methodologies.
-These include 1) the timeframe covered by the dataset, 2) the darknet whose traffic comprises the dataset, 3) and the dataset's traffic volume measured in units of packets and bytes.
+We consider three characteristics of each dataset used in prior works to assess detection methodologies: 
+1) its timeframe;
+2) the darknet it sources traffic;
+and 3) its volume measured in units of packets and bytes.
+Generally, the timeframes and darknet source bound a dataset's volume as more recent timeframes correlate 
+with larger volumes as do larger darknets.
+We use the first two characteristics to differentiate the datasets used in assessments while the third provides 
+evidence of the scalability of a method assessed on a specific dataset.
+% We consider three characteristics of each dataset used in prior work to assess detection methodologies.
+% These include 1) the timeframe covered by the dataset, 2) the darknet whose traffic comprises the dataset, 3) and the dataset's traffic volume measured in units of packets and bytes.
 % For the datasets used in prior works, we consider several characteristics relevant to interpreting method assessment results:
 % the timeframe over which traffic was collected, 
 % the specific darknet that received this traffic, 
@@ -1046,26 +1055,32 @@ While these numbers represent the most up-to-date sizes reported by operators, d
 (e.g., for leasing purposes~\cite{2025mannel} or in the case of more permanent changes such as address ownership transfers~\cite{2019ardc}). 
 Empirical studies such as~\cite{2025camargo,2019soro} show that the size and ranges of IP addresses occupied by a darknet have a non-trivial impact on the observability, i.e., in terms of traffic composition and source visibility) of small-scale scanning events.
 % Empirical studies such as~\cite{2025camargo,2019soro} established that address space size has a non-trivial impact on the observability of darknet traffic (\textit{i.e.,} in terms of traffic composition and visibility of sources).
-Thus, assessments results may not generalize across datasets sourced from different darknets.
+While the effect that a darknet's physical geolocation on its observability has not been extensively studied, 
+route topology situated between traffic sources and darknet address space likely play a non-negligible role.
+In sum, the makeup of traffic varies darknet-to-darknet; assessment results closely tie to its 
+specific selection of dataset and thus a method's performance may not generalize to other datasets.
 
 We visualize the combined range of timeframes covered by darknet-traffic datasets from the start of 2012 until late 2023 in Figure~\ref{fig:cov_assess}. 
-The proportion of time covered over this range by at least a single dataset (at a daily granularity) sits at 68\%. 
+The proportion of time covered over this range by at least a single dataset (at a daily granularity) sits at \revise{68\%}. 
 Most datasets are short snapshots: over half of all datasets span fewer than two months, roughly a third cover under three years of darknet traffic, and less than a fifth cover three or more years. 
 Since a majority of works do not provide clear rationale for their timeframe selection, we infer that selection is largely opportunistic and based on availability of darknet traffic data at the time of assessment. 
 
-Some exceptions~\cite{2022kallitsis,2023kartsioukas} use known dates of landmark Internet-wide events, \textit{e.g.}, launch of the Mirai botnet, to guide their selection of timeframes. 
-In addition to Mirai, Figure 2 plots the start date of 17 additional events (further summarized in Table 5) identified as either major remote execution vulnerabilities or scans originated by botnets. 
-While the traffic associated with these events, in theory, should have been observed by darknets, besides~\cite{2022kallitsis,2023kartsioukas} there have been no explicit studies of their detectability in darknet traffic despite 
-the fact that all but one of the events are covered by the timeframes of datasets used in assessments.
-We further discuss the implication of this finding in Section~\ref{sec:fw}.
+However, some exceptions~\cite{2022kallitsis,2023kartsioukas} use reported dates of landmark 
+Internet-wide scale events, \textit{e.g.}, the launch of the Mirai botnet, to guide their selection of timeframes.
+We include 16 additional events (listed in Table~\ref{tab:events}) identified as either 
+major remote execution vulnerabilities or scans originated by growing botnets 
+whose traffic, in theory, should have been observed by darknets based on the 
+reported scale of these events that range from hundreds of thousands to millions of affected hosts.
+Although we find no explicit study of their detectability in darknet traffic in works other than~\cite{2022kallitsis,2023kartsioukas} 
+we surveyed, 13 out of 17 events intersect with timeframes covered by at least two distinct darknet sources 
+as shown in Figure~\ref{fig:cov_assess}. 
+This finding has relevance for defining traffic labels which we further discuss in Section~\ref{sec:fw}.
 
 % Some exceptions~\cite{2022kallitsis,2023kartsioukas} select specific timeframes centered around landmark Internet-wide events, e.g., the Mirai botnet, for validation purposes (later discussed in Section~\ref{sec:fw}).
 % In addition to Mirai, Figure~\ref{fig:cov_assess} plots the start date of X additional events (summarized in Table~\ref{tab:events}), observable in darknet traffic, identified as either major vulnerabilities or scans by botnets.
 % While X\% of these events are covered by dataset timeframes, none are mentioned explicitly in surveyed works besides the exceptions previously mentioned which further strengthens our inference. 
 % We discuss another implication for future work in Section~\ref{sec:fw}.
-
 % Recompute
-
 % Nonetheless, darknet size directly correlates with traffic volumes and ostensibly more variability in its mixtures; thus the generalizability of method performance is sensitive to 
 % larger darknets tend to receive greater and more varied traffic~\cite{@@} 
 
