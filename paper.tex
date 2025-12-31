@@ -310,8 +310,7 @@ We briefly define these components before elaborating on individual works.
     \label{tab:methodologies}
     \renewcommand{\arraystretch}{1.1}
     \setlength{\tabcolsep}{3.5pt}
-
-\begin{tabular}{c l ccc ccccccc p{3cm} cccc}
+    \begin{tabular}{c l ccc ccccccc p{3cm} cccc}
     \toprule
     &
     \textbf{Work} &
@@ -1000,7 +999,10 @@ larger set of header fields using a genetic algorithm.
 \end{table*}
 \begin{table}[t!]
 	\small
-	\caption{Summary of network telescopes referenced in surveyed works.}\label{tab:telescopes}
+	\caption{
+        Summary of network telescopes referenced in surveyed works. 
+        Telescope size of historical datasets may vary as sizes listed reflect most recently reported values.
+    }\label{tab:telescopes}
 	\begin{tabular}{cccc}
 		\toprule
 		Telescopes & Country & Size & Data availability\\
@@ -1011,7 +1013,9 @@ larger set of header fields using a genetic algorithm.
 		\textbf{NT-4.} Politecnico di Torino \cite{2020soro} & IT & 3 $\times$ /24 & Unknown\\
 		\textbf{NT-5.} Darknet-BR \cite{2025camargo} & BR & /19 & Unknown\\
 		\textbf{NT-6.} LHS Nancy~\cite{inria-nt} & FR & /20 & Raw trace\\
-		\textbf{NT-7.} Farsight~\cite{farsight} & US & /13 & Private\\
+		\textbf{NT-7.} Farsight~\cite{farsight} & US & /13 & Unknown\\
+        \textbf{NT-8.} TU Delft~\cite{delft-nt} & NL & /16 & Unknown\\
+        \textbf{GT-1.} Deutsche Telekom AG~\cite{2020cohen} & DE & $\sim$/22 & Unknown\\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -1082,24 +1086,24 @@ Generalizability of a specific method's performance on one dataset to another re
     \textbf{ID} & \textbf{Date} & \textbf{Event Name} & \textbf{Type} &
     \textbf{ID} & \textbf{Date} & \textbf{Event Name} & \textbf{Type} \\
     \hline
-    I    & 2012-04 & Carna            & Botnet        &
-    X     & 2017-10 & Reaper           & Botnet \\
-    II   & 2014-03 & Heartbleed       & Remote Exp.   &
-    XI    & 2018-05 & VPNFilter        & Botnet \\
-    III  & 2014-09 & Shellshock       & Remote Exp.   &
-    XII   & 2018-06 & Crackonosh       & Botnet \\
-    IV   & 2016-08 & Mirai            & Botnet        &
-    XIII  & 2019-05 & BlueKeep         & Remote Exp. \\
-    V    & 2017-04 & Eternal Blue     & Remote Exp.   &
-    XIV   & 2020-06 & Ripple20         & Remote Exp. \\
-    VI   & 2017-05 & WannaCry         & Botnet        &
-    XV    & 2020-03 & SMBGhost         & Remote Exp. \\
-    VII  & 2017-04 & BrickerBot       & Botnet        &
-    XVI   & 2021-12 & Log4JShell       & Remote Exp. \\
-    VIII & 2016-03 & Amnesia          & Botnet        &
-    XVII  & 2021-06 & PrintNightmare   & Remote Exp. \\
-    IX   & 2017-06 & NotPetya         & Botnet        &
-          &         &                  &  \\
+    A  & 2012-04 & Carna            & Botnet        &
+    J  & 2017-10 & Reaper           & Botnet \\
+    B  & 2014-03 & Heartbleed       & Remote Exp.   &
+    K  & 2018-05 & VPNFilter        & Botnet \\
+    C  & 2014-09 & Shellshock       & Remote Exp.   &
+    L  & 2018-06 & Crackonosh       & Botnet \\
+    D  & 2016-03 & Amnesia          & Botnet        &
+    M  & 2019-05 & BlueKeep         & Remote Exp. \\
+    E  & 2016-08 & Mirai            & Botnet        &
+    N  & 2020-03 & SMBGhost         & Remote Exp. \\
+    F  & 2017-04 & Eternal Blue     & Remote Exp.   &
+    O  & 2020-06 & Ripple20         & Remote Exp. \\
+    G  & 2017-04 & BrickerBot       & Botnet        &
+    P  & 2021-06 & PrintNightmare   & Remote Exp. \\
+    H  & 2017-05 & WannaCry         & Botnet        &
+    Q  & 2021-12 & Log4JShell       & Remote Exp. \\
+    I  & 2017-06 & NotPetya         & Botnet        &
+       &         &                  &  \\
     \hline
     \end{tabular}
 \end{table}
