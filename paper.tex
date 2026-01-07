@@ -66,7 +66,7 @@
 
 \begin{document}
 
-\title{A Survey of Darknet Detection Methodologies: Design, Implementation, and Assessment}
+\title{A Survey of Detection Methodologies for Darknet Scanning Activities: Design, Implementation, and Assessment}
 \author{Max Gao}
 % \authornote{Both authors contributed equally to this research.}
 \affiliation{%
@@ -78,10 +78,26 @@
 \email{magao@ucsd.edu}
 
 \begin{abstract}
-Network telescope (darknet) traffic has been instrumental in providing visibility into Internet-wide phenomena related to security and availability such as malicious scanning, denial-of-service (DoS) backscatter, and outages. 
-To better operationalize darknets for their monitoring capabilities, researchers have proposed a number of automated detection methodologies which span a diverse set of analytical techniques applied to different features of darknet traffic. 
-Yet despite the abundance of methods, a comprehensive view of their comparative capabilities remains unclear due to gaps across their implementations and inconsistencies across their empirical assessments. 
-In this report, we review the evolution of darknet event detection methodologies over the past decade and examine in-depth the challenges that face a comprehensive, systematic assessment. We conclude with a discussion of future directions to address these challenges.
+Network telescope, or darknet, traffic has been instrumental in providing visibility into Internet-wide activities such as malicious scanning, denial-of-service (DoS) backscatter, and outages.
+To better operationalize darknets for their monitoring capabilities, researchers have proposed a number of automated detection methodologies that consist of a diverse set of techniques 
+which operate on a variety of features derived from darknet traffic.
+Yet despite an abundance of methods, less attention has been devoted towards their comparative assessment, resulting in a lack of complete empirical evidence needed to establish trade-offs 
+in their detection capabilities and computational performance.
+In this report, we survey works from the past decade that propose methods to detect darknet scanning activity and review components of their design, implementation, and, with emphasis,
+their assessments to identify key challenges that hinder their comprehensive assessment.
+We conclude with a discussion of practices for future work that may yield improvements in method development by enabling systematic comparisons.
+
+% with an emphasis on assessment practices in order to identify challenges to their
+% comprehensive comparative assessment.
+
+% This report surveys works that propose methods designed for darknet scanning activity with an emphasis on their empirical assessment practices to identify the specific challenges that hinder 
+% In this report, we survey prior works which propose methods designed for darknet scanning activity and study 
+
+% Network telescope (darknet) traffic has been instrumental in providing visibility into Internet-wide phenomena related to security and availability such as malicious scanning, denial-of-service (DoS) backscatter, and outages. 
+% To better operationalize darknets for their monitoring capabilities, researchers have proposed a number of automated detection methodologies which span a diverse set of analytical techniques applied to different features of darknet traffic. 
+% Yet despite the abundance of methods, a comprehensive view of their comparative capabilities remains unclear due to gaps across their implementations and inconsistencies across their empirical assessments. 
+% In this report, we review the evolution of darknet event detection methodologies over the past decade and examine in-depth the challenges that face a comprehensive, systematic assessment. We conclude with a discussion of future directions to address these challenges.
+
 % Yet despite the abundance of methods, their comparative capabilities remain unclear due to limited labeled datasets, difficultings in replicating their implementations, and the lack of a unified validation approach.
 % In this report, we review the evolution of darknet detection methodologies over the past decade and examine in-depth the challenges that face a comprehensive, systematic assessment.
 % We conclude with a discussion of future directions for improving assessment rigor and method comparability.
@@ -99,34 +115,46 @@ In this report, we review the evolution of darknet event detection methodologies
 \maketitle
 
 \section{Introduction}
+\label{sec:intro}
 
-Network telescopes, or darknets, have been instrumental to both researchers and practitioners for their ability to observe Internet-wide phenomena in the unsolicited traffic they receive. 
-Over the past two decades, research efforts have shifted from characterizing darknet phenomena and their observable signals towards translating such empirical insights into operationalizable methodologies for monitoring the Internet's security and availability in near real-time.
-These efforts have culminated in a number of methodologies that, despite sharing a common goal of automatically detecting events from darknet traffic, 
-differ widely in the technique(s) they employ (\textit{e.g.,} dimensionality reduction, forecasting, representation learning), features of the traffic they exploit (\textit{e.g.,} packet inter-arrival times, destination port sequences), and their operational definition of what constitutes an event (\textit{e.g.,} a shift in sender clusters, anomalous traffic volumes towards specific ports). 
-As recent studies propose an increasing number of methods that leverage machine-learning techniques,
-systematic assessment of their capabilities are needed to enable fair yet rigorous comparisons
-to determine their effectiveness in-practice.
-However as our report finds, many of these methods have been developed, implemented, and 
-assessed independently by different research groups without necessary standard procedures to ensure
-their comparability.
-As a result, this lack of standardization discourages the development of new and existing methods
-which we encountered in our prior work~\cite{2024gao}.
-% However, many of these methodologies have been developed, implemented, and assessed independently by different research groups without a uniform standard for best-practices. 
-% This fragmentation discourages the development of new or improvement to existing methodologies due to several challenges that we encountered in our prior work~\cite{2024gao} and later describe in this report.
+Network telescopes, or darknets, have been instrumental to both researchers and practitioners for 
+their ability to observe Internet-wide activities in the unsolicited traffic they receive.
+Over the past two decades, research efforts have shifted from characterizing the signals of these 
+activities towards translating such empirical insights into operationalizable methodologies for 
+monitoring the Internet's security and availability in near-real time.
+These efforts have culminated into a still-growing number of methods that, despite sharing the broad goal of automatic and accurate detection, 
+differ widely in their formulations of detection tasks (\textit{e.g}., source classification versus target identification), 
+the technique(s) they employ (\textit{e.g.,} dimensionality reduction, forecasting, representation learning), 
+and the features of the traffic they exploit (\textit{e.g.}, packet inter-arrival times, destination port sequences).
+However, as many of these methods have been developed, implemented, and assessed independently by different research groups,
+less effort have been directed towards ensuring their comparability, much less a comprehensive comparison of their real-world capabilities. 
+Consequently, researchers lack convincing empirical evidence to distinguish trade-offs between existing methods, especially those which increasingly 
+rely on modern machine-learning techniques, and thus, it is unclear which methods represent substantial advancements among others and where weaknesses 
+of existing methods can be improved.
+As we encountered in our prior work~\cite{2024gao}, the lack of a systematic approach further discourages the design and assessment of new methods as 
+absent standards ambiguate measurable progress.
 
-In this report, we survey an extensive body of literature that proposes darknet event detection methodologies to investigate the extent that the challenges we encountered impact the development and assessments of darknet-event detection methodologies at large. 
-Overall, we find a low degree of replicability among proposed methodologies and inconsistencies across datasets and validation approaches in their assessments.
-Section 1 provides an overview of canonical literature that characterizes darknet traffic and its associated phenomena.
-We discuss notable findings from past empirical studies and their role in monitoring darknet traffic. 
-Section 2 introduces our taxonomy of detection methodologies with a breakdown of their detected events, employed techniques, and the features and representations of their traffic inputs alongside 
-summarized intuitions guiding their design.
-Section 3 reviews empirical assessments of prior work separate from methods themselves to highlight specific gaps that result from the lack of standard practices. 
-Finally, we conclude our survey's findings with directions for future work intended 
-to support more robust evidence-informed method selection for darknet event detection tasks 
-by enabling systematic comparative assessments.
+In this report, we survey an extensive body of works that propose detection methodologies that target scanning activities in darknet traffic. 
+We structure our survey into three parts that focus separately on the design of these methods, their empirical assessments, and the specific challenges 
+to their comprehensive assessment that we identified.
+Section~\ref{sec:methods} provides a taxonomy of canonical methods and discusses motivations for their use from a technical perspective.
+Section~\ref{sec:assessments} reviews the components of empirical assessments employed by prior works to demonstrate method efficacy.
+Section~\ref{sec:challenges} consolidates our findings on method assessments and elaborates on how they pose as practical challenges to comprehensive assessment.
+We conclude this report with a discussion of practices that can guide future work on detection methods towards a more systematic assessment approach.
+
+% We review the motivations and technicalities behind their design separately from their empirical assessments.
 
 
+% In this report, we survey an extensive body of literature that proposes darknet event detection methodologies to investigate the extent that the challenges we encountered impact the development and assessments of darknet-event detection methodologies at large. 
+% Overall, we find a low degree of replicability among proposed methodologies and inconsistencies across datasets and validation approaches in their assessments.
+% Section 1 provides an overview of canonical literature that characterizes darknet traffic and its associated phenomena.
+% We discuss notable findings from past empirical studies and their role in monitoring darknet traffic. 
+% Section 2 introduces our taxonomy of detection methodologies with a breakdown of their detected events, employed techniques, and the features and representations of their traffic inputs alongside 
+% summarized intuitions guiding their design.
+% Section 3 reviews empirical assessments of prior work separate from methods themselves to highlight specific gaps that result from the lack of standard practices. 
+% Finally, we conclude our survey's findings with directions for future work intended 
+% to support more robust evidence-informed method selection for darknet event detection tasks 
+% by enabling systematic comparative assessments.
 
 % As we experienced while designing and evaluating our prior work, DarkSim~\cite{2024gao}, this challenge takes form in limited replicability of implementations, inconsistent approaches to validation, and non-standardized metrics for measuring performance.
 
@@ -208,8 +236,8 @@ by enabling systematic comparative assessments.
 
 % \clearpage
 
-\label{sec:bg}
 \section{Background}
+\label{sec:bg}
 In this section, we provide a brief overview of network telescopes and discuss their role in Internet measurement research.
 We first provide a technical explanation of their function as observatories of unsolicited IPv4 Internet traffic.
 We then summarize findings from past works that have studied the nature and composition of this traffic during landmark Internet-wide events.
@@ -255,9 +283,8 @@ Our survey reviews the design, implementation, and assessments of these methods 
 % Casado et al.~\cite{2005casado} examined the network-level behavior of scanning worms; 
 % others used darknets as passive vantage points for identifying internet outages and routing instabilities~\cite{2011dainotti,2013benson,2015benson,2012dainotti,2021padmanabhan}.
 
-\label{sec:methods}
-% \section{Methodologies for detecting darknet scanning events}
 \section{Detection methods for darknet scanning activities}
+\label{sec:methods}
 
 In this section, we provide a broad survey of the methods that have been proposed to detect scanning activity in darknet traffic. 
 We construct a body of 35 works published over the past 14 years (summarized in Table~\ref{tab:methodologies} 
@@ -268,11 +295,6 @@ which used greynet traffic in their assessment.}
 We organize these works by the key technique(s) their detection methods employ, describe major 
 components of their designs, and discuss their strengths and weaknesses based on empirical findings where possible.
 We briefly define these components before elaborating on individual works.
-
-% In this section, we provide a broad survey of the methods that have been proposed to detect scanning activity in darknet traffic. 
-% To construct the body of works for this survey, we selected only those that assessed their method on real-world traffic.
-% We review 20 works from the past 10 years (summarized in Table~\ref{tab:methodologies}), organized based on the key technique(s) their detection methods employ.
-% In addition, we describe several additional components of each method's design that we briefly discuss before elaborating on individual works.
 
 \begin{comment}
 % A portion of darknet traffic mixtures results from scans that probe the space of Internet addresses, oftentimes targeting application-layer ports.
@@ -660,6 +682,7 @@ to use the same scanning tools.
 Tanaka et al.~\cite{2021tanaka,2023tanaka} extend Griffioen et al.'s method to generate candidate fingerprints from a 
 larger set of header fields using a genetic algorithm.
 
+\begin{comment}
 % \subsection{Pattern-mining methods}
 
 % Nishikaze et al.~\cite{2015nishikaze}
@@ -680,12 +703,18 @@ larger set of header fields using a genetic algorithm.
 % Guillot et al. propose Chocolatine~\cite{2019guillot} which forecasts the expected number of unique senders aggregated at per-AS and per-country granularities by training a Seasonal Autoregressive Integrated Moving Average (SARIMA) model over historical sender counts of unfiltered, protocol-agnostic traffic inputs; 
 % sender counts beyond specified 5-minute prediction thresholds are flagged as potential outages.
 % Enyanet et al. propose Durbin~\cite{2024enyanet} which leverages a Bayesian approach for inferring outages down to a coarser spatial grain of a /24 subnetwork in comparison to Chocolatine. Furthermore, Durbin optimizes parameters per-subnet and and claims to more flexibly exploit space-time precision trade-offs by doing so. 
+\end{comment}
 
+\section{Assessments of detection methods}
 \label{sec:assessments}
-% \section{Empirical Assessments of Detection Methodologies}
-\section{Assessments of detection methodologies}
 
-\begin{table*}[t!]
+Prior works aim to demonstrate the utility of their methods through empirical assessments that yield evidence of a method's detection capabilities and computational performance under realistic traffic conditions.
+In this section, we discuss the reproducibility and comparability of these assessments as influenced by three core components:
+1) darknet traffic datasets;
+2) strategies used to validate method outputs; and
+3) method implementations and computing environments used to run assessments. 
+
+\begin{table}[p]
     \small
     \setlength{\tabcolsep}{1pt}
     \caption{
@@ -1007,327 +1036,13 @@ larger set of header fields using a genetic algorithm.
         & 11/26 \\
         \bottomrule
     \end{tabular}
-\end{table*}
-\begin{comment}
-\begin{table*}[t!]
-    \small
-    \setlength{\tabcolsep}{1.5pt}
-    \caption{
-        Details of method assessments found in our surveyed works. 
-        Multiple citations per entry indicate groups of highly similar works; assessment details reflect bolded citations.
-        Table~\ref{tab:telescopes} lists additional details of telescopes referenced in this table.
-    }
-    \label{tab:eval}
-    \begin{tabular}{@{}c lcccccccccc@{}}
-        \toprule
-        & \textbf{Work}
-        & \multicolumn{3}{c}{\bf Replicability} 
-        & \multicolumn{5}{c}{\bf Dataset Attributes} 
-        & \multicolumn{1}{c}{\textbf{Compar-}}
-        & \multicolumn{1}{c}{\textbf{Labels}} \\
-        \cmidrule(lr){3-5} \cmidrule(lr){6-10}
-        \addlinespace[0.5em]
-        \multirow{-2.5}{*}{\rotatebox{90}{\textbf{Group}}} 
-        &
-        & \textbf{Code} & \textbf{Specs} & \textbf{Data}
-        & \textbf{Telescope(s)} & \textbf{Duration} & \textbf{Year} & \textbf{Packets} & \textbf{Bytes} 
-        & \textbf{ison} 
-        & \\
-        \midrule
-
-        % =====================
-        \multirow{5}{*}{\rotatebox{90}{Rep.\ learning}} &
-        Abduaziz et al.~\cite{2025abduaziz}
-        &  & \cmark & 
-        & NT-1,3
-        & 7D,10D & 2022,2023
-        & --- & 1.18, 7.61GB
-        & \cite{2020cohen}
-        & \cmark \\
-        \cline{2-12}
-
-        & Huang et al.~\cite{2024huang}
-        & & & 
-        & NT-4
-        & 50D & 2021
-        & --- & ---
-        & 
-        & \cmark \\
-        \cline{2-12}
-
-        & Kallitsis et al.~\cite{2022kallitsis}
-        & \cmark & \cmark & 
-        & NT-2
-        & 28D, 1D & 2016,2022
-        & 49B, 3.1B & ---
-        & \cite{2021gioacchini}
-        & \cmark \\
-        \cline{2-12}
-
-        & Gioacchini et al.\textbf{~\cite{2021gioacchini}}~\cite{2023gioacchini}
-        & \cmark & \cmark & \cmark
-        & NT-4
-        & 30D & 2021
-        & 63M & ---
-        & \cite{2020cohen,2017ring}
-        & \cmark \\
-        \cline{2-12}
-        
-        & Cohen et al.\textbf{~\cite{2020cohen}}
-        & & \cmark &
-        & NT-4
-        & 1Y & 
-        & 7.9B & 
-        & \cite{2016ban}
-        & \\
-        \midrule
-
-        % ===================== 
-        \multirow{5}{*}{\rotatebox{90}{Graph-mining}} &
-        d’Andréa et al.~\cite{2023dandrea}
-        & & \cmark & 
-        & Private /20
-        & & 2021
-        & --- & ---
-        & 
-        & \cmark \\
-        \cline{2-12}
-
-        & Zakroum et al.~\cite{2023zakroum}
-        &  &  & 
-        & NT-3,6
-        & 4.5Y & 2018
-        & --- & ---
-        & \cite{2023zakroum}
-        & \cmark \\
-        \cline{2-12}
-
-        & Soro et al.~\cite{2020soro}
-        &  &  & 
-        & NT-4,5
-        & 3W,1D & 2020
-        & --- & ---
-        & 
-        & \\
-        \cline{2-12}
-
-        & Evrard et al.~\cite{2019evrard}
-        &  &  & ---
-        & NT-3,6
-        & 9M & 2015
-        & 8M & ---
-        & 
-        & \\
-        \cline{2-12}
-
-        & Lagraa et al.\textbf{~\cite{2019lagraa}}~\cite{2017lagraa}
-        &  & \cmark &
-        & NT-6
-        & 2Y & 2014
-        & 2B & 500 GB
-        & 
-        & \\
-        \midrule
-
-        % =====================
-        \multirow{8}{*}{\rotatebox{90}{Time series}} &
-        Gao et al.~\cite{2024gao}
-        & & & 
-        & NT-1
-        & 18M & 2022
-        & --- & ---
-        & \cite{2020han}
-        & \\
-        \cline{2-12}
-
-        & Kartsioukas et al.~\cite{2023kartsioukas}
-        &  &  & 
-        & NT-2
-        & 1M & 2016
-        & --- & ---
-        & \cite{2004lakhina}
-        & \\
-        \cline{2-12}
-
-        & Zakroum et al.\textbf{~\cite{2022zakroum}}~\cite{2018zakroum}
-        &  & \cmark & 
-        & NT-3,6
-        & 3.5Y & 2017
-        & --- & $1.5+\mathrm{TB}$
-        & \cite{2018zakroum}
-        & \\
-        \cline{2-12}
-
-        & Han et al.~\cite{2022han}
-        & \cmark & \cmark & \cmark
-        & NT-3
-        & 1M & 2018
-        & --- & ---
-        & \cite{2020han,2006takeuchi,2019kanehara}
-        & \cmark \\
-        \cline{2-12}
-
-        & Han et al.\textbf{~\cite{2021han}}~\cite{2022han}
-        & \cmark & \cmark & \cmark
-        & NT-3
-        & 1M & 2018
-        & --- & ---
-        & \cite{2020han,2006takeuchi,2019kanehara}
-        & \cmark \\
-        \cline{2-12}
-
-        & Han et al.\textbf{~\cite{2020han}}~\cite{2022han}
-        & \cmark & \cmark & \cmark
-        & NT-3
-        & 1M & 2018
-        & --- & ---
-        & \cite{2006takeuchi}
-        & \cmark \\
-        \cline{2-12}
-
-        & Kanehara et al.\textbf{~\cite{2019kanehara}}~\cite{2022han}
-        & & \cmark & 
-        & NT-3
-        & 10M & 2017
-        & --- & ---
-        & 
-        & \\
-        \cline{2-12}
-
-        & Ban et al.~\cite{2017ban}
-        &  &  & ---
-        & NT-3
-        & --- & ---
-        & --- & ---
-        & \cite{2012ban}
-        & \\
-        \cline{2-12}
-
-        & Ban et al.~\cite{2016ban}
-        &  &  & ---
-        & NT-3
-        & 1y & 2015
-        & $3\times10^{7}$ & ---
-        & 
-        & \\
-        \midrule
-        % =====================
-        \multirow{2}{*}{\rotatebox{90}{FP}} &
-        Tanaka et al.~\cite{2021tanaka}
-        & & \cmark & \cmark
-        & NT-3
-        & 1M & 2018
-        & 117M & ---
-        & \cite{2020han,2006takeuchi,2019kanehara}
-        & \cmark \\
-        \cline{2-12}
-
-        & Griffioen et al.\textbf{~\cite{2020griffioen}}
-        & & \cmark &
-        & Private
-        & 2M & 
-        & 6.5B & 864G
-        & \cite{2016ban}
-        & \\
-        \midrule
-
-        % =====================
-        \multirow{7}{*}{\rotatebox{90}{N/A}} &
-        Torabi et al.~\cite{2020torabi}
-        & \cmark & \cmark & ---
-        & 
-        & & 
-        & --- & ---
-        & 
-        & \\
-        \cline{2-12}
-
-        & Iglesias et al.~\cite{2019iglesias}
-        &  & \cmark & 
-        & NT-1
-        & 6M & 2012
-        & --- & 2.1 TB
-        & 
-        & \\
-        \cline{2-12}
-
-        & Niranjana et al.~\cite{2019niranjana}
-        &  &  & 
-        & Private /24
-        & 20D & 2017
-        & & ---
-        & 
-        & \\
-        \cline{2-12}
-
-        & Bou-Harb et al.\textbf{~\cite{2019bouharb}}~\cite{2015bouharb}
-        &  & \cmark & ---
-        & NT-1,7
-        & 1M,1M & 2016,2014
-        & --- & 670, 240GB
-        & \cite{2018bouharb}
-        & \\
-        \cline{2-12}
-
-        & Nishikaze et al.~\cite{2015nishikaze}
-        &  &  & 
-        & NT-3
-        & 28D & 2014
-        & 303M & ---
-        & 
-        & \\
-        \cline{2-12}
-
-        & Bou-Harb et al.~\cite{2014bouharb}
-        &  &  & ---
-        & NT-7
-        & 2D & 2013
-        & $10^6$ & 30GB
-        & 
-        & \\
-        \cline{2-12}
-
-        & Fachka et al.~\cite{2012fachka}
-        &  &  & 
-        & NT-7
-        & 2D & 2011
-        & --- & ---
-        & 
-        & \\
-        \midrule
-
-        % Guillot et al.~\cite{2019guillot} 
-        % & \cmark &
-        % & NT-1
-        % & 9Y & 2009--2018
-        % & --- & ---
-        % & \cite{2013quan}
-        % & A3 \\
-
-        % Enyanet et al.~\cite{2024enyanet} 
-        % & &
-        % &
-        % & &
-        % & &
-        % & &
-        % \\
-
-        & \textbf{Aggregate}
-        & 4/16 & 7/16 & ---
-        & 8--24
-        & 1w--3.5y & 2012--2021
-        & --- & ---
-        & 7/16
-        & --- \\
-        \bottomrule
-    \end{tabular}
-\end{table*}
-\end{comment}
-\begin{table*}[t!]
+\end{table}
+\vspace{0.5em}
+\begin{table}[]
 	\small
 	\caption{
-        Summary of network telescopes referenced in surveyed works. 
-        Telescope size of historical datasets may vary as sizes listed reflect most recently reported values.
+        Summary of network telescopes referenced in our surveyed works. 
+        Though historical telescope sizes and availability of their traffic data may vary across assessments, listed values reflect the most recently reported information.
     }\label{tab:telescopes}
 	\begin{tabular}{cccc}
 		\toprule
@@ -1344,15 +1059,7 @@ larger set of header fields using a genetic algorithm.
         \textbf{GT-1.} Deutsche Telekom AG~\cite{2020cohen} & DE & $\sim$/22 & Unknown\\
 		\bottomrule
 	\end{tabular}
-\end{table*}
-
-To demonstrate the utility of their detection methodologies, prior works conduct assessments using real-world darknet traffic datasets.
-These assessments and their results provide evidence of a method's performance under realistic settings and offer empirical insights into its detection capabilities and general scalability.
-In this section, we characterize prior works along the lines of credibility and reproducibility of their assessments by reviewing:
-(i) characteristics of the darknet traffic datasets they use; and
-(ii) their approach to validating detection outputs of their methodology.
-Furthermore, we consider implementation details of detection methodologies since the reproducibility of assessments and results are closely tied to the availability of method source code and specifications of chosen computational environments.
-
+\end{table}
 
 % \vspace{0.25em}
 \subsection{Characteristics of darknet traffic datasets.}
@@ -1401,26 +1108,11 @@ we surveyed, 13 out of 17 events intersect with timeframes covered by at least t
 as shown in Figure~\ref{fig:cov_assess}. 
 This finding has relevance for defining traffic labels which we further discuss in Section~\ref{sec:fw}.
 
-% Some exceptions~\cite{2022kallitsis,2023kartsioukas} select specific timeframes centered around landmark Internet-wide events, e.g., the Mirai botnet, for validation purposes (later discussed in Section~\ref{sec:fw}).
-% In addition to Mirai, Figure~\ref{fig:cov_assess} plots the start date of X additional events (summarized in Table~\ref{tab:events}), observable in darknet traffic, identified as either major vulnerabilities or scans by botnets.
-% While X\% of these events are covered by dataset timeframes, none are mentioned explicitly in surveyed works besides the exceptions previously mentioned which further strengthens our inference. 
-% We discuss another implication for future work in Section~\ref{sec:fw}.
-% Recompute
-% Nonetheless, darknet size directly correlates with traffic volumes and ostensibly more variability in its mixtures; thus the generalizability of method performance is sensitive to 
-% larger darknets tend to receive greater and more varied traffic~\cite{@@} 
-
-% \vspace{0.25em}
-\mybox{Takeaways and Findings}{green!40}{green!10}{
-
-\textbf{Takeaways:} 
-Datasets used throughout method assessments possess different levels of observability in their traffic 
-due to the variety of darknets and timeframes they sample.
-Generalizability of a specific method's performance on one dataset to another remains unclear. 
-}
-\begin{table}[ht!]
-    \caption{Historic landmark events either purported or confirmed to have been observed by darknets.}
-    \label{tab:events}
+\begin{figure}[!htbp]
     \centering
+
+    \captionof{table}{Historic landmark events either purported or confirmed to have been observed by darknets.}
+    \label{tab:events}
     \begin{tabular}{l c r l : l c r l}
     \hline
     \textbf{ID} & \textbf{Date} & \textbf{Event Name} & \textbf{Type} &
@@ -1446,13 +1138,58 @@ Generalizability of a specific method's performance on one dataset to another re
        &         &                  &  \\
     \hline
     \end{tabular}
-\end{table}
-\begin{figure}[ht!]
-    \centering
+    \vspace{1.0em}
+    \label{fig:cov_assess}
     \includegraphics[width=\textwidth]{figures/coverage_graph.pdf}
     \caption{Timeframes and sources of darknet-traffic datasets used in assessments (Section~\ref{sec:assessments}) of detection methodologies, overlapped with dates of Internet-wide events (listed in Table~\ref{tab:events}) observable by darknets.}
-    \label{fig:cov_assess}
 \end{figure}
+
+
+% \begin{table}[p]
+%     \caption{Historic landmark events either purported or confirmed to have been observed by darknets.}
+%     \label{tab:events}
+%     \centering
+%     \begin{tabular}{l c r l : l c r l}
+%     \hline
+%     \textbf{ID} & \textbf{Date} & \textbf{Event Name} & \textbf{Type} &
+%     \textbf{ID} & \textbf{Date} & \textbf{Event Name} & \textbf{Type} \\
+%     \hline
+%     A  & 2012-04 & Carna            & Botnet        &
+%     J  & 2017-10 & Reaper           & Botnet \\
+%     B  & 2014-03 & Heartbleed       & Remote Exp.   &
+%     K  & 2018-05 & VPNFilter        & Botnet \\
+%     C  & 2014-09 & Shellshock       & Remote Exp.   &
+%     L  & 2018-06 & Crackonosh       & Botnet \\
+%     D  & 2016-03 & Amnesia          & Botnet        &
+%     M  & 2019-05 & BlueKeep         & Remote Exp. \\
+%     E  & 2016-08 & Mirai            & Botnet        &
+%     N  & 2020-03 & SMBGhost         & Remote Exp. \\
+%     F  & 2017-04 & Eternal Blue     & Remote Exp.   &
+%     O  & 2020-06 & Ripple20         & Remote Exp. \\
+%     G  & 2017-04 & BrickerBot       & Botnet        &
+%     P  & 2021-06 & PrintNightmare   & Remote Exp. \\
+%     H  & 2017-05 & WannaCry         & Botnet        &
+%     Q  & 2021-12 & Log4JShell       & Remote Exp. \\
+%     I  & 2017-06 & NotPetya         & Botnet        &
+%        &         &                  &  \\
+%     \hline
+%     \end{tabular}
+% \end{table}
+% \begin{figure}[]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/coverage_graph.pdf}
+%     \caption{Timeframes and sources of darknet-traffic datasets used in assessments (Section~\ref{sec:assessments}) of detection methodologies, overlapped with dates of Internet-wide events (listed in Table~\ref{tab:events}) observable by darknets.}
+%     \label{fig:cov_assess}
+% \end{figure}
+
+\vspace{0.25em}
+\mybox{Takeaways and Findings}{green!40}{green!10}{
+\textbf{Takeaways:} 
+Datasets used throughout method assessments possess different levels of observability in their traffic 
+due to the variety of darknets and timeframes they sample.
+Generalizability of a specific method's performance on one dataset to another remains unclear. 
+}
+
 
 % \vspace{0.25em}
 \subsection{Strategies for validating detection results}
@@ -1538,27 +1275,19 @@ Nonetheless, we found a small subset of works whose strategies serve as a standa
 % As a consequence, it is often difficult to determine whether a method detects genuine Internet events or artifacts of the dataset and evaluation procedure.
 }
 
+\subsection{Method implementations and computing environments}
 \label{sec:assess:rep}
-\subsection{Replicability of assessments}
-We consider the replicability of method assessments based on whether prior works provide public access to:
-1) the datasets used in experiments; and 
-2) implementation of methods (as source code or their software artifacts) along with specifications of the computing environment used to run experiments.
-These two elements are essential for reproducing published results and applying existing methods to new traffic datasets.
-We consider a methodology replicable only when both conditions are satisified.
-% To determine the replicability of each detection methodology, we assess whether prior works provide
-% 1) public access to their implementation, such as source code or software artifacts; 
-% and 2) specifications of the computing environment used to run experiments. 
-% These two elements are essential for reproducing published results and for applying existing techniques to new traffic datasets. 
-% We consider a methodology replicable only when both conditions are satisfied.
+In addition to accessible darknet traffic datasets, credible reproduction of method assessments (and application of existing methods to novel traffic datasets) depends on replicable method implementations executed on comparable computing environments.
 
-Less than a third of surveyed works provide source code of their implementations and roughly half detail specifications of their experimental computing environments.
-Of readily-available source code, we found Python and R as the programming languages of choice. Both are popular among numeric and scientific communities given their ease-of-use for implementing analytics workflows and abundant open-source algorithmic libraries.
-Other works such as ~\cite{2019lagraa,2014bouharb} rely on Java or C, which have become less popular as preferences shift towards higher-languages for analytics use-cases.
+Only 3 works provide publicly accessible source code of their implementations and roughly half detail the specifications of their computing environments used to run experiments.
+Of readily available source code~\cite{2021gioacchini,2022han,2024gao}, we found Python and R as the programming languages of choice.
+Both are popular among numeric and scientific communities for implementing analytic workflows due to their abundance of open-source algorithmic libraries which can overall benefit assessment reproducibility depending on researcher skillsets.
+Other works implement their methods~\cite{2019lagraa,2014bouharb} in Java or C, which have become less popular as preferences shift towards higher-level languages for analytics use-cases.
 
-Environments used to run experiments range from personal laptop workstations~\cite{2025abduaziz,2017lagraa,2019lagraa} to small-scale research compute clusters~\cite{2022han,2019bouharb,2022zakroum}.
-Cluster sizes do not exceed five servers, individually equipped with at most 256GB of memory.
-Most implementations execute strictly on CPUs while a subset of works that leverage representation-learning techniques employ GPUs for model training and evaluation.
-Across our surveyed works, release dates of the CPUs and GPUs trail publication dates by as much as 10 years.
+Computing environments used to run experiments range from personal laptop workstations~\cite{2025abduaziz,2017lagraa,2019lagraa} to small-scale research compute clusters~\cite{2022han,2019kanehara,2023tanaka,2019iglesias,2019bouharb,2022kallitsis,2021gioacchini,2022zakroum,2023dandrea,2023zakroum}.
+Across cluster configurations, physical node counts do not exceed five servers. Individually, these nodes are equipped with at most 256GB of memory.
+Most implements execute strictly on CPUs though the subset of works~\cite{2022kallitsis,2021gioacchini,2022zakroum,2023zakroum,2023dandrea} that leverage representation-learning techniques require GPUs for model training purposes.
+Nonetheless, release dates for hardware of these computing environments trail publication dates by a minimum of 3 years and at most, 10 years. 
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 
@@ -1567,8 +1296,8 @@ Across our surveyed works, release dates of the CPUs and GPUs trail publication 
     However, these that do are implemented using widely-adopted programming languages and leverage accessible hardware for experiment execution.
 }
 
-% \section{A Need for A Systemized Evaluation of Darknet Event Detection Methodologies}
 \section{Challenges to a comprehensive assessment of methods}
+\label{sec:challenges}
 
 Our survey of the current assessments of existing methods revealed inconsistencies  
 across their datasets, implementations, and strategies used to validate their results.
