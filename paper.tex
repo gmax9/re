@@ -1066,6 +1066,7 @@ In this section, we discuss the reproducibility and comparability of these asses
 
 % \vspace{0.25em}
 \subsection{Characteristics of darknet traffic datasets.}
+\label{sec:assess:data}
 
 We consider three characteristics of each dataset used in prior works to assess detection methodologies: 
 1) its timeframe;
@@ -1096,7 +1097,7 @@ In sum, the makeup of traffic varies darknet-to-darknet; assessment results clos
 specific selection of dataset and thus a method's performance may not generalize to other datasets.
 
 We visualize the combined range of timeframes covered by darknet-traffic datasets from the start of 2012 until late 2023 in Figure~\ref{fig:cov_assess}. 
-The proportion of time covered over this range by at least a single dataset (at a daily granularity) sits at \revise{68\%}. 
+The proportion of time covered over this range by at least a single dataset (at a daily granularity) sits at 68\%. 
 Most datasets are short snapshots: over half of all datasets span fewer than two months, roughly a third cover under three years of darknet traffic, and less than a fifth cover three or more years. 
 Since a majority of works do not provide clear rationale for their timeframe selection, we infer that selection is largely opportunistic and based on availability of darknet traffic data at the time of assessment. 
 
@@ -1196,6 +1197,7 @@ Generalizability of a specific method's performance on one dataset to another re
 
 % \vspace{0.25em}
 \subsection{Strategies for validating detection results}
+\label{sec:assess:validation}
 
 Due to a lack of definitive "ground truth" for attributing darknet traffic to its root causes, prior works rely on ad-hoc validation strategies to establish efficacy of their methods.
 These strategies consist of different practices and as a result, vary in their plausibility, reproducibility, completeness, and cost. 
@@ -1268,18 +1270,13 @@ Though included along with this group, one exception~\cite{2019iglesias} stands 
 
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 \textbf{Takeaways:}
-Improvised strategies that prior works use to validate the results of method assessments vary by the scope and soundness of their practices.
-Nonetheless, we found a small subset of works whose strategies serve as a standard for the degree of rigor that validation strategies should aim towards.
-% We find little uniformity across the defining factors of improvised strategies used to validate method assessments. 
-% However, we find a small subset of works that set a standard for designing a robust validation strategy in the absence of defintiive ground-truth.
-% \textbf{Takeaways:} 
-% Most darknet detection methods operate under severe ground-truth limitations, resulting in a spectrum of validation rigor. 
-% Internal-only validation remains the norm, weak external validation is common but inconsistent, and strong validation—while the most convincing—is rare. 
-% As a consequence, it is often difficult to determine whether a method detects genuine Internet events or artifacts of the dataset and evaluation procedure.
+    Barring works whose assessments are limited to exploratory analyses, roughly half of works employ at least one of the three practices 
+    as part of their validation strategies. Validation for representation-learning methods is especially comprehensive and can serve as a 
+    standard for best practices.
 }
 
 \subsection{Method implementations and computing environments}
-\label{sec:assess:rep}
+\label{sec:assess:env}
 In addition to accessible darknet traffic datasets, credible reproduction of method assessments (and application of existing methods to novel traffic datasets) depends on replicable method implementations executed on comparable computing environments.
 
 Only 3 works provide publicly accessible source code of their implementations and roughly half detail the specifications of their computing environments used to run experiments.
@@ -1295,8 +1292,9 @@ Nonetheless, release dates for hardware of these computing environments trail pu
 \mybox{Takeaways and Findings}{green!40}{green!10}{
 
 \textbf{Takeaways:} 
-    Fewer than a third of the proposed detection methodologies qualify as replicable under our two criteria.
-    However, these that do are implemented using widely-adopted programming languages and leverage accessible hardware for experiment execution.
+    A vast majority of our works do not provide publicly accessible source code for their method implementations which severely limits 
+    the relicability of methods to existing or new traffic datasets.
+    However, more than half provide details of computing environments that operate using accessible hardware.
 }
 
 \section{Challenges to a comprehensive assessment of methods}
@@ -1309,21 +1307,34 @@ comprehensive assessment.
 
 \vspace{0.25em}
 \noindent{\textbf{Limited replicability of assessments.}} 
-Despite our findings reported in Section~\ref{sec:assess:rep}, we found low reusability for source code released by the small fraction of works. 
-Our own atttempts to execute this code resulted in failures, remediated only with substantial modifications. 
-While the primary goal of these studies is to demonstrate and disseminate research ideas rather than deliver production-grade software, 
-the quality of the code introduces friction for anyone attempting to reproduce results. 
-Cumulatively, this effect produces a replicability gap that to address, requires attention and thought to the quality of released software.
+Combined findings of Section~\ref{sec:assessments} indicate limited replicability of the method assessments in prior work 
+as a majority do not provide either source code of their implementation, specifications of their computing environments,
+nor historical darknet traffic data they used.
+Under the most stringent definition of replicability, published work that includes all three components enables 
+complete reproduction of its assessment. Across all groups of works, representation-learning showcased the highest fraction (20\%)
+of completely reproducible assessments.
+Under a less stringent definition that ignores the availability of historical darknet traffic data though still allows for
+assessment of a method on previously unassessed data, this fraction increases to 40\% for both 
+representation-learning and time series groups.
+
+% Despite our findings reported in Section~\ref{sec:assess:rep}, we found low reusability for source code released by the small fraction of works. 
+% Our own atttempts to execute this code resulted in failures, remediated only with substantial modifications. 
+% While the primary goal of these studies is to demonstrate and disseminate research ideas rather than deliver production-grade software, 
+% the quality of the code introduces friction for anyone attempting to reproduce results. 
+% Cumulatively, this effect produces a replicability gap that to address, requires attention and thought to the quality of released software.
 
 \vspace{0.25em}
 \noindent{\textbf{Few direct comparative assessments.}}
 % Fewer than half of our surveyed works directly compare detection methodologies via evaluations on the same dataset.
-A second constraint arises from the scarcity of direct comparisons between detection methodologies. 
-In the ideal case, competing approaches would be evaluated on a shared dataset, enabling clear, controlled comparisons of their relative capabilities. 
-Yet fewer than half of the surveyed works perform such within-dataset comparisons, and only a handful evaluate multiple detection frameworks side-by-side using the same traffic. 
-As a result, the literature offers limited evidence about how methods relate to each other empirically. 
-Instead, most evaluations are siloed within individual studies, making it difficult to reason about comparative performance, robustness, or applicability across deployment contexts. 
-In several instances, no more than two frameworks have ever been demonstrated on the same underlying dataset, leaving open questions about how methodological differences translate into practical differences in detection outcomes.
+Findings from Section~\ref{sec:assess:validation} show that slightly more than half of surveyed works feature comparative assessments 
+against at least one baseline method as a means of validation.
+To further quantify the coverage of direct comparative assessments, 
+we consider all unique methods, both proposed and baseline, mentioned within a group of works and 
+calculate the fraction of direct pairwise comparisons 
+out of all possible combinations.
+Visualized in Figure -1, the percentages for each respective group, 
+23.8\%, 0\%, 9.5\%, 0\%, and 9.5\%, indicate few direct comparative assessments with a significant fraction remaining
+to achieve comprehensive comparative assessment of the methods we surveyed.
 
 % Evaluations that directly compare detection methodologies on the same dataset yield the most definitive results of their relative capabilities.
 % Fewer than half of surveyed works fit this criteria 
@@ -1340,13 +1351,15 @@ In several instances, no more than two frameworks have ever been demonstrated on
 % 	\item What's the highest number of frameworks that use the same dataset?
 % \end{enumerate}
 
-\vspace{0.25em}
-\noindent{\textbf{Non-overlapping datasets used across assessments.}}
-The challenge of comparison is further compounded by the heterogeneity of datasets used across studies. 
-There is very little overlap in the traffic traces employed to evaluate frameworks: timeframes rarely coincide, traffic volumes often differ by multiple orders of magnitude, and data originate from distinct darknet deployments, network telescope sizes, and geographic vantage points. 
-These non-overlapping datasets obscure whether observed performance reflects properties of the methodology or idiosyncrasies of the underlying traffic. 
-Even when studies aim to detect similar classes of events, variation in temporal scope, probe density, and background traffic composition complicates any meaningful cross-paper interpretation. 
-Collectively, this fragmentation of datasets reinforces the difficulty of establishing a unified baseline for evaluating darknet-based detection methods and highlights the need for shared, consistently curated datasets to support future methodological comparison.
+% \vspace{0.25em}
+% \noindent{\textbf{Non-overlapping datasets used across assessments.}}
+
+
+% The challenge of comparison is further compounded by the heterogeneity of datasets used across studies. 
+% There is very little overlap in the traffic traces employed to evaluate frameworks: timeframes rarely coincide, traffic volumes often differ by multiple orders of magnitude, and data originate from distinct darknet deployments, network telescope sizes, and geographic vantage points. 
+% These non-overlapping datasets obscure whether observed performance reflects properties of the methodology or idiosyncrasies of the underlying traffic. 
+% Even when studies aim to detect similar classes of events, variation in temporal scope, probe density, and background traffic composition complicates any meaningful cross-paper interpretation. 
+% Collectively, this fragmentation of datasets reinforces the difficulty of establishing a unified baseline for evaluating darknet-based detection methods and highlights the need for shared, consistently curated datasets to support future methodological comparison.
 
 \label{sec:fw}
 \section{Future Work}
